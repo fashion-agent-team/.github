@@ -15,6 +15,22 @@
 - **사진 찍기 버튼이 없어요.** 폰이 구도를 소리로 안내하고, 옷이 잘 들어오면 알아서 한 장을 찍어요.
 - **쓸수록 내 옷이 기록돼요.** 확인한 옷과 입은 날이 쌓여 다음 추천은 내 옷 중에서 골라요.
 
+## 📱 앱 화면
+
+> 화면은 글자를 크게, 버튼은 두 개(말하기 · 다시 듣기)만 두었어요. 모든 안내는 소리로 읽어 줘요.
+
+<table align="center">
+  <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/home.png" width="160" alt="홈: 심청이가 먼저 인사"/><br/><sub>홈: 심청이가 먼저 인사</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/listening.png" width="160" alt=""심청이" 부르면 듣기"/><br/><sub>"심청이" 부르면 듣기</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/weather.png" width="160" alt="날씨 묻기"/><br/><sub>날씨 묻기</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/outfit-guide.png" width="160" alt="옷 찍기 안내"/><br/><sub>옷 찍기 안내</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/outfit-result.png" width="160" alt="옷 검사 결과"/><br/><sub>옷 검사 결과</sub></td>
+  </tr>
+</table>
+
+<sub>`develop` 앱을 웹으로 띄워 찍었어요. 옷 찍기·검사 결과는 서버 없이 예시 응답(`FAKE_CAMERA`, `FAKE_VISION`)으로 돌린 화면이라, 실제 폰에서는 카메라 화면이 보이고 결과는 서버 모델이 정해요.</sub>
+
 ## ✨ 주요 기능
 
 ### 1. 날씨·일정 맞춤 추천 (말로)
@@ -99,7 +115,7 @@
 | :--- | :--- |
 | **App** | ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white) ![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart&logoColor=white) ![ML Kit](https://img.shields.io/badge/Google_ML_Kit-4285F4?style=flat&logo=google&logoColor=white) ![Firebase Auth](https://img.shields.io/badge/Firebase_Auth-FFCA28?style=flat&logo=firebase&logoColor=black) |
 | **Backend** | ![Java](https://img.shields.io/badge/Java_21-007396?style=flat&logo=openjdk&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring_Boot_4.0.9-6DB33F?style=flat&logo=springboot&logoColor=white) ![Spring Cloud Gateway](https://img.shields.io/badge/Spring_Cloud_Gateway-6DB33F?style=flat&logo=spring&logoColor=white) ![Flyway](https://img.shields.io/badge/Flyway-CC0200?style=flat&logo=flyway&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white) ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=flat&logo=gradle&logoColor=white) |
-| **AI** | ![Spring AI](https://img.shields.io/badge/Spring_AI_2.0.2_(MCP)-6DB33F?style=flat&logo=spring&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI_GPT-412991?style=flat&logo=openai&logoColor=white) ![YOLO](https://img.shields.io/badge/YOLO26n-111F68?style=flat&logo=ultralytics&logoColor=white) ![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat&logo=onnx&logoColor=white) ![Jetson](https://img.shields.io/badge/Jetson_Orin_(학습)-76B900?style=flat&logo=nvidia&logoColor=white) |
+| **AI** | ![Spring AI](https://img.shields.io/badge/Spring_AI_2.0.2_(MCP)-6DB33F?style=flat&logo=spring&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI_GPT-412991?style=flat&logo=openai&logoColor=white) ![YOLO](https://img.shields.io/badge/YOLO26n-111F68?style=flat&logo=ultralytics&logoColor=white) ![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat&logo=onnx&logoColor=white) ![Jetson](https://img.shields.io/badge/Jetson_Orin_(학습)-76B900?style=flat&logo=nvidia&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch_(학습)-EE4C2C?style=flat&logo=pytorch&logoColor=white) ![Hugging Face](https://img.shields.io/badge/FashionSigLIP-FFD21E?style=flat&logo=huggingface&logoColor=black) |
 | **Database** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL_16-4169E1?style=flat&logo=postgresql&logoColor=white) ![pgvector](https://img.shields.io/badge/pgvector-4169E1?style=flat&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white) |
 | **External API** | ![Open-Meteo](https://img.shields.io/badge/Open--Meteo-FF8C00?style=flat) ![Kakao](https://img.shields.io/badge/카카오_로컬-FFCD00?style=flat&logo=kakao&logoColor=black) |
 | **Infra · 협업** | ![Docker](https://img.shields.io/badge/Docker_Compose-2496ED?style=flat&logo=docker&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat&logo=githubactions&logoColor=white) ![GHCR](https://img.shields.io/badge/GHCR-181717?style=flat&logo=github&logoColor=white) ![Git](https://img.shields.io/badge/Git_Flow-F05032?style=flat&logo=git&logoColor=white) |
