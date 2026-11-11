@@ -25,12 +25,14 @@
 - 일정: 말로 넣은 일정마다 **자리 종류(면접·결혼식·운동 등)와 장소 종류**를 붙여 돌려줘요 (`schedule_list`). 장소는 카카오 로컬로 찾아요
 - 격식 있는 일정은 등록할 때와 3일 전 아침에 **드라이클리닝**을 미리 챙겨 줘요
 - 앱을 열면 오늘 일정과 3일 안의 중요한 일정을 먼저 알려 줘요 (`schedule_briefing`)
+- 일정 전날 저녁 8시에는 미리 옷을 골라 두라고, 당일 아침에는 다시 폰 알림을 띄워요
 
 ### 2. 카메라로 옷 확인
 
 꺼낸 옷을 비추면 사진마다 `clothes_inspect`가 **옷 한 벌마다 종류·색·얼룩·찢어짐**을 찾고, agent가 오늘 날씨와 자리에 맞는지 판단해요.
 
-- 옷 종류 12종과 얼룩·찢어짐은 **우리가 직접 학습한 YOLO 모델**(ONNX)로 서버에서 봐요
+- 옷 종류 12종과 얼룩·찢어짐은 **우리가 직접 학습한 YOLO 모델**, 옷 색 20가지는 K-Fashion으로 학습한 **작은 CNN**(ONNX)으로 서버에서 봐요
+- 고른 옷끼리 색이 어울리는지는 색 이론 규칙으로 따로 판단해요 (`outfit_color_check`)
 - 얼룩이 애매할 때만 (사용자가 동의한 경우) **얼룩 부분만 잘라** GPT에 한 번 더 물어봐요
 - 코트인지 재킷인지 애매하면 틀린 이름 대신 "겉옷"이라고 말해요
 - 두 벌을 나란히 비추면 "왼쪽 흰 셔츠가 더 나아요"처럼 비교해 줘요
@@ -40,6 +42,7 @@
 셀카로 **화장이 좌우 고르게 되었는지**(`face_makeup_check`), **이 사이에 뭐가 끼지 않았는지**(`teeth_check`) 확인해요.
 
 - 앱이 ML Kit로 얼굴을 실시간으로 잡아 구도를 안내하고, 멈춘 순간 여러 장을 보내 중간값으로 판단해요
+- 서버가 얼굴 분할 모델(BiSeNet ResNet34)로 눈썹·입술·볼 칸을 나누고, 눈썹 길이·두께와 입술 너비는 공개 얼굴 데이터(CelebA)로 학습한 **좌우 비교 모델**로 판단해요
 - 얼굴·치아 사진은 **GPT 같은 외부 AI로 보내지 않고** 서버의 자체 모델로만 봐요
 
 ### 4. 가족·친구에게 물어보기
@@ -48,7 +51,10 @@
 
 ### 5. 내 옷장 (RAG)
 
-확인한 옷과 입은 날을 기록하고(`closet_save`, `closet_wear`), 다음 추천 때 상황에 맞는 내 옷을 찾아요(`closet_search`). "지난번 면접 때 뭐 입었지?"도 답해요(`closet_outfits`).
+확인한 옷과 입은 날을 기록하고(`closet_save`, `closet_wear`), 다음 추천 때 상황에 맞는 내 옷을 찾아요(`closet_search`). "지난번 면접 때 뭐 입었지?"(`closet_outfits`), "내 옷장에 뭐 있어?"(`closet_list`)에도 답해요.
+
+- 같은 옷인지는 `clothes_inspect`가 준 **옷 사진 벡터**(FashionSigLIP 768차원)로 판단해 한 벌로 합쳐요
+- 상황 문장(글 임베딩, multilingual-e5-small)과 영어 검색어(사진 벡터)로 내 옷과 코디 지식을 함께 찾고, 추천 문장은 agent의 GPT가 만들어요
 
 ---
 
@@ -60,7 +66,18 @@
 - 옷 추천은 정해진 순서(코드)로 도구를 부르고, GPT가 도구를 고르는 건 날씨 묻기·일정 등록·얼굴 확인·가족에게 묻기 같은 개별 기능뿐이에요
 - 서비스 사이 약속은 앱 레포의 [OpenAPI](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/openapi.yaml)와 [MCP 도구 입출력](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/mcp-tools.md) 하나로 맞춰요
 
-## 🗂 레포지토리
+## 🗂 ERD
+
+> 각 서비스 레포의 Flyway 마이그레이션(2026-11-11 `develop`) 그대로예요. 스키마 4개, 표 10개.
+
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd.png" width="100%" alt="심청이 ERD: account, schedule, helper, closet 스키마"/></p>
+
+- **서비스마다 스키마 하나**: account(gateway) · schedule · closet · helper. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요
+- **사진은 어느 표에도 없어요.** 옷은 설명(JSONB)과 벡터만 남기고, 가족에게 보낸 사진은 R2 키만 24시간 들고 있어요
+- 남의 옷에 내 입은 날이 붙지 않게 `wears`는 (옷, 주인)을 함께 참조해요
+- 옷 벡터는 한 사람의 옷(100벌 안팎)만 정확한 거리로 훑고, 공용 코디 지식(`style_docs`)만 HNSW 인덱스를 써요
+
+## 📦 레포지토리
 
 | 레포 | 역할 | 주요 기술 |
 | --- | --- | --- |
@@ -69,9 +86,9 @@
 | [fashion-agent-agent](https://github.com/fashion-agent-team/fashion-agent-agent) | 대화와 옷 추천을 이끄는 두뇌 | Spring AI(ChatClient + MCP 클라이언트), OpenAI GPT, Redis |
 | [mcp-weather](https://github.com/fashion-agent-team/mcp-weather) | 오늘·날짜별 날씨 | Spring AI MCP Server, Open-Meteo, Caffeine 캐시 |
 | [mcp-schedule](https://github.com/fashion-agent-team/mcp-schedule) | 일정, 자리·장소 종류, 드라이클리닝 안내, 아침 브리핑 | Spring AI MCP Server(`@McpTool`), Spring Data JPA + Flyway, 카카오 로컬 API |
-| [mcp-clothes-state](https://github.com/fashion-agent-team/mcp-clothes-state) | 옷 종류·색·얼룩·찢어짐 | 직접 학습한 YOLO26n, ONNX Runtime, (선택) GPT 얼룩 확인 |
-| [mcp-face-check](https://github.com/fashion-agent-team/mcp-face-check) | 화장 대칭, 치아 확인 | ML Kit 윤곽점, MobileNetV3 분류 모델(ONNX) |
-| [mcp-closet](https://github.com/fashion-agent-team/mcp-closet) | 내 옷장 기록과 검색(RAG) | Spring AI VectorStore, pgvector, multilingual-e5-small |
+| [mcp-clothes-state](https://github.com/fashion-agent-team/mcp-clothes-state) | 옷 종류·색·얼룩·찢어짐, 색 조합 | 직접 학습한 YOLO26n·색 CNN, ONNX Runtime, FashionSigLIP 옷 벡터, (선택) GPT 얼룩 확인 |
+| [mcp-face-check](https://github.com/fashion-agent-team/mcp-face-check) | 화장 대칭, 치아 확인 | ML Kit 윤곽점, BiSeNet 얼굴 분할, 좌우 비교 모델, MobileNetV3 치아 분류(ONNX) |
+| [mcp-closet](https://github.com/fashion-agent-team/mcp-closet) | 내 옷장 기록과 검색(RAG) | Spring AI VectorStore, pgvector, multilingual-e5-small, FashionSigLIP 사진 벡터 |
 | [mcp-helper](https://github.com/fashion-agent-team/mcp-helper) | 가족·친구에게 확인 요청 | 문자 링크, 답장 웹 페이지, Cloudflare R2(사진 24시간) |
 
 ---
@@ -94,10 +111,13 @@
 | 모델 | 쓰는 곳 | 결과 (학습에 안 쓴 사진) |
 | --- | --- | --- |
 | 얼룩·찢어짐 `yolo26n_v6` | mcp-clothes-state | 사진 단위 정답률 91.9% (346장), 애매한 것만 GPT 확인 시 98.1% (314장). 깨끗한 옷 200장 중 오탐 1장 |
-| 옷 종류 12종 `yolo26n_fashion12` | mcp-clothes-state | 내려놓은 옷 203장 종류 86.7% (큰 분류 91.6%), 바닥 신발 mAP50 0.991 |
+| 옷 종류 12종 `yolo26n_fashion12` (fashion12e) | mcp-clothes-state | 내려놓은 옷 203장 종류 86.7% (큰 분류 91.6%), 바닥 신발 mAP50 0.991 |
+| 옷 색 20가지 `color20_cnn` | mcp-clothes-state | 시험 옷 25,626벌 색 계열 76.8% (예전 픽셀 규칙 45.3%), 흰 옷 87% (예전 15%) |
+| 화장 좌우 비교 (눈썹 길이·두께, 입술 너비) | mcp-face-check | CelebA에서 비대칭 찾는 비율 눈썹 길이 22→84%, 두께 51→92%, 입술 너비 20→82% |
 | 치아 분류 MobileNetV3-Small | mcp-face-check | 합성 데이터로 학습, 실제 사진 평가 진행 중 |
 
-- 학습은 팀 **Jetson Orin**에서 했고, 학습 사진은 외부 AI로 보내지 않았어요
+- 학습은 우리 장비(팀 **Jetson Orin**·맥북)에서 했고, 학습 사진은 외부 AI로 보내지 않았어요
+- 데이터 출처와 라이선스(AI Hub K-Fashion, CelebA, FFHQ 등)는 각 레포 README에 적어 두었어요. 학습 사진은 레포에 올리지 않아요
 - 실험 과정과 비교표는 [clothes-state 학습 기록](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/training-log.md)에 있어요
 
 ## 🔒 개인정보 원칙
@@ -125,15 +145,15 @@
 | 레포 | 테스트 |
 | --- | ---: |
 | fashion-agent (앱) | 195 |
-| fashion-agent-agent | 71 |
-| mcp-face-check | 58 |
-| mcp-clothes-state | 53 |
-| mcp-closet | 28 |
+| fashion-agent-agent | 73 |
+| mcp-clothes-state | 75 |
+| mcp-face-check | 62 |
+| mcp-closet | 41 |
 | mcp-schedule | 28 |
 | mcp-weather | 25 |
 | fashion-agent-gateway | 20 |
 | mcp-helper | 20 |
-| **합계** | **498** |
+| **합계** | **539** |
 
 ---
 
