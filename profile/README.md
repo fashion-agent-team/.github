@@ -72,6 +72,20 @@
 
 ---
 
+## 🎤 발표 자료 (2026 IT Festival)
+
+조선대학교 2026 IT Festival · AI·SW 캡스톤디자인 프로젝트 경진대회 발표에 쓴 자료입니다.
+
+| 자료 | 내용 | 받기 |
+| --- | --- | --- |
+| 📊 발표 슬라이드 (15장, PPTX 29MB) | 문제와 아이디어 → 기능 한눈에 → 접근성 → 구성과 구조 → 상황별 예시 → MCP 서버 5개(날씨·일정·옷 상태·얼굴 확인·내 옷장) → 시연 → 요약 | [심청이_발표_슬라이드.pptx](https://github.com/fashion-agent-team/.github/releases/download/presentation-2026-11/simcheong-presentation.pptx) |
+| 🎬 발표 영상 (5분, MP4 11MB) | 발표 슬라이드를 따라 설명하는 영상 | [심청이_발표_영상.mp4](https://github.com/fashion-agent-team/.github/releases/download/presentation-2026-11/simcheong-presentation-video.mp4) |
+| 📱 시연 영상 (3분, 아이폰 화면 MP4 22MB) | 실제 앱으로 옷 고르고 입어 보기, 약속 있는 날 두 상황을 보여 주는 영상 | [심청이_시연_영상.mp4](https://github.com/fashion-agent-team/.github/releases/download/presentation-2026-11/simcheong-demo-video.mp4) |
+
+<sub>세 파일은 이 저장소의 [릴리스 presentation-2026-11](https://github.com/fashion-agent-team/.github/releases/tag/presentation-2026-11)에 있습니다.</sub>
+
+---
+
 ## 🏗 아키텍처
 
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture.png" width="100%" alt="심청이 아키텍처: 앱 → gateway → agent → MCP 서버 5개 → PostgreSQL"/></p>
