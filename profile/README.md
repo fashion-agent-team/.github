@@ -98,13 +98,17 @@
 
 ## 🗂 ERD
 
-> 각 서비스 레포의 Flyway 마이그레이션(2026-11-12 `develop`) 그대로예요. 스키마 3개, 표 8개.
+> 각 서비스 레포의 Flyway 마이그레이션(2026-11-20 `develop`, V4 정규화) 그대로예요. 스키마 3개, 표 11개.
 
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd.png" width="100%" alt="심청이 ERD: account, schedule, closet 스키마"/></p>
 
 - **서비스마다 스키마 하나**: account(gateway) · schedule · closet. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요
-- **사진은 옷 부분 작은 사진 하나뿐이에요.** 옷은 설명(JSONB)·벡터와, 같은 옷 확인용으로 옷 부분만 자른 48KB 이하 사진만 남겨요(옷을 지우면 같이 지워져요)
-- 남의 옷에 내 입은 날이 붙지 않게 `wears`는 (옷, 주인)을 함께 참조해요
+- **BCNF까지 정규화**했어요. 한 칸에는 값 하나만 두고(JSON 묶음 없음), 키가 아닌 칸이 다른 칸을 정하지 않게 표를 나눴어요
+- 로그인 수단은 `user_identities`에 따로 두고 (issuer, subject)에 복합 UNIQUE를 걸어, 한 사람이 Apple·Google 로그인을 여러 개 가질 수 있어요
+- 장소 이름·분류는 `places`(카카오 장소 ID가 키)에 한 번만 저장하고 일정은 장소 ID만 참조해요
+- 옷의 무늬·소재·보조 색은 `garments` 칸으로, 얼룩·보풀 같은 상태는 `garment_defects`에 한 줄씩 저장해요
+- `wears`는 옷 ID만 참조하고 (garment_id, worn_on)에 복합 UNIQUE를 걸어, 같은 옷을 같은 날 두 번 기록하지 않아요
+- **사진은 옷 부분 작은 사진 하나뿐이에요.** 같은 옷 확인용으로 옷 부분만 자른 48KB 이하 사진만 남겨요(옷을 지우면 같이 지워져요)
 - 옷 벡터는 한 사람의 옷(100벌 안팎)만 정확한 거리로 훑고, 공용 코디 지식(`style_docs`)만 HNSW 인덱스를 써요
 
 ## 📦 레포지토리
