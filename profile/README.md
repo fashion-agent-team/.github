@@ -98,7 +98,7 @@
 
 ## 🗂 ERD
 
-> 각 서비스 레포의 Flyway 마이그레이션(2026-11-20 `develop`, V4 정규화) 그대로예요. 스키마 3개, 표 11개.
+> 각 서비스 레포의 Flyway 마이그레이션(2026-11-21 `develop`, account·closet V4, schedule V5) 그대로이고, 젯슨 배포 DB와 대조했어요. 스키마 3개, 표 11개(배포 DB에 남아 있는 helper 스키마 2개 표는 서버가 배포에서 빠져 제외).
 
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd.png" width="100%" alt="심청이 ERD: account, schedule, closet 스키마"/></p>
 
