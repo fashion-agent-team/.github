@@ -102,9 +102,7 @@
 
 > 각 서비스 레포의 Flyway 마이그레이션(2026-11-21 `develop`, account·closet V4, schedule V5) 그대로이고, 젯슨 배포 DB와 대조했어요. 스키마 3개, 표 11개(배포 DB에 남아 있는 helper 스키마 2개 표는 서버가 배포에서 빠져 제외).
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v6.png" width="100%" alt="심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
-
-<sub>그림 원본은 [`profile/images/src/erd.html`](images/src/erd.html)이에요. 고치면 새 이름(예: `erd-v7.png`)으로 저장하고 위 주소를 바꿔요.</sub>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-before.png" width="100%" alt="심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
 
 - **서비스마다 스키마 하나**: account(gateway) · schedule · closet. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요
 - **BCNF까지 정규화**했어요. 한 칸에는 값 하나만 두고(JSON 묶음 없음), 키가 아닌 칸이 다른 칸을 정하지 않게 표를 나눴어요
