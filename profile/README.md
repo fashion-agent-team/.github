@@ -6,6 +6,36 @@
   <p>📅 <b>개발 기간</b> : 2026.10.27 ~ 2026.11.20 &nbsp;·&nbsp; 👥 <b>팀 심청이</b></p>
 </div>
 
+## 👥 누가 무엇을 했나요
+
+| | 이진행 [@ehgo508](https://github.com/ehgo508) | 박창근 [@chang0580](https://github.com/chang0580) | 정지원 [@jiwon934](https://github.com/jiwon934) |
+| --- | --- | --- | --- |
+| **한 줄로** | 앱과 대화의 뼈대, 로그인·음성 | 내 옷장, 화장 확인, 날씨, 배포 정리 | 옷 상태 모델, 치아·일정, DB 정규화 |
+| **맡은 레포** | fashion-agent(앱), gateway, agent | mcp-closet, mcp-face-check(화장), mcp-weather | mcp-clothes-state, mcp-face-check(치아), mcp-schedule |
+
+### 이진행: 앱과 대화의 뼈대
+- **앱(Flutter)**: 음성 에이전트 기본 틀, 이름을 불러 말 걸기, 카메라 구도 말 안내와 자동 촬영(ML Kit), 구글 로그인 → Firebase → gateway 연결, 첫 실행 흐름(인사·허용·로그인·이름), 일정 폰 알림, 시각장애인 관점 점검 반영(기다림 진동·구도 소리·시리 단축어)
+- **gateway**: 로그인(Firebase·개발용)과 JWT, 회원정보, 사용량 제한, 뒤쪽 서버 라우팅. 말 받아 적기(`gpt-4o-mini-transcribe`), 엣지 목소리 사이드카와 Azure가 막힐 때 엣지로 넘기기
+- **agent**: 옷 추천 두 단계와 MCP 클라이언트 뼈대, GPT 도구 선택(일정 넣기·지우기), 날짜를 말하면 그날 일정·예보로 추천, 색을 느낌으로 설명하기, GPT 응답 속도 줄이기
+- **그 밖에**: 레포마다 PR 자동 테스트(CI), 아키텍처·서비스 간 약속 문서, `weather_forecast`·`schedule_set_reminder` 도구, 색 어울림 점수
+
+### 박창근: 내 옷장, 화장 확인, 날씨
+- **mcp-closet**: 서버 전체. 글 벡터(e5) RAG 검색, 옷 사진 벡터(FashionSigLIP)로 같은 옷 합치기, 애매하면 GPT가 작은 사진 두 장으로 확인(`closet_merge`), 옷장 읽기·지우기·입은 조합 도구, 같은 옷 기준값 실측(0.60)
+- **mcp-face-check 화장 대칭**: 윤곽점·픽셀 측정 서버, 얼굴 분할 모델 비교 후 BiSeNet ResNet34, CelebA로 학습한 좌우 비교 모델(눈썹·입술·볼), FFHQ 실사진 기준값, 눈화장 ResNet18 앙상블(실사진 검출 70.7% → 78.6%)
+- **mcp-weather**: 서버 구현, 연결 끊김 재시도, Open-Meteo가 안 되면 MET Norway
+- **mcp-clothes-state 옷 종류 정확도**: 글 벡터로 애매한 종류 다시 고르기, 학습 벡터(probe), 애매할 때만 큰 모델(SigLIP2 so400m)
+- **agent·앱**: 옷장·날씨 대화 흐름, 앱 시뮬레이션으로 찾은 말투 고치기, 체감 온도 바로잡기, Azure 목소리 4가지, 앱 화면 개편 "인당수의 밤"과 심청이 그림, 아이폰 설치 스크립트
+- **배포·문서**: 젯슨 두 대 배포 문서, 아키텍처 그림·ERD
+
+### 정지원: 옷 상태 모델, 치아·일정, DB
+- **mcp-clothes-state**: Java MCP 서버, 얼룩·찢어짐 YOLO(v6) 학습·비교, 옷 종류 12종 모델, K-Fashion 색 모델과 색 조합 판단, 무늬 8종(FashionSigLIP LoRA 섞기), 입은 옷 실수(뒤집힘·단추·택) 모델, 애매할 때 GPT 확인과 얼굴 가리기, 젯슨 성능 측정
+- **mcp-face-check 치아**: 직접 학습한 치아 모델(`teeth_check`, ONNX), 앞니 사이 고춧가루를 놓치던 문제 고치기(v4)
+- **mcp-schedule**: 서버 전체. 카카오 로컬로 장소 종류, 격식 일정 드라이클리닝 안내, 아침 브리핑, 일정별 알림 시각(`remind_time`)
+- **DB 정규화(V4)**: account(`user_identities`), schedule(`places`), closet(`garment_defects`) 나누기, spec 시나리오 통합 테스트
+- **앱·배포**: 서버를 기능별 레포로 나누기, 젯슨 상시 배포(Docker Compose·Nginx·Funnel) 처음 구성, 치아·화장 촬영 안내, 앱 켤 때 미리 준비(`/agent/warm`), 조직 프로필 README
+
+<sub>각 레포에서 머지된 PR을 사람별로 모아 정리했어요(2026-11-22 기준). 여러 사람이 함께 고친 부분은 처음 만든 사람 쪽에 적었어요.</sub>
+
 ## 📖 어떤 앱인가요?
 
 시각장애인이 아침에 옷을 고를 때 가장 어려운 건 **"이 옷이 오늘 맞는지, 얼룩은 없는지"를 혼자 확인하는 일**입니다.
