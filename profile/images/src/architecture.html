@@ -262,7 +262,7 @@ footer p{font-size:14px;color:var(--mute);line-height:1.6}
   <!-- 젯슨 2: fashion-agent -->
   <section>
     <div class="box" id="orin">
-      <div class="box-head"><h2>분석 서버</h2><span class="host">젯슨 오린 나노 8GB</span></div>
+      <div class="box-head"><h2>모델 서버</h2><span class="host">젯슨 오린 나노 8GB</span></div>
       <p class="box-sub">8GB 한 대에 다 안 들어가서 무거운 사진 분석 모델과 학습을 이 젯슨으로 옮겼어요. MCP라 agent는 주소만 바꾸면 됐어요. 모델은 ONNX Runtime으로 돌려요.</p>
       <div class="mem">
         <div class="bar" id="mem2"></div>
@@ -389,13 +389,13 @@ function draw(){
   path(`M${ag.r},${ag.t+60} L${gx},${ag.t+60} L${gx},${sc.b-34}`,{c:'#F5C84B',w:3});
   path(`M${gx},${sc.b-34} L${sc.l-3},${sc.b-34}`,Y);
   path(`M${gx},${cl.t+44} L${cl.l-3},${cl.t+44}`,Y);
-  // agent → 분석 서버: so400m 아래 빈자리를 지나 오린 왼쪽 버스로 (Tailscale)
+  // agent → 모델 서버: so400m 아래 빈자리를 지나 오린 왼쪽 버스로 (Tailscale)
   const busX=(t4.r+orin.l)/2, yB=Math.max(so.b+40, ag.b-46);
   path(`M${ag.r},${yB} L${busX},${yB} L${busX},${clo.t+34}`,{c:'#F5C84B',w:3});
   [clo,fc,we].forEach(c=>path(`M${busX},${c.t+34} L${c.l-3},${c.t+34}`,Y));
   const lbl=document.createElementNS(NS,'text');lbl.setAttribute('x',sc.l+2);lbl.setAttribute('y',yB-12);
   lbl.setAttribute('fill','#9FB0D4');lbl.setAttribute('font-size','14');
-  lbl.textContent='Tailscale 사설망으로 분석 서버의 MCP 셋';svg.appendChild(lbl);
+  lbl.textContent='Tailscale 사설망으로 모델 서버의 MCP 셋';svg.appendChild(lbl);
   // clothes-state → so400m (애매한 옷 종류만, 점선)
   const yS=so.t+44;
   path(`M${clo.l},${yS} L${so.r+3},${yS}`,{dash:'6 6',arrow:'aB'});
