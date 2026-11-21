@@ -88,12 +88,14 @@
 
 ## 🏗 아키텍처
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture.png" width="100%" alt="심청이 아키텍처: 앱 → gateway → agent → MCP 서버 5개 → PostgreSQL"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture.png" width="100%" alt="심청이 아키텍처: 폰 앱 → 도메인·Tailscale Funnel·Nginx → 앱 서버 젯슨(gateway, agent, mcp-schedule, mcp-closet, so400m-embed, PostgreSQL, Redis) → 분석 서버 젯슨(mcp-clothes-state, mcp-face-check, mcp-weather)"/></p>
 
 - **MCP 서버는 데이터만 돌려주고**, "이 옷이 오늘 맞는가" 같은 판단은 agent가 맡아요
-- 옷 추천은 정해진 순서(코드)로 도구를 부르고, GPT가 도구를 고르는 건 날씨 묻기·일정 등록·얼굴 확인 같은 개별 기능뿐이에요
-- 안내 목소리는 gateway가 Azure Speech(유진·지민·서현·순복)로 만들고, 안 되면 폰 TTS로 읽어요
-- 서버는 팀 **Jetson Orin** 한 대에 Docker Compose + Nginx로 상시 띄워 두었어요
+- agent는 말을 의도로 나눠 옷 추천·옷 확인·날씨·얼굴·옷장은 정해진 순서(코드)로 도구를 부르고, 일정 넣기·지우기 같은 나머지만 GPT가 도구를 골라요
+- 안내 목소리는 gateway가 만들어요. Azure Speech 4가지(유진·지민·서현·순복)와 Edge 3가지(선희·인준·현수) 중 고르고, 안 되면 폰 TTS로 읽어요
+- 서버는 **젯슨 오린 나노 8GB 두 대**에 나눠 Docker Compose로 상시 띄워요. 한 대는 gateway·agent·일정·옷장·DB(앱 서버), 다른 한 대는 옷 상태·얼굴·날씨 MCP와 모델 학습(분석 서버)을 맡고, 둘은 Tailscale 사설망으로 이어져요. 8GB 한 대에 다 안 들어가서 나눴고, MCP라 agent는 주소만 바꾸면 됐어요
+- 바깥에서는 `simcheong.java21.net` → Tailscale Funnel → Nginx → gateway 순서로 들어와요
+- 그림 원본은 [`profile/images/src/architecture.html`](images/src/architecture.html)이에요. 고친 뒤 Chrome으로 2배 크기 캡처해서 `architecture.png`를 바꿔요
 - 서비스 사이 약속은 앱 레포의 [OpenAPI](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/openapi.yaml)와 [MCP 도구 입출력](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/mcp-tools.md) 하나로 맞춰요
 
 ## 🗂 ERD
@@ -116,12 +118,12 @@
 | 레포 | 역할 | 주요 기술 |
 | --- | --- | --- |
 | [fashion-agent](https://github.com/fashion-agent-team/fashion-agent) | 모바일 앱, 아키텍처·서비스 간 약속 문서, 배포 설정 | Flutter, ML Kit(얼굴·포즈·물체), speech_to_text, flutter_tts, Firebase Auth |
-| [fashion-agent-gateway](https://github.com/fashion-agent-team/fashion-agent-gateway) | API 게이트웨이, 로그인, 회원정보, 음성 읽기 | Spring Cloud Gateway(Web MVC, 가상 스레드), Nimbus JOSE(JWT), JdbcClient + Flyway, Azure Speech |
+| [fashion-agent-gateway](https://github.com/fashion-agent-team/fashion-agent-gateway) | API 게이트웨이, 로그인, 회원정보, 음성 인식·읽기 | Spring Cloud Gateway(Web MVC, 가상 스레드), Nimbus JOSE(JWT), JdbcClient + Flyway, OpenAI 음성 인식, Azure Speech, edge-tts |
 | [fashion-agent-agent](https://github.com/fashion-agent-team/fashion-agent-agent) | 대화와 옷 추천을 이끄는 두뇌 | Spring AI(ChatClient + MCP 클라이언트), OpenAI GPT, Redis |
 | [mcp-weather](https://github.com/fashion-agent-team/mcp-weather) | 오늘·날짜별 날씨 | Spring AI MCP Server, Open-Meteo, Caffeine 캐시 |
 | [mcp-schedule](https://github.com/fashion-agent-team/mcp-schedule) | 일정, 자리·장소 종류, 드라이클리닝 안내, 아침 브리핑 | Spring AI MCP Server(`@McpTool`), Spring Data JPA + Flyway, 카카오 로컬 API |
-| [mcp-clothes-state](https://github.com/fashion-agent-team/mcp-clothes-state) | 옷 종류·색·무늬·얼룩·찢어짐, 색 조합 | 직접 학습한 YOLO26n·색 CNN, ONNX Runtime, FashionSigLIP 옷 벡터, (선택) GPT 얼룩·무늬 확인 |
-| [mcp-face-check](https://github.com/fashion-agent-team/mcp-face-check) | 화장 대칭, 치아 확인 | ML Kit 윤곽점, BiSeNet 얼굴 분할, 좌우 비교 모델, MobileNetV3 치아 분류(ONNX) |
+| [mcp-clothes-state](https://github.com/fashion-agent-team/mcp-clothes-state) | 옷 종류·색·무늬·얼룩·찢어짐, 입은 모습(뒤집힘·단추·택), 색 조합 | 직접 학습한 YOLO26n·색 CNN, FashionSigLIP + LoRA 무늬, ONNX Runtime, FashionSigLIP 옷 벡터, SigLIP2 So400m 종류 보조, (선택) GPT 얼룩·무늬 확인 |
+| [mcp-face-check](https://github.com/fashion-agent-team/mcp-face-check) | 화장 대칭(눈썹·입술·볼·눈화장), 치아 확인 | ML Kit 윤곽점, BiSeNet 얼굴 분할, 좌우 비교 모델, ResNet18 눈화장 앙상블, MobileNetV3 치아 분류(ONNX) |
 | [mcp-closet](https://github.com/fashion-agent-team/mcp-closet) | 내 옷장 기록과 검색(RAG), 같은 옷 합치기 | Spring AI VectorStore, pgvector, multilingual-e5-small, FashionSigLIP 사진 벡터 |
 
 ---
@@ -133,7 +135,7 @@
 | **App** | ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white) ![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart&logoColor=white) ![ML Kit](https://img.shields.io/badge/Google_ML_Kit-4285F4?style=flat&logo=google&logoColor=white) ![Firebase Auth](https://img.shields.io/badge/Firebase_Auth-FFCA28?style=flat&logo=firebase&logoColor=black) |
 | **Backend** | ![Java](https://img.shields.io/badge/Java_21-007396?style=flat&logo=openjdk&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring_Boot_4.0.9-6DB33F?style=flat&logo=springboot&logoColor=white) ![Spring Cloud Gateway](https://img.shields.io/badge/Spring_Cloud_Gateway-6DB33F?style=flat&logo=spring&logoColor=white) ![Flyway](https://img.shields.io/badge/Flyway-CC0200?style=flat&logo=flyway&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white) ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=flat&logo=gradle&logoColor=white) |
 | **AI** | ![Spring AI](https://img.shields.io/badge/Spring_AI_2.0.2_(MCP)-6DB33F?style=flat&logo=spring&logoColor=white) ![OpenAI](https://img.shields.io/badge/OpenAI_GPT-412991?style=flat&logo=openai&logoColor=white) ![YOLO](https://img.shields.io/badge/YOLO26n-111F68?style=flat&logo=ultralytics&logoColor=white) ![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat&logo=onnx&logoColor=white) ![Jetson](https://img.shields.io/badge/Jetson_Orin_(학습·운영)-76B900?style=flat&logo=nvidia&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch_(학습)-EE4C2C?style=flat&logo=pytorch&logoColor=white) ![Hugging Face](https://img.shields.io/badge/FashionSigLIP-FFD21E?style=flat&logo=huggingface&logoColor=black) |
-| **Database** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL_16-4169E1?style=flat&logo=postgresql&logoColor=white) ![pgvector](https://img.shields.io/badge/pgvector-4169E1?style=flat&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white) |
+| **Database** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL_17-4169E1?style=flat&logo=postgresql&logoColor=white) ![pgvector](https://img.shields.io/badge/pgvector-4169E1?style=flat&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white) |
 | **External API** | ![Open-Meteo](https://img.shields.io/badge/Open--Meteo-FF8C00?style=flat) ![Kakao](https://img.shields.io/badge/카카오_로컬-FFCD00?style=flat&logo=kakao&logoColor=black) ![Azure Speech](https://img.shields.io/badge/Azure_Speech-0078D4?style=flat&logo=microsoftazure&logoColor=white) |
 | **Infra · 협업** | ![Docker](https://img.shields.io/badge/Docker_Compose-2496ED?style=flat&logo=docker&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat&logo=githubactions&logoColor=white) ![GHCR](https://img.shields.io/badge/GHCR-181717?style=flat&logo=github&logoColor=white) ![Git](https://img.shields.io/badge/Git_Flow-F05032?style=flat&logo=git&logoColor=white) ![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat&logo=nginx&logoColor=white) ![Tailscale](https://img.shields.io/badge/Tailscale_Funnel-242424?style=flat&logo=tailscale&logoColor=white) |
 
@@ -169,7 +171,7 @@
 | --- | --- |
 | **브랜치** | Git Flow: `feature/*` → `develop` → `main`(릴리스 때만). PR은 항상 `develop` 대상 |
 | **PR 검사** | 모든 레포 GitHub Actions(`ci.yml`)로 빌드·테스트, 팀원 리뷰 후 머지 |
-| **이미지** | 레포마다 Dockerfile, `ghcr.io/fashion-agent-team/<레포>`로 올려 Docker Compose 한 번에 실행 ([compose](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/infra/docker-compose.yml)) |
+| **이미지** | 레포마다 Dockerfile. 배포는 각 젯슨에서 arm64 이미지를 직접 빌드해 Docker Compose로 띄워요 ([젯슨 배포 문서](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/infra/jetson/README.md)) |
 | **약속 문서** | API·MCP 입출력은 앱 레포 `docs/contracts/`가 기준. 바꿀 땐 약속 문서부터 |
 
 ## ✅ 테스트
