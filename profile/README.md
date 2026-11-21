@@ -8,18 +8,42 @@
 
 ## 👥 누가 무엇을 했나요
 
-| | 이진행 [@ehgo508](https://github.com/ehgo508) | 박창근 [@chang0580](https://github.com/chang0580) | 정지원 [@jiwon934](https://github.com/jiwon934) |
-| --- | --- | --- | --- |
-| **한 줄로** | 앱과 대화의 뼈대, 로그인·음성 | 내 옷장, 화장 확인, 날씨, 배포 정리 | 옷 상태 모델, 치아·일정, DB 정규화 |
-| **맡은 레포** | fashion-agent(앱), gateway, agent | mcp-closet, mcp-face-check(화장), mcp-weather | mcp-clothes-state, mcp-face-check(치아), mcp-schedule |
+<table align="center">
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <a href="https://github.com/ehgo508"><img src="https://github.com/ehgo508.png?size=240" width="120" height="120" alt="이진행"/></a>
+      <h3>이진행</h3>
+      <a href="https://github.com/ehgo508"><sub>@ehgo508</sub></a>
+      <p><b>앱과 대화의 뼈대</b><br/><sub>로그인·음성·대화 흐름</sub></p>
+      <p><sub>fashion-agent(앱) · gateway · agent</sub></p>
+      <p><img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white"/> <img src="https://img.shields.io/badge/ML_Kit-4285F4?style=flat-square&logo=google&logoColor=white"/><br/><img src="https://img.shields.io/badge/Firebase_Auth-FFCA28?style=flat-square&logo=firebase&logoColor=black"/> <img src="https://img.shields.io/badge/Spring_Cloud_Gateway-6DB33F?style=flat-square&logo=spring&logoColor=white"/><br/><img src="https://img.shields.io/badge/Spring_AI-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/Edge_TTS-0078D7?style=flat-square&logo=microsoftedge&logoColor=white"/></p>
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://github.com/chang0580"><img src="https://github.com/chang0580.png?size=240" width="120" height="120" alt="박창근"/></a>
+      <h3>박창근</h3>
+      <a href="https://github.com/chang0580"><sub>@chang0580</sub></a>
+      <p><b>내 옷장 · 화장 확인 · 날씨</b><br/><sub>RAG·얼굴 모델·배포 정리</sub></p>
+      <p><sub>mcp-closet · mcp-face-check(화장) · mcp-weather</sub></p>
+      <p><img src="https://img.shields.io/badge/pgvector-4169E1?style=flat-square&logo=postgresql&logoColor=white"/> <img src="https://img.shields.io/badge/FashionSigLIP-FFD21E?style=flat-square&logo=huggingface&logoColor=black"/><br/><img src="https://img.shields.io/badge/BiSeNet·ResNet18-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/> <img src="https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat-square&logo=onnx&logoColor=white"/><br/><img src="https://img.shields.io/badge/Azure_Speech-0078D4?style=flat-square&logo=microsoftazure&logoColor=white"/> <img src="https://img.shields.io/badge/MET_Norway-1C4E80?style=flat-square"/></p>
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://github.com/jiwon934"><img src="https://github.com/jiwon934.png?size=240" width="120" height="120" alt="정지원"/></a>
+      <h3>정지원</h3>
+      <a href="https://github.com/jiwon934"><sub>@jiwon934</sub></a>
+      <p><b>옷 상태 모델 · 치아 · 일정</b><br/><sub>학습 모델·DB 정규화</sub></p>
+      <p><sub>mcp-clothes-state · mcp-face-check(치아) · mcp-schedule</sub></p>
+      <p><img src="https://img.shields.io/badge/YOLO26n-111F68?style=flat-square&logo=ultralytics&logoColor=white"/> <img src="https://img.shields.io/badge/K--Fashion_CNN-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/><br/><img src="https://img.shields.io/badge/MobileNetV3-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/> <img src="https://img.shields.io/badge/카카오_로컬-FFCD00?style=flat-square&logo=kakao&logoColor=black"/><br/><img src="https://img.shields.io/badge/PostgreSQL_V4-4169E1?style=flat-square&logo=postgresql&logoColor=white"/> <img src="https://img.shields.io/badge/Docker_Compose-2496ED?style=flat-square&logo=docker&logoColor=white"/></p>
+    </td>
+  </tr>
+</table>
 
-### 이진행: 앱과 대화의 뼈대
+### <img src="https://github.com/ehgo508.png?size=64" width="28" height="28" align="center"/>&nbsp; 이진행: 앱과 대화의 뼈대
 - **앱(Flutter)**: 음성 에이전트 기본 틀, 이름을 불러 말 걸기, 카메라 구도 말 안내와 자동 촬영(ML Kit), 구글 로그인 → Firebase → gateway 연결, 첫 실행 흐름(인사·허용·로그인·이름), 일정 폰 알림, 시각장애인 관점 점검 반영(기다림 진동·구도 소리·시리 단축어)
 - **gateway**: 로그인(Firebase·개발용)과 JWT, 회원정보, 사용량 제한, 뒤쪽 서버 라우팅. 말 받아 적기(`gpt-4o-mini-transcribe`), 엣지 목소리 사이드카와 Azure가 막힐 때 엣지로 넘기기
 - **agent**: 옷 추천 두 단계와 MCP 클라이언트 뼈대, GPT 도구 선택(일정 넣기·지우기), 날짜를 말하면 그날 일정·예보로 추천, 색을 느낌으로 설명하기, GPT 응답 속도 줄이기
 - **그 밖에**: 레포마다 PR 자동 테스트(CI), 아키텍처·서비스 간 약속 문서, `weather_forecast`·`schedule_set_reminder` 도구, 색 어울림 점수
 
-### 박창근: 내 옷장, 화장 확인, 날씨
+### <img src="https://github.com/chang0580.png?size=64" width="28" height="28" align="center"/>&nbsp; 박창근: 내 옷장, 화장 확인, 날씨
 - **mcp-closet**: 서버 전체. 글 벡터(e5) RAG 검색, 옷 사진 벡터(FashionSigLIP)로 같은 옷 합치기, 애매하면 GPT가 작은 사진 두 장으로 확인(`closet_merge`), 옷장 읽기·지우기·입은 조합 도구, 같은 옷 기준값 실측(0.60)
 - **mcp-face-check 화장 대칭**: 윤곽점·픽셀 측정 서버, 얼굴 분할 모델 비교 후 BiSeNet ResNet34, CelebA로 학습한 좌우 비교 모델(눈썹·입술·볼), FFHQ 실사진 기준값, 눈화장 ResNet18 앙상블(실사진 검출 70.7% → 78.6%)
 - **mcp-weather**: 서버 구현, 연결 끊김 재시도, Open-Meteo가 안 되면 MET Norway
@@ -27,7 +51,7 @@
 - **agent·앱**: 옷장·날씨 대화 흐름, 앱 시뮬레이션으로 찾은 말투 고치기, 체감 온도 바로잡기, Azure 목소리 4가지, 앱 화면 개편 "인당수의 밤"과 심청이 그림, 아이폰 설치 스크립트
 - **배포·문서**: 젯슨 두 대 배포 문서, 아키텍처 그림·ERD
 
-### 정지원: 옷 상태 모델, 치아·일정, DB
+### <img src="https://github.com/jiwon934.png?size=64" width="28" height="28" align="center"/>&nbsp; 정지원: 옷 상태 모델, 치아·일정, DB
 - **mcp-clothes-state**: Java MCP 서버, 얼룩·찢어짐 YOLO(v6) 학습·비교, 옷 종류 12종 모델, K-Fashion 색 모델과 색 조합 판단, 무늬 8종(FashionSigLIP LoRA 섞기), 입은 옷 실수(뒤집힘·단추·택) 모델, 애매할 때 GPT 확인과 얼굴 가리기, 젯슨 성능 측정
 - **mcp-face-check 치아**: 직접 학습한 치아 모델(`teeth_check`, ONNX), 앞니 사이 고춧가루를 놓치던 문제 고치기(v4)
 - **mcp-schedule**: 서버 전체. 카카오 로컬로 장소 종류, 격식 일정 드라이클리닝 안내, 아침 브리핑, 일정별 알림 시각(`remind_time`)
@@ -353,21 +377,21 @@ flowchart LR
           <img src="https://github.com/ehgo508.png" width="100" height="100" alt="ehgo508"/>
           <br /><b>이진행</b>
         </a>
-        <br /><sub><b>gateway, agent</b></sub>
+        <br /><sub><b>앱 · gateway · agent</b></sub>
       </td>
       <td align="center">
         <a href="https://github.com/chang0580">
           <img src="https://github.com/chang0580.png" width="100" height="100" alt="chang0580"/>
           <br /><b>박창근</b>
         </a>
-        <br /><sub><b>helper, weather, 화장 대칭 확인</b></sub>
+        <br /><sub><b>옷장 · 화장 확인 · 날씨</b></sub>
       </td>
       <td align="center">
         <a href="https://github.com/jiwon934">
           <img src="https://github.com/jiwon934.png" width="100" height="100" alt="jiwon934"/>
           <br /><b>정지원</b>
         </a>
-        <br /><sub><b>schedule, clothes-state, 치아 확인</b></sub>
+        <br /><sub><b>옷 상태 · 치아 확인 · 일정</b></sub>
       </td>
     </tr>
   </tbody>
