@@ -88,14 +88,14 @@
 
 ## 🏗 아키텍처
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture.png" width="100%" alt="심청이 아키텍처: 폰 앱 → 도메인·Tailscale Funnel·Nginx → 앱 서버 젯슨(gateway, agent, mcp-schedule, mcp-closet, so400m-embed, PostgreSQL, Redis) → 모델 서버 젯슨(mcp-clothes-state, mcp-face-check, mcp-weather)"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture-v8.png" width="100%" alt="심청이 아키텍처: 폰 앱 → 도메인·Tailscale Funnel·Nginx → 앱 서버 젯슨(gateway, agent, mcp-schedule, mcp-closet, so400m-embed, PostgreSQL, Redis) → 모델 서버 젯슨(mcp-clothes-state, mcp-face-check, mcp-weather)"/></p>
 
 - **MCP 서버는 데이터만 돌려주고**, "이 옷이 오늘 맞는가" 같은 판단은 agent가 맡아요
 - agent는 말을 의도로 나눠 옷 추천·옷 확인·날씨·얼굴·옷장은 정해진 순서(코드)로 도구를 부르고, 일정 넣기·지우기 같은 나머지만 GPT가 도구를 골라요
 - 안내 목소리는 gateway가 만들어요. Azure Speech 4가지(유진·지민·서현·순복)와 Edge 3가지(선희·인준·현수) 중 고르고, 안 되면 폰 TTS로 읽어요
 - 서버는 **젯슨 오린 나노 8GB 두 대**에 나눠 Docker Compose로 상시 띄워요. 한 대는 gateway·agent·일정·옷장·DB(앱 서버), 다른 한 대는 옷 상태·얼굴·날씨 MCP와 모델 학습(모델 서버)을 맡고, 둘은 Tailscale 사설망으로 이어져요. 8GB 한 대에 다 안 들어가서 나눴고, MCP라 agent는 주소만 바꾸면 됐어요
 - 바깥에서는 `simcheong.java21.net` → Tailscale Funnel → Nginx → gateway 순서로 들어와요
-- 그림 원본은 [`profile/images/src/architecture.html`](images/src/architecture.html)이에요. 고친 뒤 Chrome으로 2배 크기 캡처해서 `architecture.png`를 바꿔요
+- 그림 원본은 [`profile/images/src/architecture.html`](images/src/architecture.html)이에요. 고친 뒤 Chrome으로 2배 크기 캡처해서 새 이름(예: `architecture-v9.png`)으로 저장하고 위 그림 주소도 바꿔요. 같은 이름으로 덮으면 GitHub 캐시 때문에 옛 그림이 한동안 보여요
 - 서비스 사이 약속은 앱 레포의 [OpenAPI](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/openapi.yaml)와 [MCP 도구 입출력](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/mcp-tools.md) 하나로 맞춰요
 
 ## 🗂 ERD
