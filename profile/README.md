@@ -71,19 +71,123 @@
 
 ## 📱 앱 화면
 
-> **인당수의 밤**: 쪽빛 바탕에 노란 큰 글씨, 버튼은 한 화면에 하나만 두었어요. 심청이가 듣는 동안에는 아래 물이 다홍으로 차올라요. 모든 안내는 소리로 읽어 줘요.
+> **인당수의 밤**: 쪽빛 바탕에 노란 큰 글씨, 버튼은 한 화면에 하나만 두었어요. 화면 어디를 눌러도 "말하기"이고, 아래 큰 버튼은 "다시 듣기"예요. 모든 안내는 소리로 읽어 줘요.
+
+### 🌊 처음 만나는 순간
+
+처음 켜면 버튼을 누르지 않아도 심청이가 먼저 말을 걸어요. 인사 → 개인정보 안내 → 허용 창 찾는 법 → 구글 로그인 → 이름·호칭 → 기능 소개까지 **모두 말로** 이어져요. 허용 창과 로그인 창은 VoiceOver로 어디를 두 번 탭하면 되는지 소리로 알려 줘요.
+
+<sub>⚙️ 앱(Flutter) · 구글 로그인 → Firebase → gateway(JWT) · 목소리는 Azure Speech(서버가 안 되면 엣지·폰 목소리)</sub>
 
 <table align="center">
   <tr>
-    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/home.png" width="160" alt="심청이가 먼저 인사"/><br/><sub>심청이가 먼저 인사</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/listening.png" width="160" alt="듣는 중엔 물이 다홍으로"/><br/><sub>듣는 중엔 물이 다홍으로</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/advice.png" width="160" alt="날씨 보고 말로 추천"/><br/><sub>날씨 보고 말로 추천</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/camera.png" width="160" alt="멈추면 알아서 찍기"/><br/><sub>멈추면 알아서 찍기</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/screens/outfit-result.png" width="160" alt="오늘의 색동: 고른 옷 색"/><br/><sub>오늘의 색동: 고른 옷 색</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-01-greeting.png" width="180" alt="먼저 인사"/><br/><sub><b>먼저 인사</b></sub><br/><sub>설치하고 처음 켜면 바로 말을 걸어요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-02-consent.png" width="180" alt="개인정보 안내"/><br/><sub><b>개인정보 안내</b></sub><br/><sub>말과 사진을 어디에 쓰는지 먼저 알려요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-03-signin.png" width="180" alt="말로 하는 로그인"/><br/><sub><b>말로 하는 로그인</b></sub><br/><sub>로그인 창에서 누를 곳을 소리로 안내</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-04-features.png" width="180" alt="할 줄 아는 일"/><br/><sub><b>할 줄 아는 일</b></sub><br/><sub>처음 한 번 기능을 쭉 소개해요</sub></td>
   </tr>
 </table>
 
-<sub>`develop` 앱을 웹으로 띄워 찍었어요. 서버 대신 예시 응답을 돌려 준 화면이라 카메라 칸은 비어 있고, 실제 폰에서는 카메라 화면이 보이고 결과는 서버 모델이 정해요.</sub>
+### 🗣 이름만 부르면 대답
+
+폰을 세워 두고 **"심청아"** 하고 부르면 그 뒤에 한 말을 알아들어요. 듣는 동안에는 아래 물이 **다홍**으로 차올라 저시력 사용자도 멀리서 알아봐요. 서버를 기다릴 때는 들은 말을 되짚는 추임새를 먼저 해서 불안하지 않게 했어요.
+
+<sub>⚙️ 이름 듣기는 폰 음성 인식, 부른 뒤 명령은 gateway의 `gpt-4o-mini-transcribe`로 다시 받아 적기 · agent가 Spring AI 도구 호출로 기능을 골라요</sub>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-05-wake.png" width="180" alt="부르기를 기다려요"/><br/><sub><b>부르기를 기다려요</b></sub><br/><sub>“심청아” 하고 부르면 대답</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-06-listening.png" width="180" alt="듣는 중엔 다홍"/><br/><sub><b>듣는 중엔 다홍</b></sub><br/><sub>들은 말을 크게 보여 줘요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-07-thinking.png" width="180" alt="알아보는 중"/><br/><sub><b>알아보는 중</b></sub><br/><sub>"잠깐만 기다려 주세요" 추임새 먼저</sub></td>
+  </tr>
+</table>
+
+### ☀️ 오늘 뭐 입지?
+
+**"오늘 뭐 입지?"** 한마디에 날씨·일정·내 옷장을 한꺼번에 보고 겉옷·상의·하의를 말로 추천해요. 날씨만 따로 물어도, 날짜를 말해도 돼요.
+
+<sub>⚙️ agent(GPT) ← mcp-weather(Open-Meteo, 안 되면 MET Norway) · mcp-schedule · mcp-closet(RAG)</sub>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-08-advice.png" width="180" alt="오늘의 추천"/><br/><sub><b>오늘의 추천</b></sub><br/><sub>기온·체감에 맞춰 겉옷부터 목도리·장갑까지</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-09-weather.png" width="180" alt="오늘 날씨"/><br/><sub><b>오늘 날씨</b></sub><br/><sub>지금·최저·최고, 체감 온도까지</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-10-weather-tomorrow.png" width="180" alt="내일 날씨"/><br/><sub><b>내일 날씨</b></sub><br/><sub>비 올 확률이 높으면 우산 챙기기</sub></td>
+  </tr>
+</table>
+
+### 🎚 목소리 고르기 · 잠깐 쉬기
+
+목소리가 마음에 안 들면 **"목소리 바꿔 줘"**라고 해요. 7가지 목소리를 하나씩 들려주고 "이 목소리 좋아"로 골라요. 회의 중이나 TV 소리가 클 때는 **"잠깐 쉬어"**로 이름 듣기를 멈춰요.
+
+<sub>⚙️ 서버 목소리: Azure Speech 유진·지민·서현·순복, 엣지 선희·인준·현수(gateway가 문장을 받아 음성으로) · 서버가 안 되면 폰 목소리</sub>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-16-voice.png" width="180" alt="목소리 고르기"/><br/><sub><b>목소리 고르기</b></sub><br/><sub>"다음", "이 목소리 좋아"로 골라요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-17-rest.png" width="180" alt="잠깐 쉬기"/><br/><sub><b>잠깐 쉬기</b></sub><br/><sub>다시 부를 땐 화면을 두 번 탭</sub></td>
+  </tr>
+</table>
+
+### 📅 일정과 그날의 옷
+
+말로 일정을 넣으면 **자리 종류(결혼식·면접 등)**를 알아보고, 격식 있는 자리면 드라이클리닝을 미리 챙겨 줘요. 날짜를 말하면 그날 날씨 예보와 일정에 맞춰 내 옷장 옷으로 추천해요. 일정 며칠 전·당일 아침에는 폰 알림도 와요.
+
+<sub>⚙️ mcp-schedule(카카오 로컬로 장소 종류, 일정별 알림 시각) · 폰 로컬 알림 · agent가 `weather_forecast`와 `closet_search`를 함께 불러요</sub>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-11-schedule-add.png" width="180" alt="일정 넣기"/><br/><sub><b>일정 넣기</b></sub><br/><sub>결혼식이면 드라이클리닝 안내</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-12-schedule-list.png" width="180" alt="일정 읽기"/><br/><sub><b>일정 읽기</b></sub><br/><sub>"다음 주 일정 알려 줘"</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-13-day-advice.png" width="180" alt="그날 입을 옷"/><br/><sub><b>그날 입을 옷</b></sub><br/><sub>예보 + 일정 + 내 옷장으로 추천</sub></td>
+  </tr>
+</table>
+
+### 📷 카메라로 옷 확인
+
+꺼낸 옷을 바닥에 펼쳐 비추면 **멈춘 순간 알아서 찍어요**(찍기 버튼 없음). 옷마다 종류·색·무늬·얼룩·찢어짐을 보고 오늘 날씨에 맞는지, 색이 어떤 느낌인지까지 말로 풀어 줘요. 위쪽 미리 보기는 옆에서 돕는 분을 위한 칸이에요.
+
+<sub>⚙️ 앱 ML Kit로 구도 안내·자동 촬영 → mcp-clothes-state(직접 학습한 YOLO 종류·얼룩·찢어짐, K-Fashion 색 CNN, FashionSigLIP 무늬) → agent가 날씨와 맞춰 판단</sub>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-20-cam-outfit.png" width="180" alt="바닥에 펼쳐 비추기"/><br/><sub><b>바닥에 펼쳐 비추기</b></sub><br/><sub>멈추면 자동으로 찍어요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-21-cam-tshirt.png" width="180" alt="주황 티셔츠"/><br/><sub><b>주황 티셔츠</b></sub><br/><sub>오늘 입기엔 추워요 + 색 느낌</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-22-cam-pants.png" width="180" alt="베이지 바지"/><br/><sub><b>베이지 바지</b></sub><br/><sub>잘 맞아요, 진행 막대 두 칸째</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-23-cam-blazer.png" width="180" alt="갈색 자켓"/><br/><sub><b>갈색 자켓</b></sub><br/><sub>추운 날 겉옷으로 좋아요</sub></td>
+  </tr>
+</table>
+
+### 👚 옷 색 묻기 · 입은 모습 · 내 옷장
+
+옷을 비추며 **"이거 무슨 색이야?"**라고 물으면 바로 색을 알려 줘요. 고른 옷은 옷장에 저장되고, 입은 날도 기록돼 "오늘 뭐 입었지?"에 답해요. 다 입은 뒤에는 폰을 세워 두고 한 바퀴 도는 모습도 확인해요.
+
+<sub>⚙️ mcp-clothes-state 색 모델 · mcp-closet(pgvector: 옷 사진 벡터 FashionSigLIP로 같은 옷 합치기, 글 벡터 e5로 검색)</sub>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-24-cam-color.png" width="180" alt="무슨 색이야?"/><br/><sub><b>무슨 색이야?</b></sub><br/><sub>비춘 옷 색을 바로 알려 줘요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-25-cam-worn.png" width="180" alt="입은 모습 확인"/><br/><sub><b>입은 모습 확인</b></sub><br/><sub>가슴 높이에 세우고 두세 걸음 뒤로</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-14-closet-list.png" width="180" alt="내 옷장"/><br/><sub><b>내 옷장</b></sub><br/><sub>종류별로 몇 벌인지 읽어 줘요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-15-closet-worn.png" width="180" alt="오늘 입은 옷"/><br/><sub><b>오늘 입은 옷</b></sub><br/><sub>입은 날 기록으로 답해요</sub></td>
+  </tr>
+</table>
+
+### 💄 얼굴 확인
+
+셀카로 **화장이 좌우 고르게 됐는지**, **이 사이에 뭐가 끼었는지** 봐 줘요. 어두우면 화면을 하얗게 밝혀 조명처럼 비춰요. 얼굴·치아 사진은 GPT 같은 외부 AI로 보내지 않고 우리 서버 모델로만 봐요.
+
+<sub>⚙️ 앱 ML Kit로 얼굴 윤곽점·입 위치 → mcp-face-check(BiSeNet 얼굴 분할 + CelebA로 학습한 좌우 비교 모델, 직접 학습한 치아 모델 ONNX)</sub>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-26-cam-face.png" width="180" alt="화장 확인"/><br/><sub><b>화장 확인</b></sub><br/><sub>앞 카메라로 얼굴을 비춰요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-27-cam-teeth.png" width="180" alt="이 확인"/><br/><sub><b>이 확인</b></sub><br/><sub>"이" 하고 입을 벌린 채</sub></td>
+    <td align="center" valign="top" width="25%"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/app/1122-28-cam-light.png" width="180" alt="화면 조명"/><br/><sub><b>화면 조명</b></sub><br/><sub>어두우면 화면을 밝게 켜요</sub></td>
+  </tr>
+</table>
+
+<sub>`develop` 앱을 iPhone 17 시뮬레이터에서 띄워 찍었어요(2026-11-22). 화면 문장은 실제 서버(simcheong.java21.net)에 개발용 계정으로 같은 말을 보내 받은 답 그대로예요. 시뮬레이터에는 카메라가 없어서, 옷 화면의 미리 보기 칸에는 서버에 보낸 옷 사진(CC0 clothing-dataset)을 합성했어요. 얼굴 화면은 실제 사람 얼굴을 쓰지 않으려고 미리 보기 칸을 비워 두었어요.</sub>
 
 ## ✨ 주요 기능
 
