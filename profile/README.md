@@ -6,9 +6,11 @@
   <p>📅 <b>개발 기간</b> : 2026.10.27 ~ 2026.11.20 &nbsp;·&nbsp; 👥 <b>팀 심청이</b></p>
 </div>
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-hero.png" width="100%" alt="27일 동안 모델 학습 176시간 이상, 눈 화장 반복 학습 396판, 비교한 모델·방식 109가지, 머지한 PR 299개, 커밋 811개, 테스트 578개"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122b-effort-hero.png" width="100%" alt="25일 동안 모델 학습 176시간 이상, 눈 화장 반복 학습 396판, 비교한 모델·방식 109가지, 머지한 PR 299개, 커밋 811개, 테스트 578개"/></p>
 
-## 🔥 27일 동안 남긴 흔적
+## 🔥 25일 동안 남긴 흔적
+
+<sub>개발 기간은 2026.10.27 ~ 11.20이고, 아래 숫자는 2026-11-22 기준으로 센 값이에요.</sub>
 
 > 가장 오래 걸린 일은 **모델 학습**이었어요. 화장·옷장·날씨는 박창근, 옷 상태·치아는 정지원 파트에서 모델을 학습하고 비교했고, 앱 뼈대·gateway·agent는 이진행 파트에서 만들었어요.
 
