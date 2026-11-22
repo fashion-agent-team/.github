@@ -6,6 +6,8 @@
   <p>📅 <b>개발 기간</b> : 2026.10.27 ~ 2026.11.20 &nbsp;·&nbsp; 👥 <b>팀 심청이</b></p>
 </div>
 
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-hero.png" width="100%" alt="27일 동안 머지한 PR 299개, 커밋 811개, 브랜치 263개, 비교한 모델·방식 109개, 옷 모델 학습 65시간 이상, 테스트 578개"/></p>
+
 ## 👥 누가 무엇을 했나요
 
 <table align="center">
@@ -435,6 +437,47 @@ flowchart LR
 - 데이터 출처와 라이선스(AI Hub K-Fashion, CelebA, FFHQ 등)는 각 레포 README에 적어 두었어요. 학습 사진은 레포에 올리지 않아요
 - 실험 과정과 비교표는 [clothes-state 학습 기록](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/training-log.md)에 있어요
 
+## 🧪 이 모델을 고른 이유
+
+> 처음 떠오른 모델을 그냥 쓰지 않았어요. **같은 시험 사진, 같은 채점 코드**로 후보를 나란히 재고 점수·속도·잘못 알림·크기·라이선스까지 본 뒤 골랐어요. 옷 쪽에서 56가지, 얼굴 쪽에서 53가지, 모두 **109가지 방식**을 비교했어요.
+
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-compare-models.png" width="100%" alt="얼룩·찢어짐 YOLO 4종, 큰 공개 모델과 우리 학습 모델, 옷 색 인식 3가지, 얼굴 분할 3가지 비교 막대그래프"/></p>
+
+<table>
+  <tr><th>무엇을</th><th>비교한 후보</th><th>고른 것과 이유</th></tr>
+  <tr><td>얼룩·찢어짐</td><td>YOLO11n·11s·26n·26s, OWLv2, Grounding DINO</td><td><b>YOLO26n</b>: 11s와 점수는 비슷한데 1.4배 빠르고(젯슨 장당 14ms) 그림자를 덜 잘못 잡아요. 큰 공개 모델은 그대로 쓰면 AP50 0.08 이하라 우리 데이터로 학습했어요</td></tr>
+  <tr><td>옷 사진 벡터 (같은 옷 찾기)</td><td>FashionSigLIP, SigLIP, SigLIP2, FashionCLIP, Jina CLIP, DINOv2, CLIP 등 <b>12개</b></td><td><b>Marqo FashionSigLIP</b>: 같은 옷을 가장 잘 찾았어요. DINOv2·CLIP B 계열은 26~45%에 그쳤어요</td></tr>
+  <tr><td>옷 색</td><td>픽셀 규칙, 색 히스토그램 + MLP, 작은 CNN</td><td><b>작은 CNN(0.8MB)</b>: 색 계열 76.8%, 흰 옷 15% → 87%. 옷 모양을 봐서 배경색에 덜 속아요</td></tr>
+  <tr><td>무늬</td><td>YOLO 분류, FashionSigLIP LoRA·분류 층만·입력 384, GPT low/high</td><td><b>LoRA + YOLO 섞기 + 애매할 때만 GPT</b>: 입은 옷 90.0%로 목표 달성</td></tr>
+  <tr><td>얼굴 분할</td><td>BiSeNet R18 두 학습본·R34, SegFormer, FaRL, MediaPipe</td><td><b>BiSeNet ResNet34</b>: 유일하게 통계적으로 나아졌어요(p=0.019). SegFormer는 3.6배 크고 느리고, FaRL은 646MB라 탈락</td></tr>
+  <tr><td>치아</td><td>모델 4, 이어 학습 3, LoRA 4, 색 규칙 4, GPT</td><td><b>직접 학습한 v4 + 6번 평균</b>: 깨끗한 이 잘못 알림 1.1%. 얼굴·치아 사진은 GPT로 보내지 않기로 해서 GPT는 탈락</td></tr>
+  <tr><td>날씨 데이터</td><td>Open-Meteo, 기상청 단기예보, OpenWeatherMap (5개 도시 × 3번)</td><td><b>Open-Meteo</b>: 응답 0.9초(기상청 3.5초, 가장 느릴 때 15초)에 키 없이 써요. 안 되면 MET Norway로 넘어가요</td></tr>
+</table>
+
+## 📈 학습할수록 올라간 정확도
+
+> 한 번 학습하고 끝내지 않았어요. 틀린 사진을 보고 **데이터를 보태고, 다시 학습하고, 다시 쟀어요.** 점수가 올라도 깨끗한 옷을 잘못 알리면 쓰지 않았어요(얼룩 v7).
+
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-progress-stain.png" width="100%" alt="얼룩·찢어짐 모델 v1부터 v7까지 mAP50 변화. v6 채택, v7은 오탐이 늘어 안 씀"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-progress-models.png" width="100%" alt="옷 종류, 무늬, 치아, 옷 색 모델이 학습할수록 정확도가 오른 꺾은선 그래프"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-progress-before-after.png" width="100%" alt="화장 좌우 비교와 입은 옷 실수 모델의 예전 방식 대비 향상"/></p>
+
+<details><summary><b>숫자로 보는 학습 기록</b></summary>
+
+| 모델 | 다시 학습한 횟수 | 처음 → 지금 |
+| --- | ---: | --- |
+| 얼룩·찢어짐 | 7판 + 이어 학습·OWLv2 LoRA | mAP50 0.485 → **0.636**, 깨끗한 옷 200장 오탐 20장 → **1장** |
+| 옷 종류 | 5종 → 12종, 6판 | 바닥에 펼친 옷 80.3% → **86.7%**, 바닥 신발 0.015 → **0.991** |
+| 무늬 8종 | 7단계 | 입은 옷 84.5% → **90.0%**, 바닥에 펼친 옷 88.4% → **92.3%** |
+| 옷 색 | 3가지 방식 | 색 계열 45.3% → **76.8%** |
+| 입은 옷 실수(택·단추·뒤집힘) | 단추 모델 6판 (실제 사진으로 이어 학습) | 단추 79.7% → **93.7%** |
+| 화장 좌우 비교 | 약 35가지 방식 | 눈썹 길이 22% → **84%**, 멀쩡한 사진 잘못 알림 63% → **31%** |
+| 치아 이물질 | v1 → v4, LoRA·이어 학습 7가지 | 합성 시험 87.2% → **91.2%**, 고춧가루 실사진 0.03 → **0.96** |
+
+자세한 표: [clothes-state 실험 비교표](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/lab.md) · [학습 기록](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/training-log.md) · [face-check 실험 비교표](https://github.com/fashion-agent-team/mcp-face-check/blob/develop/docs/lab.md)
+
+</details>
+
 ## 🔒 개인정보 원칙
 
 - **사진은 저장하지 않아요.** 예외는 같은 옷 확인용 옷 부분 작은 사진(얼굴 없음, 옷을 지우면 삭제)과, 동의한 경우 재학습용 얼룩·무늬 조각(30일)뿐이에요
@@ -443,6 +486,19 @@ flowchart LR
 - 키와 비밀값은 레포에 올리지 않고 환경 변수로만 받아요
 
 ---
+
+## 🔥 27일 동안 남긴 흔적
+
+> 기능 하나도 바로 `develop`에 넣지 않고 **브랜치 → PR → CI 테스트 → 리뷰 → 머지**를 거쳤어요. 그렇게 쌓인 PR이 299개예요.
+
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-daily.png" width="100%" alt="날짜별로 팀원 세 명이 머지한 PR 수 누적 막대그래프"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-repos.png" width="100%" alt="레포별 머지한 PR 수와 커밋 수"/></p>
+
+| | 이진행 | 박창근 | 정지원 | 팀 |
+| --- | ---: | ---: | ---: | ---: |
+| 머지한 PR | 104 | 100 | 95 | **299** |
+
+<sub>2026-11-22 기준 GitHub에서 센 값이에요. 커밋은 각 레포 `develop`(.github는 `main`), 학습 시간은 clothes-state 실험표에 시간이 적힌 학습만 더한 값이에요.</sub>
 
 ## 🚀 협업 방식
 
