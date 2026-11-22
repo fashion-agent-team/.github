@@ -6,7 +6,7 @@
   <p>📅 <b>개발 기간</b> : 2026.10.27 ~ 2026.11.20 &nbsp;·&nbsp; 👥 <b>팀 심청이</b></p>
 </div>
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-hero.png" width="100%" alt="27일 동안 머지한 PR 299개, 커밋 811개, 브랜치 263개, 비교한 모델·방식 109개, 옷 모델 학습 65시간 이상, 테스트 578개"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-hero.png" width="100%" alt="27일 동안 젯슨 GPU 모델 학습 166시간 이상, 눈 화장 반복 학습 396판, 비교한 모델·방식 109가지, 머지한 PR 299개, 커밋 811개, 테스트 578개"/></p>
 
 ## 👥 누가 무엇을 했나요
 
@@ -450,6 +450,7 @@ flowchart LR
   <tr><td>옷 색</td><td>픽셀 규칙, 색 히스토그램 + MLP, 작은 CNN</td><td><b>작은 CNN(0.8MB)</b>: 색 계열 76.8%, 흰 옷 15% → 87%. 옷 모양을 봐서 배경색에 덜 속아요</td></tr>
   <tr><td>무늬</td><td>YOLO 분류, FashionSigLIP LoRA·분류 층만·입력 384, GPT low/high</td><td><b>LoRA + YOLO 섞기 + 애매할 때만 GPT</b>: 입은 옷 90.0%로 목표 달성</td></tr>
   <tr><td>얼굴 분할</td><td>BiSeNet R18 두 학습본·R34, SegFormer, FaRL, MediaPipe</td><td><b>BiSeNet ResNet34</b>: 유일하게 통계적으로 나아졌어요(p=0.019). SegFormer는 3.6배 크고 느리고, FaRL은 646MB라 탈락</td></tr>
+  <tr><td>눈 화장 좌우 비교</td><td>밝기 규칙, 작은 CNN, 넓은 망, ImageNet ResNet18·EfficientNet·ConvNeXt 등 젯슨 GPU로 <b>396판</b></td><td><b>서버 모델 + ResNet18 3개 앙상블</b>: 실사진 검출 70.7% → 78.6%, 잘못 알림 4.1%. 같은 평가 사진에서 조합을 뒤지면 점수가 부풀어서, 미리 정한 규칙(하나씩 점수 상위 3개)으로 골랐어요</td></tr>
   <tr><td>치아</td><td>모델 4, 이어 학습 3, LoRA 4, 색 규칙 4, GPT</td><td><b>직접 학습한 v4 + 6번 평균</b>: 깨끗한 이 잘못 알림 1.1%. 얼굴·치아 사진은 GPT로 보내지 않기로 해서 GPT는 탈락</td></tr>
   <tr><td>날씨 데이터</td><td>Open-Meteo, 기상청 단기예보, OpenWeatherMap (5개 도시 × 3번)</td><td><b>Open-Meteo</b>: 응답 0.9초(기상청 3.5초, 가장 느릴 때 15초)에 키 없이 써요. 안 되면 MET Norway로 넘어가요</td></tr>
 </table>
@@ -472,6 +473,7 @@ flowchart LR
 | 옷 색 | 3가지 방식 | 색 계열 45.3% → **76.8%** |
 | 입은 옷 실수(택·단추·뒤집힘) | 단추 모델 6판 (실제 사진으로 이어 학습) | 단추 79.7% → **93.7%** |
 | 화장 좌우 비교 | 약 35가지 방식 | 눈썹 길이 22% → **84%**, 멀쩡한 사진 잘못 알림 63% → **31%** |
+| 눈 화장 | 젯슨 GPU 396판 | 실사진 검출 약 10% → 50% → 61% → 72% → **78.6%** |
 | 치아 이물질 | v1 → v4, LoRA·이어 학습 7가지 | 합성 시험 87.2% → **91.2%**, 고춧가루 실사진 0.03 → **0.96** |
 
 자세한 표: [clothes-state 실험 비교표](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/lab.md) · [학습 기록](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/training-log.md) · [face-check 실험 비교표](https://github.com/fashion-agent-team/mcp-face-check/blob/develop/docs/lab.md)
@@ -489,16 +491,21 @@ flowchart LR
 
 ## 🔥 27일 동안 남긴 흔적
 
-> 기능 하나도 바로 `develop`에 넣지 않고 **브랜치 → PR → CI 테스트 → 리뷰 → 머지**를 거쳤어요. 그렇게 쌓인 PR이 299개예요.
+> 가장 오래 걸린 일은 **모델 학습**이었어요. 화장·옷장·날씨는 박창근, 옷 상태·치아는 정지원 파트에서 모델을 학습하고 비교했고, 앱 뼈대·gateway·agent는 이진행 파트에서 만들었어요.
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-daily.png" width="100%" alt="날짜별로 팀원 세 명이 머지한 PR 수 누적 막대그래프"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-training.png" width="100%" alt="모델 학습에 들인 시간: 눈 화장 좌우 비교 101.6시간(젯슨 GPU, 396판), 옷 상태 모델 65시간, 얼굴 분할·좌우 비교 CNN 3.5시간, 치아 1.8시간"/></p>
+
+| 파트 | 모델 학습 시간 | 학습·비교한 횟수 |
+| --- | ---: | --- |
+| 박창근 파트 (화장·옷장·날씨) | **105시간 이상** | 눈 화장 젯슨 학습 **396판**, 화장 재는 방식 약 35가지, 같은 옷 찾기 사진 모델 12개, 날씨 출처 3개 |
+| 정지원 파트 (옷 상태·치아) | **66시간 이상** | 옷 상태 실험 **56가지**(얼룩·찢어짐 7판, 옷 종류 6판, 무늬 7단계, 입은 옷 실수 단추 6판 등), 치아 18가지 |
+
+기능 하나도 바로 `develop`에 넣지 않고 **브랜치 → PR → CI 테스트 → 리뷰 → 머지**를 거쳤어요.
+
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-daily.png" width="100%" alt="날짜별 머지한 PR 수 막대그래프"/></p>
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-repos.png" width="100%" alt="레포별 머지한 PR 수와 커밋 수"/></p>
 
-| | 이진행 | 박창근 | 정지원 | 팀 |
-| --- | ---: | ---: | ---: | ---: |
-| 머지한 PR | 104 | 100 | 95 | **299** |
-
-<sub>2026-11-22 기준 GitHub에서 센 값이에요. 커밋은 각 레포 `develop`(.github는 `main`), 학습 시간은 clothes-state 실험표에 시간이 적힌 학습만 더한 값이에요.</sub>
+<sub>2026-11-22 기준이에요. 학습 시간은 로그·실험표에 시간이 남은 것만 더했어요: 눈 화장은 젯슨 학습 로그(`loop.log` 시작 시각 ~ 판마다 `eval.json`)로 잰 287판의 합(멈춘 시간이 섞일 수 있음), 옷 상태는 [clothes-state 실험표](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/lab.md)의 합, 얼굴 분할·좌우 비교 CNN과 치아는 [face-check 실험표](https://github.com/fashion-agent-team/mcp-face-check/blob/develop/docs/lab.md)에 적힌 시간이에요. PR·커밋 수는 GitHub에서 셌고 커밋은 각 레포 `develop`(.github는 `main`) 기준이에요.</sub>
 
 ## 🚀 협업 방식
 
