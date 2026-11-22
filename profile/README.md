@@ -8,26 +8,6 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122b-effort-hero.png" width="100%" alt="25일 동안 모델 학습 176시간 이상, 눈 화장 반복 학습 396판, 비교한 모델·방식 109가지, 머지한 PR 299개, 커밋 811개, 테스트 578개"/></p>
 
-## 🔥 25일 동안 남긴 흔적
-
-<sub>개발 기간은 2026.10.27 ~ 11.20이고, 아래 숫자는 2026-11-22 기준으로 센 값이에요.</sub>
-
-> 가장 오래 걸린 일은 **모델 학습**이었어요. 화장·옷장·날씨는 박창근, 옷 상태·치아는 정지원 파트에서 모델을 학습하고 비교했고, 앱 뼈대·gateway·agent는 이진행 파트에서 만들었어요.
-
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-training.png" width="100%" alt="모델 학습에 들인 시간 176시간 이상: 눈 화장 좌우 비교 101.6시간(젯슨 GPU, 396판), 옷 상태 모델 65시간(젯슨 GPU), 화장 좌우 비교·얼굴 분할 7.5시간, 치아 2.5시간"/></p>
-
-| 파트 | 모델 학습 시간 | 학습·비교한 횟수 |
-| --- | ---: | --- |
-| 박창근 파트 (화장·옷장·날씨) | **109시간 이상** | 눈 화장 젯슨 학습 **396판**, 화장 재는 방식 약 35가지, 같은 옷 찾기 사진 모델 12개, 날씨 출처 3개 |
-| 정지원 파트 (옷 상태·치아) | **67시간 이상** | 옷 상태 실험 **56가지**(얼룩·찢어짐 7판, 옷 종류 6판, 무늬 7단계, 입은 옷 실수 단추 6판 등), 치아 18가지 |
-
-기능 하나도 바로 `develop`에 넣지 않고 **브랜치 → PR → CI 테스트 → 리뷰 → 머지**를 거쳤어요.
-
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-daily.png" width="100%" alt="누적 PR 선과 날짜별 머지 PR 막대. Gemini로 시작, GPT로 전환, 발표 피드백, 젯슨 상시 배포, 무늬 90%, 발표 버전 릴리스 같은 주요 일 표시"/></p>
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-repos.png" width="100%" alt="레포마다 무슨 서버인지와 머지한 PR 수, 커밋 수"/></p>
-
-<sub>2026-11-22 기준이에요. 학습 시간은 로그·실험표에 시간이 남은 것만 더했어요: 눈 화장은 젯슨 학습 로그(`loop.log` 시작 시각 ~ 판마다 `eval.json`)로 잰 287판의 합(멈춘 시간이 섞일 수 있음), 옷 상태는 [clothes-state 실험표](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/lab.md)의 합, 얼굴 분할·좌우 비교 CNN과 치아는 [face-check 실험표](https://github.com/fashion-agent-team/mcp-face-check/blob/develop/docs/lab.md)에 적힌 시간이에요. PR·커밋 수는 GitHub에서 셌고 커밋은 각 레포 `develop`(.github는 `main`) 기준이에요.</sub>
-
 ## 👥 누가 무엇을 했나요
 
 <table align="center">
@@ -81,6 +61,26 @@
 - **앱·배포**: 서버를 기능별 레포로 나누기, 젯슨 상시 배포(Docker Compose·Nginx·Funnel) 처음 구성, 치아·화장 촬영 안내, 앱 켤 때 미리 준비(`/agent/warm`), 조직 프로필 README
 
 <sub>각 레포에서 머지된 PR을 사람별로 모아 정리했어요(2026-11-22 기준). 여러 사람이 함께 고친 부분은 처음 만든 사람 쪽에 적었어요.</sub>
+
+## 🔥 25일 동안 남긴 흔적
+
+<sub>개발 기간은 2026.10.27 ~ 11.20이고, 아래 숫자는 2026-11-22 기준으로 센 값이에요.</sub>
+
+> 가장 오래 걸린 일은 **모델 학습**이었어요. 화장·옷장·날씨는 박창근, 옷 상태·치아는 정지원 파트에서 모델을 학습하고 비교했고, 앱 뼈대·gateway·agent는 이진행 파트에서 만들었어요.
+
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-training.png" width="100%" alt="모델 학습에 들인 시간 176시간 이상: 눈 화장 좌우 비교 101.6시간(젯슨 GPU, 396판), 옷 상태 모델 65시간(젯슨 GPU), 화장 좌우 비교·얼굴 분할 7.5시간, 치아 2.5시간"/></p>
+
+| 파트 | 모델 학습 시간 | 학습·비교한 횟수 |
+| --- | ---: | --- |
+| 박창근 파트 (화장·옷장·날씨) | **109시간 이상** | 눈 화장 젯슨 학습 **396판**, 화장 재는 방식 약 35가지, 같은 옷 찾기 사진 모델 12개, 날씨 출처 3개 |
+| 정지원 파트 (옷 상태·치아) | **67시간 이상** | 옷 상태 실험 **56가지**(얼룩·찢어짐 7판, 옷 종류 6판, 무늬 7단계, 입은 옷 실수 단추 6판 등), 치아 18가지 |
+
+기능 하나도 바로 `develop`에 넣지 않고 **브랜치 → PR → CI 테스트 → 리뷰 → 머지**를 거쳤어요.
+
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-daily.png" width="100%" alt="누적 PR 선과 날짜별 머지 PR 막대. Gemini로 시작, GPT로 전환, 발표 피드백, 젯슨 상시 배포, 무늬 90%, 발표 버전 릴리스 같은 주요 일 표시"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-repos.png" width="100%" alt="레포마다 무슨 서버인지와 머지한 PR 수, 커밋 수"/></p>
+
+<sub>2026-11-22 기준이에요. 학습 시간은 로그·실험표에 시간이 남은 것만 더했어요: 눈 화장은 젯슨 학습 로그(`loop.log` 시작 시각 ~ 판마다 `eval.json`)로 잰 287판의 합(멈춘 시간이 섞일 수 있음), 옷 상태는 [clothes-state 실험표](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/lab.md)의 합, 얼굴 분할·좌우 비교 CNN과 치아는 [face-check 실험표](https://github.com/fashion-agent-team/mcp-face-check/blob/develop/docs/lab.md)에 적힌 시간이에요. PR·커밋 수는 GitHub에서 셌고 커밋은 각 레포 `develop`(.github는 `main`) 기준이에요.</sub>
 
 ## 📖 어떤 앱인가요?
 
