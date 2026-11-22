@@ -448,7 +448,7 @@ flowchart LR
   <tr><td>얼룩·찢어짐</td><td>YOLO11n·11s·26n·26s, OWLv2, Grounding DINO</td><td><b>YOLO26n</b>: 11s와 점수는 비슷한데 1.4배 빠르고(젯슨 장당 14ms) 그림자를 덜 잘못 잡아요. 큰 공개 모델은 그대로 쓰면 AP50 0.08 이하라 우리 데이터로 학습했어요</td></tr>
   <tr><td>옷 사진 벡터 (같은 옷 찾기)</td><td>FashionSigLIP, SigLIP, SigLIP2, FashionCLIP, Jina CLIP, DINOv2, CLIP 등 <b>12개</b></td><td><b>Marqo FashionSigLIP</b>: 같은 옷을 가장 잘 찾았어요. DINOv2·CLIP B 계열은 26~45%에 그쳤어요</td></tr>
   <tr><td>옷 색</td><td>픽셀 규칙, 색 히스토그램 + MLP, 작은 CNN</td><td><b>작은 CNN(0.8MB)</b>: 색 계열 76.8%, 흰 옷 15% → 87%. 옷 모양을 봐서 배경색에 덜 속아요</td></tr>
-  <tr><td>무늬</td><td>YOLO 분류, FashionSigLIP LoRA·분류 층만·입력 384, GPT low/high</td><td><b>LoRA + YOLO 섞기 + 애매할 때만 GPT</b>: 입은 옷 90.0%로 목표 달성</td></tr>
+  <tr><td>무늬</td><td>YOLO 분류, FashionSigLIP LoRA·분류 층만·입력 384, GPT low/high</td><td><b>LoRA + YOLO 섞기 + 애매할 때만 GPT</b>: 입은 옷 90.02%로 목표 달성 (교체 준비: 서버 코드 반영, 젯슨 미반영). 지금 젯슨은 YOLO 무늬 + 모르면 GPT</td></tr>
   <tr><td>얼굴 분할</td><td>BiSeNet R18 두 학습본·R34, SegFormer, FaRL, MediaPipe</td><td><b>BiSeNet ResNet34</b>: 유일하게 통계적으로 나아졌어요(p=0.019). SegFormer는 3.6배 크고 느리고, FaRL은 646MB라 탈락</td></tr>
   <tr><td>눈 화장 좌우 비교</td><td>밝기 규칙, 작은 CNN, 넓은 망, ImageNet ResNet18·EfficientNet·ConvNeXt 등 젯슨 GPU로 <b>396판</b></td><td><b>서버 모델 + ResNet18 3개 앙상블</b>: 실사진 검출 70.7% → 78.6%, 잘못 알림 4.1%. 같은 평가 사진에서 조합을 뒤지면 점수가 부풀어서, 미리 정한 규칙(하나씩 점수 상위 3개)으로 골랐어요</td></tr>
   <tr><td>치아</td><td>모델 4, 이어 학습 3, LoRA 4, 색 규칙 4, GPT</td><td><b>직접 학습한 v4 + 6번 평균</b>: 깨끗한 이 잘못 알림 1.1%. 얼굴·치아 사진은 GPT로 보내지 않기로 해서 GPT는 탈락</td></tr>
@@ -461,6 +461,11 @@ flowchart LR
 
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-progress-stain.png" width="100%" alt="얼룩·찢어짐 모델 v1부터 v7까지 mAP50 변화. v6 채택, v7은 오탐이 늘어 안 씀"/></p>
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-progress-models.png" width="100%" alt="옷 종류, 무늬, 치아, 옷 색 모델이 학습할수록 정확도가 오른 꺾은선 그래프"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-progress-pattern.png" width="100%" alt="무늬 8종 모델을 입은 옷 정확도 84.5%에서 90.02%까지 올린 단계별 그래프와 용어 풀이"/></p>
+
+> **무늬 모델은 이렇게 90%를 넘겼어요.** 빠른 작은 모델(YOLO)이 입은 옷에서 84.5%에 머물러, 패션 사진을 많이 본 큰 모델(FashionSigLIP)에 무늬를 가르쳤어요(88.7%). 그다음 두 모델의 답을 섞고, K-Fashion 7.6만 장을 더 배우고, 애매한 옷 6.5%만 GPT에게 크게 보여 물어 **90.02%**가 됐어요.
+> 크게 다시 학습(87.4%)과 사진 크게(384px, 3배 느림)는 시험해 보고 뺐어요. 지금 젯슨 서버는 작은 모델 + "모르면 GPT"(바닥에 펼친 옷 90.5%)로 돌고, 마지막 판은 서버 코드에 넣어 둔 **교체 준비** 상태예요.
+
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-progress-before-after.png" width="100%" alt="화장 좌우 비교와 입은 옷 실수 모델의 예전 방식 대비 향상"/></p>
 
 <details><summary><b>숫자로 보는 학습 기록</b></summary>
