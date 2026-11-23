@@ -58,7 +58,7 @@ svg.wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
 </style></head><body><div class="page" id="page">
 
 <div class="head">
- <h1>심청이 ERD (정규화 반영, V5)</h1>
+ <h1>심청이 ERD</h1>
  <p>서버 셋이 스키마를 하나씩 가져요. 스키마끼리는 FK 없이 user_id 값만 같이 써요. 사진 원본과 얼굴 사진은 어디에도 없어요.</p>
 </div>
 <div class="stamp"><b>2026년 11월 21일</b> 각 레포 develop Flyway 기준<br>젯슨 실제 DB와 칸 98개 대조, 표 11개</div>
@@ -69,9 +69,9 @@ svg.wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
 <div class="board" style="left:64px;top:992px;width:700px;height:770px">
  <div class="bh"><b>schedule</b><span>mcp-schedule, 일정과 장소</span></div>
  <div class="inb" style="left:24px;top:230px;width:262px">
-  <b>V4, V5에서 바뀐 것</b>
-  카카오 장소 이름과 분류는 장소 ID에 딸린 값이라 <code>places</code>로 뺐어요.<br><br>
-  <code>events.place</code>에는 사용자가 말한 장소를 그대로 남겨요.<br><br>
+  <b>참고</b>
+  카카오 장소 이름과 분류는 장소 ID에 딸린 값이라 <code>places</code>에 따로 둬요.<br><br>
+  <code>events.place</code>에는 사용자가 말한 장소가 그대로 있어요.<br><br>
   <code>remind_time</code>은 미리 알림을 띄울 시각이에요. 비어 있으면 아침 8시예요.
  </div>
 </div>
@@ -114,7 +114,7 @@ const T = {
  profiles:{x:88,y:310,w:268,h:'회원정보, 없을 수도',rows:[
   ['pkfk','user_id','uuid'],['','name','varchar(50), null'],['','birth_date','date, null'],['','gender','varchar(20), null'],['','job','varchar(50), null'],
   ['','height_cm','numeric(4,1)'],['','weight_kg','numeric(4,1)'],['','agent_name','varchar(30)'],['','call_name','varchar(30)'],['','speech_rate','numeric(3,2)']]},
- users:{x:404,y:310,w:252,h:'id = JWT sub',rows:[['pk','id','uuid'],['','last_login_at','timestamptz'],['','created_at','timestamptz']]},
+ users:{x:404,y:310,w:252,h:'id = JWT sub',rows:[['pk','id','uuid'],['','last_login_at','timestamptz, null']]},
  identities:{name:'user_identities',x:740,y:310,w:376,h:'로그인 수단, 여러 개',rows:[
   ['pk','id','bigint'],['fk','user_id','uuid'],['','issuer','firebase, dev'],['','subject','firebase uid, 기기 id'],['','sign_in_provider','apple, google, dev'],['uqc','(issuer, subject)','묶음']]},
  push:{name:'push_tokens',x:740,y:540,w:376,h:'폰마다 하나',rows:[['pk','id','bigint'],['fk','user_id','uuid'],['uq','token','text'],['','platform','ios, android'],['','last_seen_at','timestamptz']]},
@@ -122,7 +122,7 @@ const T = {
  places:{x:88,y:1062,w:262,h:'카카오 장소',rows:[['pk','kakao_place_id','varchar(20)'],['','place_name','varchar(200)'],['','category','예: 예식장']]},
  events:{x:394,y:1062,w:346,h:'일정',rows:[
   ['pk','id','varchar, e_…'],['','user_id','uuid'],['','title','varchar(200)'],['','start_at','timestamptz'],['','place','말한 그대로'],['fk','kakao_place_id','varchar(20), null'],
-  ['','occasion','mourning … casual'],['','occasion_source','title, place, default'],['','remind','boolean'],['','remind_days_before','int, null'],['new','remind_time','time, null'],['','notified_at','timestamptz'],['','care_reminded_at','timestamptz']]},
+  ['','occasion','mourning … casual'],['','occasion_source','title, place, default'],['','remind','boolean'],['','remind_days_before','int, null'],['','remind_time','time, null'],['','notified_at','timestamptz'],['','care_reminded_at','timestamptz']]},
  garments:{x:820,y:1062,w:340,h:'내 옷',vec:1,rows:[
   ['pk','id','varchar, c_…'],['','user_id','uuid'],['','category','top, bottom, outer …'],['','name','varchar(50)'],['','color_name','예: 차콜 그레이'],['','color_family','black … unknown'],['','tone','light, mid, dark'],
   ['','sub_color_name','varchar(30), null'],['','sub_color_family','varchar(10), null'],['','pattern','varchar(30), null'],['','pattern_checked_by','model, gpt'],['','pattern_guess','varchar(30), null'],
