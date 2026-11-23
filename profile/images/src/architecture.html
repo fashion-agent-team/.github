@@ -1,410 +1,338 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
+<html lang="ko"><head><meta charset="utf-8">
 <title>심청이 아키텍처</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Song+Myung&family=JetBrains+Mono:wght@500&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800&family=Gowun+Batang:wght@400;700&family=JetBrains+Mono:wght@500&display=block">
 <style>
-/* 제목 글꼴은 송명(Song Myung). 심청전 같은 옛 이야기 느낌을 제목에만 쓴다.
-   인당수의 밤: 앱과 같은 쪽빛 바탕, 달빛 노랑, 다홍.
-   노랑 = 옷 추천·확인이 지나가는 길, 다홍 = 데이터가 외부 AI로 나가는 곳. 색은 이 두 뜻에만 쓴다. */
-:root{
-  --night:#13224A;      /* 바탕 쪽빛 */
-  --deep:#0E1A3A;       /* 기기 판 */
-  --card:#1B2D5B;       /* 서버 카드 */
-  --card-hi:#22376B;
-  --rule:#34508F;
-  --ink:#EEF1F8;
-  --mute:#9FB0D4;
-  --faint:#6F82AE;
-  --moon:#F5C84B;
-  --dahong:#EC5B3F;
-}
+/* ERD(erd.html)와 같은 남색 판. 색은 뜻 하나씩만:
+   노랑 = 요청 한 번이 지나가는 길(번호), 분홍 = 우리 서버 밖으로 나가는 데이터,
+   흐린 파랑 = 그 밖의 안쪽 호출, 초록 = 밖으로 안 나가는 곳 */
+:root{--sea:#14204A;--deep:#0B1433;--tide:#1C2B5E;--line:#33437A;--jeogori:#FFD86B;--hanji:#F3EBDD;--mist:#A9B1D1;--lotus:#F7A1B5;--mint:#8FD9B6;--wire:#7F8FC4}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--night)}
-body{
-  width:1920px;
-  font-family:Pretendard,"Apple SD Gothic Neo",sans-serif;
-  color:var(--ink);
-  font-size:15px;line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-  font-feature-settings:"tnum";
-}
-.page{position:relative;padding:72px 72px 56px}
-code,.tool{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;font-weight:500;letter-spacing:-.01em}
+html,body{background:var(--sea)}
+body{width:1860px;font-family:"Gothic A1",sans-serif;color:var(--hanji);-webkit-font-smoothing:antialiased}
+.page{position:relative;width:1860px;height:1640px;overflow:hidden}
+.head{position:absolute;left:64px;top:52px;width:1040px}
+.head h1{font-family:"Gowun Batang",serif;font-weight:700;font-size:52px;line-height:1.2;letter-spacing:-.5px}
+.head p{font-family:"Gowun Batang",serif;font-size:19px;line-height:1.75;color:var(--mist);margin-top:14px}
+.head p b{color:var(--hanji)}
+.key{position:absolute;right:64px;top:60px;width:560px;display:grid;grid-template-columns:62px 1fr;row-gap:11px;column-gap:12px;align-items:center;font-size:15px;color:var(--mist)}
+.key b{color:var(--hanji);font-weight:700}
 
-/* ── 머리 ───────────────────────── */
-header{display:grid;grid-template-columns:1fr 520px;gap:64px;align-items:end;margin-bottom:56px}
-h1{font-family:"Song Myung","AppleMyungjo",serif;font-weight:400;font-size:92px;line-height:1;letter-spacing:-.01em}
-.lede{margin-top:22px;font-size:19px;line-height:1.65;color:#D5DCEC;max-width:62ch}
-.lede b{color:var(--ink);font-weight:700}
-.key{font-size:14px;color:var(--mute);display:grid;gap:12px;padding-bottom:6px}
-.key div{display:grid;grid-template-columns:56px 1fr;align-items:center;gap:14px}
-.key svg{overflow:visible}
-.stamp{font-size:14px;color:var(--faint);margin-top:6px}
+.board{position:absolute;border-radius:22px;background:var(--tide)}
+.board .bh{position:absolute;left:24px;top:18px;display:flex;align-items:baseline;gap:12px;white-space:nowrap}
+.board .bh b{font-size:23px;font-weight:800;color:var(--lotus)}
+.board .bh span{font-size:14px;color:var(--mist)}
+.lbl{position:absolute;font-size:15px;color:var(--mist);white-space:nowrap}
+.lbl b{font-size:17px;font-weight:800;color:var(--hanji);margin-right:8px}
 
-/* ── 큰 틀: 폰 | 들어오는 길 | 젯슨 둘 | 바깥 ── */
-.stage{display:grid;grid-template-columns:262px 118px 1fr 500px;gap:0 30px;align-items:start}
-.col-title{font-size:15px;color:var(--mute);margin:0 0 12px 2px;font-weight:500}
-.col-title b{color:var(--ink);font-weight:700;font-size:17px;margin-right:8px}
-
-.card{background:var(--card);border-radius:14px;padding:18px 20px 18px;position:relative}
-.card + .card{margin-top:14px}
-.card h3{font-size:19px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px}
-.card h3 .port{font-size:13px;font-weight:500;color:var(--faint);margin-left:auto}
-.card .what{color:#D3DAEB;margin-top:6px;font-size:14.5px;line-height:1.55}
-.card ul{list-style:none;margin-top:10px;display:grid;gap:5px}
-.card li{font-size:14px;line-height:1.5;color:#D3DAEB;padding-left:14px;position:relative}
-.card li::before{content:"";position:absolute;left:1px;top:.66em;width:5px;height:1.5px;background:var(--faint)}
-.stack{margin-top:12px;display:flex;flex-wrap:wrap;gap:5px}
-.stack span{font-size:12.5px;font-weight:600;color:#C4CFEA;background:rgba(255,255,255,.06);border-radius:4px;padding:3px 7px}
-.stack span.own{color:var(--night);background:var(--moon)}
-.tools{margin-top:10px;display:flex;flex-wrap:wrap;gap:4px 10px;color:var(--mute)}
-.tools .tool{color:#AFC0E6}
-.out{margin-top:12px;font-size:13.5px;color:#F3B5A6;display:flex;gap:8px;align-items:flex-start;line-height:1.45}
-.out::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--dahong);margin-top:.38em}
-.stay{margin-top:12px;font-size:13.5px;color:#A9D8B8;display:flex;gap:8px;align-items:flex-start;line-height:1.45}
-.stay::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;border:2px solid #7CC596;margin-top:.33em}
-.card.core{box-shadow:inset 3px 0 0 var(--moon)}
-
-/* 폰 */
-.phone{background:var(--card);border-radius:34px;padding:26px 20px 24px;border:2px solid var(--rule)}
-.phone h3{font-size:22px}
-.phone .note{margin-top:14px;font-size:13.5px;color:var(--mute)}
+.n{position:absolute;z-index:2;background:var(--sea);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px}
+.n.core{border-color:var(--jeogori);box-shadow:0 0 0 3px rgba(255,216,107,.12)}
+.n.ext{background:var(--deep)}
+.n.ext.ai{border-color:var(--lotus)}
+.n.store{background:transparent;border-style:dashed}
+.t{display:flex;align-items:center;gap:10px}
+.t svg{flex:none;width:30px;height:30px;color:var(--jeogori)}
+.n.ext .t svg,.n.store .t svg{color:var(--mist)}
+.n.ext.ai .t svg{color:var(--lotus)}
+.t h3{font-size:19px;font-weight:800;letter-spacing:-.2px;white-space:nowrap}
+.t .port{margin-left:auto;font-size:12.5px;color:var(--mist);font-family:"JetBrains Mono",monospace}
+.d{font-size:14px;line-height:1.55;color:var(--mist);margin-top:8px}
+.d b{color:var(--hanji);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.chips span{font-size:12px;font-weight:600;color:#CBD3EE;background:rgba(169,177,209,.13);border-radius:5px;padding:3px 7px;white-space:nowrap}
+.chips span.y{background:var(--jeogori);color:var(--deep)}
+.rows{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin-top:10px;font-size:13.5px}
+.rows dt{color:var(--jeogori);font-weight:700;white-space:nowrap}
+.rows dd{color:#D7DCEE}
+.n.ai .rows dt{color:var(--lotus)}
+.tag{display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:13px;line-height:1.45}
+.tag svg{flex:none;width:16px;height:16px;margin-top:1px}
+.tag.out{color:var(--lotus)}
+.tag.stay{color:var(--mint)}
 
 /* 들어오는 길 */
-.lane{display:flex;flex-direction:column;align-items:center;gap:0;padding-top:120px}
-.hop{width:118px;text-align:center;background:var(--deep);border:1.5px solid var(--rule);border-radius:10px;padding:10px 6px;font-size:13px;line-height:1.35;color:#D3DAEB}
-.hop b{display:block;font-size:13.5px;color:var(--ink);word-break:break-all}
-.hop small{display:block;color:var(--faint);font-size:12px;margin-top:2px}
-.hop + .hop{margin-top:34px}
-.lane .proto{margin-top:22px;font-size:12.5px;color:var(--mute);text-align:center;line-height:1.5}
+.hop{position:absolute;z-index:2;width:176px;height:56px;background:var(--deep);border:1.5px solid var(--line);border-radius:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.hop b{font-size:14.5px;font-weight:700}
+.hop small{font-size:12px;color:var(--mist);margin-top:2px}
 
-/* 젯슨 판 */
-.box{background:var(--deep);border-radius:22px;padding:22px 22px 24px;border:1.5px solid #22386E}
-.box-head{display:flex;align-items:baseline;gap:14px;margin-bottom:4px}
-.box-head h2{font-family:"Song Myung","AppleMyungjo",serif;white-space:nowrap;font-size:36px;font-weight:400;letter-spacing:-.01em}
-.box-head .host{font-size:14px;color:var(--mute)}
-.box-sub{font-size:14px;color:var(--mute)}
-.mem{margin:14px 0 18px}
-.mem .bar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#1A2A55}
-.mem .bar i{display:block;height:100%;border-right:2px solid var(--deep)}
-.mem .bar i:last-child{border-right:0}
-.mem .cap{display:flex;justify-content:space-between;font-size:12.5px;color:var(--faint);margin-top:6px}
-.mem .cap b{color:var(--mute);font-weight:600}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
-.grid2 > div > .card + .card{margin-top:14px}
-.data{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin-top:14px}
-.card.store{background:transparent;border:1.5px dashed var(--rule)}
-.card.side{background:#16264F}
-.card .attach{margin-top:12px;border-top:1px solid var(--rule);padding-top:10px;font-size:13.5px;color:#C9D2E8}
-.card .attach b{color:var(--ink)}
+/* 폰 */
+.phone{position:absolute;z-index:2;background:var(--sea);border:2px solid var(--jeogori);border-radius:34px;padding:22px 18px}
+.phone .big{display:flex;justify-content:center;margin-bottom:10px}
+.phone .big svg{width:54px;height:54px;color:var(--jeogori)}
+.phone h3{text-align:center;font-size:21px;font-weight:800}
+.phone .sub{text-align:center;font-size:13.5px;color:var(--mist);margin-top:4px}
+.phone ul{list-style:none;margin-top:14px;display:grid;gap:8px}
+.phone li{display:flex;gap:8px;font-size:13.5px;line-height:1.45;color:#D7DCEE}
+.phone li svg{flex:none;width:17px;height:17px;color:var(--mist);margin-top:1px}
 
-.models{margin-top:12px;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:13.5px}
-.models dt{color:var(--moon);font-weight:700;white-space:nowrap}
-.models dd{color:#D3DAEB}
-.pair{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
-.pair .card + .card{margin-top:0}
-.train{margin-top:14px;border:1.5px dashed var(--rule);border-radius:14px;padding:16px 18px}
-.train h3{font-size:17px}
-.train p{font-size:14px;color:#C9D2E8;margin-top:6px}
+/* 흐름 표 */
+.steps{position:absolute;left:64px;right:64px;top:1330px}
+.steps h4{font-size:19px;font-weight:800;margin-bottom:14px}
+.steps h4 span{font-size:15px;font-weight:500;color:var(--mist);margin-left:10px}
+.srow{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.s{background:var(--tide);border-radius:14px;padding:14px 14px 15px}
+.s .no{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--jeogori);color:var(--deep);font-weight:800;font-size:15px;align-items:center;justify-content:center}
+.s .no.p{background:var(--lotus)}
+.s b{display:block;font-size:15.5px;font-weight:800;margin-top:9px}
+.s p{font-size:13px;line-height:1.5;color:var(--mist);margin-top:4px}
+.foot{position:absolute;left:64px;right:64px;bottom:36px;display:flex;justify-content:space-between;font-size:14px;color:var(--mist)}
 
-/* 바깥 */
-.ext{margin-top:34px}
-.ext .row{display:grid;grid-template-columns:1.5fr repeat(5,1fr);gap:14px;align-items:stretch}
-.ext .row .card{margin-top:0}
-.ext .card{background:transparent;border:1.5px solid var(--rule);padding:14px 16px}
-.ext .card h3{font-size:17px}
-.ext .card .what{font-size:13.5px}
-.ext .card.ai{border-color:var(--dahong)}
-.ext dl{margin-top:8px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13.5px}
-.ext dt{font-weight:700;color:var(--ink)}
-.ext dd{color:#C9D2E8}
+svg#wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:visible}
+.badge{position:absolute;z-index:4;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:var(--jeogori);color:var(--deep);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--sea)}
+.badge.p{background:var(--lotus)}
+.wl{position:absolute;z-index:4;font-size:12.5px;color:var(--mist);background:var(--tide);padding:1px 6px;border-radius:5px;white-space:nowrap}
+.wl.y{color:var(--jeogori)}
+.wl.p{color:var(--lotus)}
+.wl.o{background:var(--sea)}
+</style></head><body>
 
-/* 바닥 */
-footer{margin-top:52px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px;border-top:1px solid var(--rule);padding-top:26px}
-footer h4{font-size:15px;font-weight:700;margin-bottom:6px}
-footer p{font-size:14px;color:var(--mute);line-height:1.6}
-.sign{margin-top:34px;display:flex;justify-content:space-between;font-size:14px;color:var(--faint)}
-.sign b{font-family:"Song Myung","AppleMyungjo",serif;font-weight:400;color:var(--mute);font-size:20px;margin-right:10px}
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5h3l1.6-2.5h6.8L17 7.5h3a1 1 0 0 1 1 1V18a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8.5a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5h4"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7.5 3v6c0 4.6-3.2 8.2-7.5 9.4-4.3-1.2-7.5-4.8-7.5-9.4v-6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5a3 3 0 0 0-3 3 3 3 0 0 0-2 5.2A3.2 3.2 0 0 0 7 18a2.8 2.8 0 0 0 5 1.2V5.8A2.6 2.6 0 0 0 9 4.5z"/><path d="M15 4.5a3 3 0 0 1 3 3 3 3 0 0 1 2 5.2A3.2 3.2 0 0 1 17 18a2.8 2.8 0 0 1-5 1.2"/><path d="M8.5 10.5h1.5M15.5 13.5H14"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-hanger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9.5V8.2a2.2 2.2 0 1 0-2.2-2.2"/><path d="M12 9.5l-9 6.3a1 1 0 0 0 .6 1.8h16.8a1 1 0 0 0 .6-1.8z"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 3.5L3 6.5l2 4.5 2.5-1V20.5h9V10l2.5 1 2-4.5-5.5-3a3.5 3.5 0 0 1-7 0z"/></symbol>
+  <symbol id="i-face" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.8"/><path d="M9 10h.01M15 10h.01M8.8 14.5a4.2 4.2 0 0 0 6.4 0"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 18.5h10a3.5 3.5 0 0 0 .3-7 5 5 0 0 0-9.6-.9A3.9 3.9 0 0 0 7.5 18.5z"/><path d="M5 4.5l1 1M2.5 10H4M10 2.5V4"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z"/></symbol>
+  <symbol id="i-vec" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="9" cy="18" r="2"/><circle cx="17" cy="17" r="2"/><path d="M7.7 7.2l7.6 7.9M8 6.3l8 1.4M9.6 16.1l6.5-6.3"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10.5l-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9z"/><path d="M19 16.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.2 11.8L20 3M16.5 6.5l2.5 2.5M14.5 8.5l2 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol>
+ </defs>
+</svg>
 
-#wires{position:absolute;inset:0;pointer-events:none;overflow:visible}
-</style>
-</head>
-<body>
 <div class="page" id="page">
 
-<header>
-  <div>
-    <h1>심청이 아키텍처</h1>
-    <p class="lede">앱은 HTTPS로 gateway 하나만 부릅니다. <b>agent</b>가 MCP 서버 다섯에서 날씨·일정·옷 상태·얼굴·옷장을 모아 GPT로 판단해요.
-    서버는 <b>젯슨 오린 나노 두 대</b>에 나눠 올렸어요. 한 대는 앱 서버와 DB, 다른 한 대는 우리가 학습한 모델을 돌리는 MCP 서버와 학습을 맡아요.</p>
-  </div>
-  <div class="key">
-    <div><svg width="56" height="10"><line x1="0" y1="5" x2="56" y2="5" stroke="#F5C84B" stroke-width="3"/></svg><span>옷 추천·옷 확인이 지나가는 길 (MCP, Streamable HTTP)</span></div>
-    <div><svg width="56" height="10"><line x1="0" y1="5" x2="56" y2="5" stroke="#6F86C0" stroke-width="2.2"/></svg><span>그 밖의 호출 (HTTPS, JDBC)</span></div>
-    <div><svg width="56" height="10"><line x1="0" y1="5" x2="56" y2="5" stroke="#6F86C0" stroke-width="2" stroke-dasharray="5 5"/></svg><span>젯슨끼리는 Tailscale 사설망 (100.x)</span></div>
-    <div><svg width="56" height="12"><circle cx="6" cy="6" r="5" fill="#EC5B3F"/></svg><span>사진이나 글이 외부 AI로 나가는 곳</span></div>
-    <div><svg width="56" height="12"><circle cx="6" cy="6" r="4.5" fill="none" stroke="#7CC596" stroke-width="2"/></svg><span>밖으로 보내지 않고 우리 서버에서만 보는 곳</span></div>
-    <p class="stamp">2026년 11월 21일, 두 젯슨에 떠 있는 서버와 레포 develop(11월 20일)을 대조했어요.</p>
-  </div>
-</header>
-
-<div class="stage">
-
-  <!-- 폰 -->
-  <section>
-    <p class="col-title"><b>폰</b>iOS, Android</p>
-    <div class="phone" id="app">
-      <h3>심청이 앱</h3>
-      <p class="what">Flutter로 만든 앱. 화면보다 소리로 쓰도록 만들었어요.</p>
-      <ul>
-        <li>정해 둔 이름을 부르면 듣기 시작 (핸즈프리). 시리 단축어로도 불러요</li>
-        <li>안내 목소리는 서버 목소리 7가지 중 하나, 안 되면 폰 TTS</li>
-        <li>옷·얼굴 구도를 소리로 안내하고, 잘 들어오면 알아서 찍기</li>
-        <li>일정 알림: 며칠 전 아침 8시(또는 정한 시각)와 당일 아침, 폰에서 띄워요</li>
-        <li>로그인은 구글. 개발용 기기 로그인도 있어요</li>
-      </ul>
-      <div class="stack">
-        <span>Flutter</span><span>speech_to_text</span><span>flutter_tts</span><span>audioplayers</span><span>record</span><span>camera</span>
-        <span>ML Kit 물체·포즈·얼굴</span><span>Firebase Auth</span><span>google_sign_in</span><span>local_notifications</span><span>geolocator</span>
-      </div>
-      <p class="note">찍은 사진은 갤러리에 남기지 않아요. 잠깐 쓰고 지워요.</p>
-    </div>
-  </section>
-
-  <!-- 들어오는 길 -->
-  <section>
-    <p class="col-title"><b>들어오는 길</b></p>
-    <div class="lane">
-      <div class="hop" id="hop1"><b>simcheong<br>.java21.net</b><small>리버스 프록시</small></div>
-      <div class="hop" id="hop2"><b>Tailscale Funnel</b><small>공개 주소를 젯슨으로</small></div>
-      <div class="hop" id="hop3"><b>Nginx</b><small>:80, 사진 20MB까지</small></div>
-      <p class="proto">REST<br>+ 우리 JWT</p>
-    </div>
-  </section>
-
-  <!-- 젯슨 1: team4 -->
-  <section>
-    <div class="box" id="team4">
-      <div class="box-head"><h2>앱 서버</h2><span class="host">젯슨 오린 나노 8GB, team4</span></div>
-      <p class="box-sub">Java 21, Spring Boot 4.0.9, Spring AI 2.0.2. 컨테이너 9개를 Docker Compose로 띄워요.</p>
-      <div class="mem">
-        <div class="bar" id="mem1"></div>
-        <div class="cap"><span>컨테이너별 메모리 상한</span><b>합계 5.3GB / 7.6GB</b></div>
-      </div>
-      <div class="grid2">
-        <div>
-          <div class="card" id="gateway">
-            <h3>gateway</h3>
-            <p class="what">앱이 부르는 유일한 입구. 로그인과 회원정보, 말 듣기·읽기도 여기서 해요.</p>
-            <ul>
-              <li>경로별로 agent, mcp-schedule에 넘겨요</li>
-              <li>구글(Firebase) ID 토큰을 확인하고 우리 JWT를 발급 (1시간, 갱신 30일)</li>
-              <li>회원정보: 이름·호칭·말 빠르기 등, 항목마다 건너뛰기</li>
-              <li>사용량 제한: 1분에 요청 30번, 사진 10장</li>
-              <li><code>/stt</code> 음성 인식, <code>/tts</code> 안내 목소리</li>
-            </ul>
-            <div class="stack"><span>Spring Cloud Gateway (Web MVC)</span><span>가상 스레드</span><span>Nimbus JOSE</span><span>JdbcClient</span><span>Flyway</span></div>
-            <div class="attach"><b>edge-tts</b> 옆 컨테이너 (Python). Edge 목소리 선희·인준·현수를 키 없이 읽어요.</div>
-            <p class="out">음성 인식은 OpenAI, 목소리는 Azure Speech와 Edge로 보내요</p>
-          </div>
-          <div class="card core" id="agent">
-            <h3>agent</h3>
-            <p class="what">대화를 이끌고 옷을 판단하는 두뇌. MCP 서버 다섯에 클라이언트로 붙어 있어요.</p>
-            <ul>
-              <li>말을 의도로 나눠 옷 추천·옷 확인·색 조합·날씨·얼굴·옷장은 정해진 순서로 도구를 불러요</li>
-              <li>일정 넣기·지우기 같은 나머지만 GPT가 도구를 골라요</li>
-              <li>같은 옷인지 애매하면 옷 부분 작은 사진 두 장을 GPT로 비교</li>
-            </ul>
-            <div class="stack"><span>Spring AI ChatClient</span><span>MCP 클라이언트</span><span>gpt-5.4-mini</span><span>Redis 대화 상태</span></div>
-            <p class="out">판단 문장과 옷 작은 사진을 OpenAI로 보내요</p>
-          </div>
-        </div>
-        <div>
-          <div class="card" id="schedule">
-            <h3>mcp-schedule <span class="port">:8092</span></h3>
-            <p class="what">일정과 자리·장소 종류, 아침 브리핑, 격식 있는 날 드라이클리닝 안내, 알림 설정.</p>
-            <div class="tools"><span class="tool">schedule_add</span><span class="tool">_list</span><span class="tool">_delete</span><span class="tool">_briefing</span><span class="tool">_set_reminder</span></div>
-            <div class="stack"><span>@McpTool</span><span>JPA</span><span>Flyway V5</span><span>카카오 로컬 API</span></div>
-          </div>
-          <div class="card core" id="closet">
-            <h3>mcp-closet <span class="port">:8095</span></h3>
-            <p class="what">확인한 옷과 입은 날을 기록하고, 상황에 맞는 내 옷과 코디 지식을 찾아요(RAG). 추천 문장은 agent의 GPT가 만들어요.</p>
-            <ul>
-              <li>같은 옷은 사진 벡터로 한 벌로 합치기</li>
-              <li>옷장 읽어 주기, 말로 지우기, 그날 입은 옷 찾기</li>
-            </ul>
-            <div class="tools"><span class="tool">closet_save</span><span class="tool">_wear</span><span class="tool">_search</span><span class="tool">_list</span><span class="tool">_outfits</span><span class="tool">_remove</span><span class="tool">_merge</span></div>
-            <div class="stack"><span>Spring AI VectorStore</span><span>pgvector HNSW</span><span>multilingual-e5-small</span><span>FashionSigLIP 사진·글 벡터</span></div>
-          </div>
-          <div class="card side" id="so400m">
-            <h3>so400m-embed <span class="port">:8096</span></h3>
-            <p class="what">SigLIP2 So400m 이미지 벡터를 GPU에서 뽑아요. 옷 종류가 아주 애매한 옷만 clothes-state가 물어보고, 0.8초 안에 답이 없으면 원래 결과를 써요.</p>
-            <div class="stack"><span>Python</span><span>open_clip</span><span>CUDA fp16</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="data">
-        <div class="card store" id="pg">
-          <h3>PostgreSQL 17 + pgvector</h3>
-          <p class="what">서비스마다 스키마 하나: account(gateway), schedule, closet. 스키마끼리는 FK 없이 <code>user_id</code>만 같이 써요.</p>
-        </div>
-        <div class="card store" id="redis">
-          <h3>Redis 7</h3>
-          <p class="what">agent의 대화 상태. 디스크에 남기지 않아요.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 젯슨 2: fashion-agent -->
-  <section>
-    <div class="box" id="orin">
-      <div class="box-head"><h2>모델 서버</h2><span class="host">젯슨 오린 나노 8GB</span></div>
-      <p class="box-sub">8GB 한 대에 다 안 들어가서 무거운 사진 분석 모델과 학습을 이 젯슨으로 옮겼어요. MCP라 agent는 주소만 바꾸면 됐어요. 모델은 ONNX Runtime으로 돌려요.</p>
-      <div class="mem">
-        <div class="bar" id="mem2"></div>
-        <div class="cap"><span>서버 상한, 나머지는 학습</span><b>3.3GB / 7.3GB</b></div>
-      </div>
-      <div class="card core" id="clothes">
-        <h3>mcp-clothes-state <span class="port">:8093</span></h3>
-        <p class="what">사진 속 옷 한 벌마다 종류·색·무늬·얼룩·찢어짐을 보고, 고른 옷끼리 색이 어울리는지 따져요. 입은 사진은 뒤집힘·단추·택도 봐요.</p>
-        <dl class="models">
-          <dt>얼룩·찢어짐</dt><dd>YOLO26n v6</dd>
-          <dt>옷 종류 12</dt><dd>YOLO26n, 애매하면 so400m에 다시 물음</dd>
-          <dt>색 20가지</dt><dd>작은 CNN (K-Fashion)</dd>
-          <dt>무늬 8</dt><dd>FashionSigLIP + LoRA와 YOLO26n을 7:3으로</dd>
-          <dt>입은 모습</dt><dd>YOLO26n 뒤집힘·단추·택</dd>
-          <dt>옷 벡터</dt><dd>FashionSigLIP 768차원, 옷장이 같은 옷 찾는 데 써요</dd>
-        </dl>
-        <div class="tools"><span class="tool">clothes_inspect</span><span class="tool">outfit_color_check</span></div>
-        <p class="out">애매한 얼룩·무늬만, 사용자가 동의하면 그 부분을 잘라 얼굴을 가리고 gpt-4.1-mini에 한 번 더 물어요</p>
-      </div>
-      <div class="pair"><div class="card core" id="face">
-        <h3>mcp-face-check <span class="port">:8094</span></h3>
-        <p class="what">화장이 좌우 고른지(눈썹 길이·두께, 입술 너비, 볼, 눈화장), 이 사이에 뭐가 끼었는지 봐요.</p>
-        <dl class="models">
-          <dt>윤곽점</dt><dd>앱의 ML Kit가 보내 줘요</dd>
-          <dt>얼굴 분할</dt><dd>BiSeNet ResNet34</dd>
-          <dt>좌우 비교</dt><dd>CelebA로 학습, 기준은 FFHQ 실사진</dd>
-          <dt>눈화장</dt><dd>ResNet18 세 개 앙상블</dd>
-          <dt>치아</dt><dd>MobileNetV3-Small</dd>
-        </dl>
-        <div class="tools"><span class="tool">face_makeup_check</span><span class="tool">teeth_check</span></div>
-        <p class="stay">얼굴·치아 사진은 외부 AI로 보내지 않아요</p>
-      </div>
-      <div class="card core" id="weather">
-        <h3>mcp-weather <span class="port">:8091</span></h3>
-        <p class="what">오늘과 16일 안 날짜별 날씨, 겉옷·우산 참고값. Open-Meteo가 안 되면 MET Norway로 받아요.</p>
-        <div class="tools"><span class="tool">weather_today</span><span class="tool">weather_forecast</span></div>
-        <div class="stack"><span>RestClient</span><span>Caffeine 30분</span></div>
-      </div></div>
-      <div class="train">
-        <h3>학습도 이 기기에서</h3>
-        <p>PyTorch, Ultralytics로 학습해 ONNX로 내보내요. 학습 사진은 외부 AI로 보내지 않아요. 지금은 눈화장 모델을 이어서 학습하고 있어요.</p>
-      </div>
-    </div>
-  </section>
-
-
+<div class="head">
+ <h1>심청이 아키텍처</h1>
+ <p>"오늘 뭐 입지?" 한마디가 목소리 답으로 돌아오기까지 <b>① → ⑦</b> 순서로 따라가 보세요. 앱은 gateway 하나만 부르고, <b>agent</b>가 MCP 서버 다섯에서 날씨·일정·옷장·옷 상태·얼굴 결과를 모아 GPT로 판단해요. 서버는 <b>젯슨 오린 나노 두 대</b>에 나눠 올렸어요.</p>
 </div>
 
-<section class="ext">
-    <p class="col-title"><b>바깥 서비스</b>키가 필요한 곳은 gateway와 각 서버의 환경 변수로만 받아요</p>
-    <div class="row">
-    <div class="card ai" id="openai">
-      <h3>OpenAI</h3>
-      <dl>
-        <dt>gpt-5.4-mini</dt><dd>agent 판단, 같은 옷 비교</dd>
-        <dt>gpt-4o-mini-transcribe</dt><dd>음성 인식</dd>
-        <dt>gpt-4.1-mini</dt><dd>애매한 얼룩·무늬 확인</dd>
-      </dl>
-    </div>
-    <div class="card" id="azure"><h3>Azure Speech</h3><p class="what">신경망 목소리 유진·지민·서현·순복</p></div>
-    <div class="card" id="edge"><h3>Microsoft Edge 읽기</h3><p class="what">선희·인준·현수. 키 없이 edge-tts로</p></div>
-    <div class="card" id="firebase"><h3>Firebase Auth</h3><p class="what">구글 로그인. gateway는 구글 공개 키로 토큰만 확인해요</p></div>
-    <div class="card" id="kakao"><h3>카카오 로컬</h3><p class="what">장소 이름으로 예식장·장례식장 같은 종류 찾기</p></div>
-    <div class="card" id="meteo"><h3>Open-Meteo, MET Norway</h3><p class="what">날씨. 둘 다 키 없음</p></div>
-    </div>
-</section>
+<div class="key">
+ <svg width="62" height="14"><line x1="2" y1="7" x2="50" y2="7" stroke="#FFD86B" stroke-width="3.2"/><path d="M50 2 L60 7 L50 12z" fill="#FFD86B"/></svg><span><b>노랑</b> 요청 한 번이 지나가는 길, 번호는 순서</span>
+ <svg width="62" height="14"><line x1="2" y1="7" x2="50" y2="7" stroke="#F7A1B5" stroke-width="2.6"/><path d="M50 2 L60 7 L50 12z" fill="#F7A1B5"/></svg><span><b>분홍</b> 우리 서버 밖(바깥 서비스)으로 나가는 데이터</span>
+ <svg width="62" height="14"><line x1="2" y1="7" x2="50" y2="7" stroke="#7F8FC4" stroke-width="2.2"/><path d="M50 2 L60 7 L50 12z" fill="#7F8FC4"/></svg><span><b>파랑</b> 그 밖의 안쪽 호출 (REST, JDBC)</span>
+ <svg width="62" height="14"><line x1="2" y1="7" x2="60" y2="7" stroke="#7F8FC4" stroke-width="2.2" stroke-dasharray="6 6"/></svg><span><b>점선</b> 젯슨끼리는 Tailscale 사설망</span>
+ <svg width="62" height="18" style="color:#8FD9B6"><use href="#i-lock" x="0" y="0" width="18" height="18"/></svg><span><b>초록</b> 밖으로 안 보내고 우리 서버에서만 보는 곳</span>
+</div>
 
-<footer>
-  <div>
-    <h4>배포</h4>
-    <p>각 젯슨에서 레포를 받아 arm64 이미지를 직접 빌드하고 Docker Compose로 띄워요. 키와 비밀번호는 젯슨의 .env에만 두고 앱과 레포에는 넣지 않아요.</p>
-  </div>
-  <div>
-    <h4>검사</h4>
-    <p>레포마다 GitHub Actions가 PR을 빌드하고 테스트해요. 브랜치는 feature → develop → main.</p>
-  </div>
-  <div>
-    <h4>약속 문서</h4>
-    <p>API와 MCP 도구 입출력은 앱 레포 docs/contracts가 기준이에요. 바꿀 때는 약속 문서부터 고쳐요.</p>
-  </div>
-</footer>
-<div class="sign"><span><b>팀 심청이</b>이진행, 박창근, 정지원</span><span>github.com/fashion-agent-team</span></div>
+<!-- 판 -->
+<div class="board" style="left:560px;top:300px;width:830px;height:830px">
+ <div class="bh"><b>앱 서버 젯슨</b><span>team4 · Orin Nano 8GB · Java 21, Spring Boot 4, Spring AI 2 · Docker Compose</span></div>
+</div>
+<div class="board" style="left:1420px;top:300px;width:376px;height:830px">
+ <div class="bh"><b>모델 서버 젯슨</b><span>Orin Nano 8GB · ONNX Runtime</span></div>
+</div>
 
-<svg id="wires"></svg>
+<div class="lbl" style="left:64px;top:302px"><b>폰</b>iOS, Android</div>
+<div class="lbl" style="left:354px;top:302px"><b>들어오는 길</b></div>
+<div class="lbl" style="left:260px;top:692px"><b>바깥 서비스</b>키는 서버 환경 변수에만</div>
+<div class="lbl" style="left:1500px;top:1150px"><b>바깥 데이터</b>위치·장소 이름만 나가요</div>
+
+<!-- 폰 -->
+<div class="phone" id="app" style="left:64px;top:340px;width:228px">
+ <div class="big"><svg><use href="#i-phone"/></svg></div>
+ <h3>심청이 앱</h3>
+ <p class="sub">Flutter · 소리로 쓰는 앱</p>
+ <ul>
+  <li><svg><use href="#i-mic"/></svg>이름 부르면 듣기 시작</li>
+  <li><svg><use href="#i-cam"/></svg>구도를 소리로 안내, 알아서 찍기 (ML Kit)</li>
+  <li><svg><use href="#i-speaker"/></svg>답을 목소리로 읽기</li>
+  <li><svg><use href="#i-bell"/></svg>일정 알림은 폰이 띄워요</li>
+ </ul>
+</div>
+
+<!-- 들어오는 길 -->
+<div class="hop" id="hop1" style="left:354px;top:356px"><b>simcheong.java21.net</b><small>도메인 · 리버스 프록시</small></div>
+<div class="hop" id="hop2" style="left:354px;top:458px"><b>Tailscale Funnel</b><small>공개 주소 → 젯슨</small></div>
+<div class="hop" id="hop3" style="left:354px;top:560px"><b>Nginx</b><small>:80 · 사진 20MB까지</small></div>
+
+<!-- 바깥 (왼쪽) -->
+<div class="n ext" id="azure" style="left:260px;top:730px;width:268px">
+ <div class="t"><svg><use href="#i-wave"/></svg><h3>Azure · Edge 목소리</h3></div>
+ <p class="d">답 문장을 목소리 7가지 중 하나로</p>
+</div>
+<div class="n ext ai" id="openai" style="left:260px;top:845px;width:268px">
+ <div class="t"><svg><use href="#i-spark"/></svg><h3>OpenAI</h3></div>
+ <dl class="rows">
+  <dt>4o-mini-transcribe</dt><dd>말 → 글</dd>
+  <dt>gpt-5.4-mini</dt><dd>agent 판단</dd>
+  <dt>gpt-4.1-mini</dt><dd>애매한 얼룩</dd>
+ </dl>
+</div>
+<div class="n ext" id="firebase" style="left:64px;top:730px;width:176px">
+ <div class="t"><svg><use href="#i-key"/></svg><h3>Firebase</h3></div>
+ <p class="d">구글 로그인. gateway는 공개 키로 토큰만 확인</p>
+</div>
+
+<!-- 앱 서버 -->
+<div class="n" id="gateway" style="left:600px;top:370px;width:360px;height:270px">
+ <div class="t"><svg><use href="#i-shield"/></svg><h3>gateway</h3><span class="port">유일한 입구</span></div>
+ <p class="d">앱이 부르는 곳은 여기 하나. 경로별로 agent와 mcp-schedule에 넘겨요.</p>
+ <dl class="rows">
+  <dt>로그인</dt><dd>구글 토큰 확인 → 우리 JWT 발급</dd>
+  <dt>/stt</dt><dd>말 → 글 (OpenAI)</dd>
+  <dt>/tts</dt><dd>글 → 목소리 (Azure, edge-tts)</dd>
+  <dt>제한</dt><dd>1분에 요청 30번, 사진 10장</dd>
+ </dl>
+ <div class="chips"><span>Spring Cloud Gateway</span><span>Nimbus JOSE</span><span>Flyway</span></div>
+</div>
+<div class="n core" id="agent" style="left:600px;top:690px;width:360px">
+ <div class="t"><svg><use href="#i-brain"/></svg><h3>agent</h3><span class="port">두뇌</span></div>
+ <p class="d">말을 의도로 나누고, 옷 추천·옷 확인은 <b>정해진 순서로 MCP 도구</b>를 불러요. 모은 결과로 GPT가 판단하고 답 문장을 만들어요.</p>
+ <div class="chips"><span class="y">MCP 클라이언트 ×5</span><span>Spring AI ChatClient</span><span>gpt-5.4-mini</span></div>
+</div>
+<div class="n" id="schedule" style="left:1010px;top:370px;width:350px">
+ <div class="t"><svg><use href="#i-cal"/></svg><h3>mcp-schedule</h3><span class="port">:8092</span></div>
+ <p class="d">일정, 장소 종류(예식장·장례식장), 아침 브리핑, 알림 시각</p>
+</div>
+<div class="n" id="closet" style="left:1010px;top:515px;width:350px">
+ <div class="t"><svg><use href="#i-hanger"/></svg><h3>mcp-closet</h3><span class="port">:8095</span></div>
+ <p class="d">확인한 옷과 입은 날 기록, 상황에 맞는 내 옷 + 코디 지식 찾기 <b>(RAG)</b></p>
+ <div class="chips"><span>pgvector HNSW</span><span>e5-small 글 벡터</span></div>
+</div>
+<div class="n" id="so400m" style="left:1010px;top:680px;width:350px">
+ <div class="t"><svg><use href="#i-chip"/></svg><h3>so400m-embed</h3><span class="port">:8096</span></div>
+ <p class="d">옷 종류가 아주 애매할 때만 GPU로 다시 봐요</p>
+</div>
+<div class="n store" id="pg" style="left:600px;top:985px;width:470px">
+ <div class="t"><svg><use href="#i-db"/></svg><h3>PostgreSQL 17 + pgvector</h3></div>
+ <p class="d">스키마 셋: <b>account</b> ← gateway · <b>schedule</b> ← mcp-schedule · <b>closet</b> ← mcp-closet</p>
+</div>
+<div class="n store" id="redis" style="left:1090px;top:985px;width:270px">
+ <div class="t"><svg><use href="#i-bolt"/></svg><h3>Redis 7</h3></div>
+ <p class="d">agent 대화 상태, 디스크에 안 남김</p>
+</div>
+
+<!-- 모델 서버 -->
+<div class="n core" id="weather" style="left:1440px;top:370px;width:336px">
+ <div class="t"><svg><use href="#i-sun"/></svg><h3>mcp-weather</h3><span class="port">:8091</span></div>
+ <p class="d">오늘·16일 안 날씨, 겉옷·우산 참고값</p>
+</div>
+<div class="n core" id="clothes" style="left:1440px;top:500px;width:336px">
+ <div class="t"><svg><use href="#i-shirt"/></svg><h3>mcp-clothes-state</h3><span class="port">:8093</span></div>
+ <p class="d">옷 한 벌마다 <b>직접 학습한 모델</b>로 봐요</p>
+ <dl class="rows">
+  <dt>얼룩·찢어짐</dt><dd>YOLO26n</dd>
+  <dt>종류 12</dt><dd>YOLO26n</dd>
+  <dt>색 20 · 무늬 8</dt><dd>CNN · SigLIP+LoRA</dd>
+  <dt>옷 벡터</dt><dd>FashionSigLIP 768</dd>
+ </dl>
+ <p class="tag out"><svg><use href="#i-out"/></svg>애매한 얼룩·무늬만, 동의하면 그 조각만 잘라 OpenAI로</p>
+</div>
+<div class="n core" id="face" style="left:1440px;top:810px;width:336px">
+ <div class="t"><svg><use href="#i-face"/></svg><h3>mcp-face-check</h3><span class="port">:8094</span></div>
+ <p class="d">화장 좌우 대칭(BiSeNet), 이에 낀 것(MobileNetV3)</p>
+ <p class="tag stay"><svg><use href="#i-lock"/></svg>얼굴·치아 사진은 밖으로 안 보내요</p>
+</div>
+<div class="n" style="left:1440px;top:990px;width:336px;background:transparent;border-style:dashed">
+ <div class="t"><svg style="color:var(--mist)"><use href="#i-vec"/></svg><h3 style="font-size:17px">학습도 이 기기에서</h3></div>
+ <p class="d">PyTorch·Ultralytics → ONNX. 학습 사진도 밖으로 안 보내요</p>
+</div>
+
+<!-- 바깥 데이터 (아래) -->
+<div class="n ext" id="kakao" style="left:1140px;top:1190px;width:260px;padding:12px 16px">
+ <div class="t"><svg style="width:24px;height:24px"><use href="#i-pin"/></svg><h3 style="font-size:17px">카카오 로컬</h3></div>
+ <p class="d" style="margin-top:4px">장소 이름 → 종류</p>
+</div>
+<div class="n ext" id="meteo" style="left:1500px;top:1190px;width:296px;padding:12px 16px">
+ <div class="t"><svg style="width:24px;height:24px"><use href="#i-sun"/></svg><h3 style="font-size:17px">Open-Meteo · MET Norway</h3></div>
+ <p class="d" style="margin-top:4px">날씨, 키 없음</p>
+</div>
+
+<!-- 흐름 -->
+<div class="steps">
+ <h4>요청 한 번의 흐름<span>"이 옷 오늘 입어도 돼?" 하고 옷을 비췄을 때</span></h4>
+ <div class="srow">
+  <div class="s"><span class="no">1</span><b>말과 사진 보내기</b><p>앱이 HTTPS + 우리 JWT로 gateway에 보내요</p></div>
+  <div class="s"><span class="no p">2</span><b>말 → 글</b><p>gateway가 녹음을 OpenAI 음성 인식에 보내 글로 바꿔요</p></div>
+  <div class="s"><span class="no">3</span><b>agent에게</b><p>글과 사진을 agent에 넘겨요</p></div>
+  <div class="s"><span class="no">4</span><b>MCP 도구 부르기</b><p>날씨·일정·옷장, 옷 상태(사진)를 정해진 순서로 불러요. 모델 서버는 사설망으로</p></div>
+  <div class="s"><span class="no p">5</span><b>GPT 판단</b><p>모은 결과(글)로 gpt-5.4-mini가 판단하고 답 문장을 써요</p></div>
+  <div class="s"><span class="no p">6</span><b>글 → 목소리</b><p>gateway가 답 문장을 Azure·Edge 목소리로 바꿔요</p></div>
+  <div class="s"><span class="no">7</span><b>앱이 읽어 줌</b><p>같은 길로 돌아와 앱이 목소리로 들려줘요</p></div>
+ </div>
+</div>
+
+<div class="foot"><span>팀 심청이, 이진행 박창근 정지원</span><span>2026년 11월 23일 · 두 젯슨에 떠 있는 서버 기준 · github.com/fashion-agent-team</span></div>
+
+<svg id="wires" width="1860" height="1640"></svg>
 </div>
 
 <script>
-// 메모리 막대: docker-compose mem_limit 그대로(MB)
-const MEM1=[["agent",448,"#F5C84B"],["closet",1408,"#E9B93C"],["schedule",384,"#5E78B8"],["gateway",320,"#7C93CC"],["edge-tts",96,"#7C93CC"],["so400m",2560,"#8FA3D6"],["postgres",128,"#4A6299"],["redis",48,"#4A6299"],["nginx",32,"#4A6299"]];
-const MEM2=[["clothes-state",2048,"#F5C84B"],["face-check",1024,"#E9B93C"],["weather",320,"#D7A92F"]];
-function bar(id,list,total){const el=document.getElementById(id);
-  list.forEach(([n,mb,c])=>{const i=document.createElement('i');i.style.width=(mb/total*100)+'%';i.style.background=c;i.title=n;el.appendChild(i)});}
-bar('mem1',MEM1,7620);bar('mem2',MEM2,7485);
+const NS='http://www.w3.org/2000/svg', page=document.getElementById('page'), svg=document.getElementById('wires');
+const C={y:'#FFD86B',p:'#F7A1B5',b:'#7F8FC4',sea:'#1C2B5E'};
+svg.innerHTML=`<defs>${Object.entries(C).map(([k,c])=>`<marker id="m${k}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="${k=='y'?5:6}" markerHeight="${k=='y'?5:6}" orient="auto-start-reverse"><path d="M0,0.5 L10,5 L0,9.5 z" fill="${c}"/></marker>`).join('')}</defs>`;
+function R(id){const b=document.getElementById(id).getBoundingClientRect(),P=page.getBoundingClientRect();
+ return{l:b.left-P.left,r:b.right-P.left,t:b.top-P.top,b:b.bottom-P.top,cx:(b.left+b.right)/2-P.left,cy:(b.top+b.bottom)/2-P.top}}
+function line(pts,o={}){const col=o.c||'b',w=o.w||(col=='y'?3.2:2.4);
+ const d='M'+pts.map(p=>p.join(',')).join(' L');
+ if(o.halo){const h=document.createElementNS(NS,'path');h.setAttribute('d',d);h.setAttribute('fill','none');h.setAttribute('stroke',o.halo);h.setAttribute('stroke-width',w+8);svg.appendChild(h)}
+ const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke',C[col]);p.setAttribute('stroke-width',w);
+ p.setAttribute('stroke-linejoin','round');p.setAttribute('stroke-linecap','round');if(o.dash)p.setAttribute('stroke-dasharray',o.dash);
+ if(o.end!==false)p.setAttribute('marker-end',`url(#m${col})`);if(o.start)p.setAttribute('marker-start',`url(#m${col})`);svg.appendChild(p)}
+function badge(n,x,y,pink){const d=document.createElement('div');d.className='badge'+(pink?' p':'');d.textContent=n;d.style.left=x+'px';d.style.top=y+'px';page.appendChild(d)}
+function label(t,x,y,cls=''){const d=document.createElement('div');d.className='wl '+cls;d.textContent=t;d.style.left=x+'px';d.style.top=y+'px';page.appendChild(d)}
 
-// 선 긋기
 function draw(){
-  const page=document.getElementById('page'),svg=document.getElementById('wires');
-  const P=page.getBoundingClientRect();
-  svg.setAttribute('width',P.width);svg.setAttribute('height',P.height);
-  const r=id=>{const b=document.getElementById(id).getBoundingClientRect();return{l:b.left-P.left,r:b.right-P.left,t:b.top-P.top,b:b.bottom-P.top,cx:(b.left+b.right)/2-P.left,cy:(b.top+b.bottom)/2-P.top}};
-  const NS='http://www.w3.org/2000/svg';
-  const path=(d,o={})=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');
-    p.setAttribute('stroke',o.c||'#6F86C0');p.setAttribute('stroke-width',o.w||2.2);if(o.dash)p.setAttribute('stroke-dasharray',o.dash);
-    p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');if(o.arrow)p.setAttribute('marker-end',`url(#${o.arrow})`);svg.appendChild(p);};
-  svg.innerHTML=`<defs>
-   <marker id="aB" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#6F86C0"/></marker>
-   <marker id="aY" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#F5C84B"/></marker></defs>`;
-  const curve=(x1,y1,x2,y2)=>{const m=(x1+x2)/2;return `M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`};
-
-  const app=r('app'),h1=r('hop1'),h2=r('hop2'),h3=r('hop3'),gw=r('gateway'),ag=r('agent'),sc=r('schedule'),cl=r('closet'),so=r('so400m'),
-        t4=r('team4'),orin=r('orin'),clo=r('clothes'),fc=r('face'),we=r('weather');
-  const Y={c:'#F5C84B',w:3,arrow:'aY'};
-  // 폰 → 도메인 → Funnel → Nginx → gateway
-  path(curve(app.r,h1.cy,h1.l-3,h1.cy),{arrow:'aB'});
-  path(`M${h1.cx},${h1.b} L${h1.cx},${h2.t-3}`,{arrow:'aB'});
-  path(`M${h2.cx},${h2.b} L${h2.cx},${h3.t-3}`,{arrow:'aB'});
-  path(curve(h3.r,h3.cy,gw.l-3,gw.t+64),{arrow:'aB'});
-  // gateway → agent
-  path(`M${gw.l+44},${gw.b} L${gw.l+44},${ag.t-3}`,Y);
-  // gateway → mcp-schedule (일정 화면 REST)
-  path(curve(gw.r,gw.t+34,sc.l-3,sc.t+34),{arrow:'aB'});
-  // agent → schedule, closet: 두 열 사이 세로 버스
-  const gx=(gw.r+sc.l)/2;
-  path(`M${ag.r},${ag.t+60} L${gx},${ag.t+60} L${gx},${sc.b-34}`,{c:'#F5C84B',w:3});
-  path(`M${gx},${sc.b-34} L${sc.l-3},${sc.b-34}`,Y);
-  path(`M${gx},${cl.t+44} L${cl.l-3},${cl.t+44}`,Y);
-  // agent → 모델 서버: so400m 아래 빈자리를 지나 오린 왼쪽 버스로 (Tailscale)
-  const busX=(t4.r+orin.l)/2, yB=Math.max(so.b+40, ag.b-46);
-  path(`M${ag.r},${yB} L${busX},${yB} L${busX},${clo.t+34}`,{c:'#F5C84B',w:3});
-  [clo,fc,we].forEach(c=>path(`M${busX},${c.t+34} L${c.l-3},${c.t+34}`,Y));
-  const lbl=document.createElementNS(NS,'text');lbl.setAttribute('x',sc.l+2);lbl.setAttribute('y',yB-12);
-  lbl.setAttribute('fill','#9FB0D4');lbl.setAttribute('font-size','14');
-  lbl.textContent='Tailscale 사설망으로 모델 서버의 MCP 셋';svg.appendChild(lbl);
-  // clothes-state → so400m (애매한 옷 종류만, 점선)
-  const yS=so.t+44;
-  path(`M${clo.l},${yS} L${so.r+3},${yS}`,{dash:'6 6',arrow:'aB'});
-  document.body.setAttribute('data-h',Math.ceil(document.documentElement.scrollHeight));
+ const app=R('app'),h1=R('hop1'),h2=R('hop2'),h3=R('hop3'),gw=R('gateway'),ag=R('agent'),sc=R('schedule'),cl=R('closet'),so=R('so400m'),
+  pg=R('pg'),rd=R('redis'),we=R('weather'),clo=R('clothes'),fc=R('face'),oa=R('openai'),az=R('azure'),fb=R('firebase'),kk=R('kakao'),mt=R('meteo');
+ const G=3;
+ // ① ⑦ 앱 ↔ 도메인 ↔ Funnel ↔ Nginx ↔ gateway
+ line([[app.r+G,h1.cy],[h1.l-G,h1.cy]],{c:'y',start:true});
+ line([[h1.cx,h1.b+G],[h1.cx,h2.t-G]],{c:'y',start:true});
+ line([[h2.cx,h2.b+G],[h2.cx,h3.t-G]],{c:'y',start:true});
+ line([[h3.r+G,h3.cy],[gw.l-G,h3.cy]],{c:'y',start:true});
+ badge('1',(app.r+h1.l)/2,h1.cy-22); badge('7',(app.r+h1.l)/2,h1.cy+22);
+ label('HTTPS + JWT',h3.r+2,h3.cy-30,'y o');
+ // ③ gateway → agent
+ const x3=gw.l+60; line([[x3,gw.b+G],[x3,ag.t-G]],{c:'y'}); badge('3',x3+30,(gw.b+ag.t)/2);
+ // ② gateway → OpenAI 음성 인식 / ⑥ gateway → Azure·Edge
+ const y6=gw.b-30, y2=gw.b-14, xa=544, xb=556;
+ line([[gw.l-G,y6],[xa,y6],[xa,az.cy],[az.r+G,az.cy]],{c:'p'}); badge('6',xa,az.cy-40,true);
+ line([[gw.l-G,y2],[xb,y2],[xb,oa.t+44],[oa.r+G,oa.t+44]],{c:'p'}); badge('2',xb+2,oa.t+6,true);
+ // ⑤ agent → OpenAI 판단
+ const x5=ag.l+24, y5=oa.t+84; line([[x5,ag.b+G],[x5,y5],[oa.r+G,y5]],{c:'p'}); badge('5',x5,(ag.b+y5)/2-4,true);
+ // ④ agent → schedule, closet (안쪽 버스)
+ const bx=(ag.r+sc.l)/2, ya=ag.t+44;
+ line([[ag.r+G,ya],[bx,ya],[bx,sc.t+40]],{c:'y',end:false});
+ line([[bx,sc.t+40],[sc.l-G,sc.t+40]],{c:'y'});
+ line([[bx,cl.t+40],[cl.l-G,cl.t+40]],{c:'y'});
+ badge('4',bx,ya+40);
+ // ④ agent → 모델 서버 (Tailscale)
+ const yb=ag.b-30, bx2=(1390+1420)/2;
+ line([[ag.r+G,yb],[bx2,yb],[bx2,we.t+40]],{c:'y',end:false});
+ [we,clo].forEach(n=>line([[bx2,n.t+40],[n.l-G,n.t+40]],{c:'y'}));
+ line([[bx2,fc.t+40],[fc.l-G,fc.t+40]],{c:'y'});
+ if(yb>fc.t+40) line([[bx2,yb],[bx2,fc.t+40]],{c:'y',end:false});
+ badge('4',(ag.r+so.l)/2+180,yb);
+ label('Tailscale 사설망',so.l+40,yb+10,'y');
+ // gateway → schedule (일정 화면 REST)
+ line([[gw.r+G,gw.t+26],[sc.l-G,gw.t+26]],{c:'b'}); label('일정 화면 REST',gw.r+6,gw.t+2,'o');
+ // agent → Redis
+ line([[ag.r-40,ag.b+G],[ag.r-40,ag.b+20],[rd.cx,ag.b+20],[rd.cx,rd.t-G]],{c:'b',start:true,halo:C.sea});
+ label('대화 상태',rd.cx+8,ag.b+26);
+ // clothes-state → so400m (사설망, 애매할 때만)
+ const yso=Math.max(so.t+18,Math.min(so.cy,clo.b-24)); line([[clo.l-G,yso],[so.r+G,yso]],{c:'b',dash:'6 6',halo:C.sea});
+ // schedule → 카카오, weather → Open-Meteo
+ line([[sc.r+G,sc.cy],[1380,sc.cy],[1380,sc.b+10]],{c:'p',end:false});
+ line([[1380,sc.b+10],[1380,kk.t-G]],{c:'p',halo:C.sea});
+ line([[we.r+G,we.cy],[1786,we.cy],[1786,mt.t-G]],{c:'p',halo:C.sea});
+ // 앱 → Firebase (구글 로그인)
+ line([[fb.cx,app.b+G],[fb.cx,fb.t-G]],{c:'p'});
 }
-const serif=document.querySelectorAll('h1,.box-head h2,.sign b');
-const txt=[...serif].map(e=>e.textContent).join('');
-document.fonts.load('400 40px "Song Myung"',txt).catch(()=>{}).then(()=>document.fonts.ready)
-  .then(()=>{try{draw()}catch(e){document.body.setAttribute('data-err',e.message)}document.body.setAttribute('data-ready','1')});
+document.fonts.ready.then(()=>{try{draw()}catch(e){document.body.setAttribute('data-err',e.message)}document.body.setAttribute('data-ready','1')});
 </script>
-</body>
-</html>
+</body></html>
