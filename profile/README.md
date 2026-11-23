@@ -6,8 +6,6 @@
   <p>📅 <b>개발 기간</b> : 2026.10.27 ~ 2026.11.20 &nbsp;·&nbsp; 👥 <b>팀 심청이</b></p>
 </div>
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122b-effort-hero.png" width="100%" alt="25일 동안 모델 학습 176시간 이상, 눈 화장 반복 학습 396판, 비교한 모델·방식 109가지, 머지한 PR 299개, 커밋 811개, 테스트 578개"/></p>
-
 ## 📖 어떤 앱인가요?
 
 시각장애인이 아침에 옷을 고를 때 가장 어려운 건 **"이 옷이 오늘 맞는지, 얼룩은 없는지"를 혼자 확인하는 일**입니다.
@@ -260,6 +258,8 @@
 <sub>`develop` 앱을 iPhone 17 시뮬레이터에서 띄워 찍었어요(2026-11-22). 화면 문장은 실제 서버(simcheong.java21.net)에 개발용 계정으로 같은 말을 보내 받은 답 그대로예요. 시뮬레이터에는 카메라가 없어서, 옷 화면의 미리 보기 칸에는 서버에 보낸 옷 사진(CC0 clothing-dataset)을 합성했어요. 얼굴 화면은 실제 사람 얼굴을 쓰지 않으려고 미리 보기 칸을 비워 두었어요.</sub>
 
 ## 🔥 25일 동안 남긴 흔적
+
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122b-effort-hero.png" width="100%" alt="25일 동안 모델 학습 176시간 이상, 눈 화장 반복 학습 396판, 비교한 모델·방식 109가지, 머지한 PR 299개, 커밋 811개, 테스트 578개"/></p>
 
 <sub>개발 기간은 2026.10.27 ~ 11.20이고, 아래 숫자는 2026-11-22 기준으로 센 값이에요.</sub>
 
