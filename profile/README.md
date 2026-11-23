@@ -8,6 +8,15 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122b-effort-hero.png" width="100%" alt="25일 동안 모델 학습 176시간 이상, 눈 화장 반복 학습 396판, 비교한 모델·방식 109가지, 머지한 PR 299개, 커밋 811개, 테스트 578개"/></p>
 
+## 📖 어떤 앱인가요?
+
+시각장애인이 아침에 옷을 고를 때 가장 어려운 건 **"이 옷이 오늘 맞는지, 얼룩은 없는지"를 혼자 확인하는 일**입니다.
+**심청이**는 말로 대화하는 AI 에이전트예요. 오늘 날씨와 일정을 보고 먼저 말로 옷을 추천하고, 꺼낸 옷을 카메라에 비추면 맞는지, 얼룩이나 찢어진 곳은 없는지 알려 줍니다.
+
+- **옷을 따로 등록하지 않아요.** 평소 옷장 정리 방식은 그대로 두고, 꺼낸 옷을 확인만 해요.
+- **사진 찍기 버튼이 없어요.** 폰이 구도를 소리로 안내하고, 옷이 잘 들어오면 알아서 한 장을 찍어요.
+- **쓸수록 내 옷이 기록돼요.** 확인한 옷과 입은 날이 쌓여 다음 추천은 내 옷 중에서 골라요.
+
 ## 👥 누가 무엇을 했나요
 
 <table align="center">
@@ -62,34 +71,73 @@
 
 <sub>각 레포에서 머지된 PR을 사람별로 모아 정리했어요(2026-11-22 기준). 여러 사람이 함께 고친 부분은 처음 만든 사람 쪽에 적었어요.</sub>
 
-## 🔥 25일 동안 남긴 흔적
+## 🏗 아키텍처
 
-<sub>개발 기간은 2026.10.27 ~ 11.20이고, 아래 숫자는 2026-11-22 기준으로 센 값이에요.</sub>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture-v8.png" width="100%" alt="심청이 아키텍처: 폰 앱 → 도메인·Tailscale Funnel·Nginx → 앱 서버 젯슨(gateway, agent, mcp-schedule, mcp-closet, so400m-embed, PostgreSQL, Redis) → 모델 서버 젯슨(mcp-clothes-state, mcp-face-check, mcp-weather)"/></p>
 
-> 가장 오래 걸린 일은 **모델 학습**이었어요. 화장·옷장·날씨는 박창근, 옷 상태·치아는 정지원 파트에서 모델을 학습하고 비교했고, 앱 뼈대·gateway·agent는 이진행 파트에서 만들었어요.
+- **MCP 서버는 데이터만 돌려주고**, "이 옷이 오늘 맞는가" 같은 판단은 agent가 맡아요
+- agent는 말을 의도로 나눠 옷 추천·옷 확인·날씨·얼굴·옷장은 정해진 순서(코드)로 도구를 부르고, 일정 넣기·지우기 같은 나머지만 GPT가 도구를 골라요
+- 안내 목소리는 gateway가 만들어요. Azure Speech 4가지(유진·지민·서현·순복)와 Edge 3가지(선희·인준·현수) 중 고르고, 안 되면 폰 TTS로 읽어요
+- 서버는 **젯슨 오린 나노 8GB 두 대**에 나눠 Docker Compose로 상시 띄워요. 한 대는 gateway·agent·일정·옷장·DB(앱 서버), 다른 한 대는 옷 상태·얼굴·날씨 MCP와 모델 학습(모델 서버)을 맡고, 둘은 Tailscale 사설망으로 이어져요. 8GB 한 대에 다 안 들어가서 나눴고, MCP라 agent는 주소만 바꾸면 됐어요
+- 바깥에서는 `simcheong.java21.net` → Tailscale Funnel → Nginx → gateway 순서로 들어와요
+- 그림 원본은 [`profile/images/src/architecture.html`](images/src/architecture.html)이에요. 고친 뒤 Chrome으로 2배 크기 캡처해서 새 이름(예: `architecture-v9.png`)으로 저장하고 위 그림 주소도 바꿔요. 같은 이름으로 덮으면 GitHub 캐시 때문에 옛 그림이 한동안 보여요
+- 서비스 사이 약속은 앱 레포의 [OpenAPI](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/openapi.yaml)와 [MCP 도구 입출력](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/mcp-tools.md) 하나로 맞춰요
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-training.png" width="100%" alt="모델 학습에 들인 시간 176시간 이상: 눈 화장 좌우 비교 101.6시간(젯슨 GPU, 396판), 옷 상태 모델 65시간(젯슨 GPU), 화장 좌우 비교·얼굴 분할 7.5시간, 치아 2.5시간"/></p>
+## 🗂 ERD
 
-| 파트 | 모델 학습 시간 | 학습·비교한 횟수 |
-| --- | ---: | --- |
-| 박창근 파트 (화장·옷장·날씨) | **109시간 이상** | 눈 화장 젯슨 학습 **396판**, 화장 재는 방식 약 35가지, 같은 옷 찾기 사진 모델 12개, 날씨 출처 3개 |
-| 정지원 파트 (옷 상태·치아) | **67시간 이상** | 옷 상태 실험 **56가지**(얼룩·찢어짐 7판, 옷 종류 6판, 무늬 7단계, 입은 옷 실수 단추 6판 등), 치아 18가지 |
+> 각 서비스 레포의 Flyway 마이그레이션(2026-11-21 `develop`, account·closet V4, schedule V5) 그대로이고, 젯슨 배포 DB와 대조했어요. 스키마 3개, 표 11개(배포 DB에 남아 있는 helper 스키마 2개 표는 서버가 배포에서 빠져 제외).
 
-기능 하나도 바로 `develop`에 넣지 않고 **브랜치 → PR → CI 테스트 → 리뷰 → 머지**를 거쳤어요.
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v8.png" width="100%" alt="심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-daily.png" width="100%" alt="누적 PR 선과 날짜별 머지 PR 막대. Gemini로 시작, GPT로 전환, 발표 피드백, 젯슨 상시 배포, 무늬 90%, 발표 버전 릴리스 같은 주요 일 표시"/></p>
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-repos.png" width="100%" alt="레포마다 무슨 서버인지와 머지한 PR 수, 커밋 수"/></p>
+- **서비스마다 스키마 하나**: account(gateway) · schedule · closet. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요
+- **BCNF까지 정규화**했어요. 한 칸에는 값 하나만 두고(JSON 묶음 없음), 키가 아닌 칸이 다른 칸을 정하지 않게 표를 나눴어요
+- 로그인 수단은 `user_identities`에 따로 두고 (issuer, subject)에 복합 UNIQUE를 걸어, 한 사람이 Apple·Google 로그인을 여러 개 가질 수 있어요
+- 장소 이름·분류는 `places`(카카오 장소 ID가 키)에 한 번만 저장하고 일정은 장소 ID만 참조해요
+- 옷의 무늬·소재·보조 색은 `garments` 칸으로, 얼룩·보풀 같은 상태는 `garment_defects`에 한 줄씩 저장해요
+- `wears`는 옷 ID만 참조하고 (garment_id, worn_on)에 복합 UNIQUE를 걸어, 같은 옷을 같은 날 두 번 기록하지 않아요
+- **사진은 옷 부분 작은 사진 하나뿐이에요.** 같은 옷 확인용으로 옷 부분만 자른 48KB 이하 사진만 남겨요(옷을 지우면 같이 지워져요)
+- 옷 벡터는 한 사람의 옷(100벌 안팎)만 정확한 거리로 훑고, 공용 코디 지식(`style_docs`)만 HNSW 인덱스를 써요
 
-<sub>2026-11-22 기준이에요. 학습 시간은 로그·실험표에 시간이 남은 것만 더했어요: 눈 화장은 젯슨 학습 로그(`loop.log` 시작 시각 ~ 판마다 `eval.json`)로 잰 287판의 합(멈춘 시간이 섞일 수 있음), 옷 상태는 [clothes-state 실험표](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/lab.md)의 합, 얼굴 분할·좌우 비교 CNN과 치아는 [face-check 실험표](https://github.com/fashion-agent-team/mcp-face-check/blob/develop/docs/lab.md)에 적힌 시간이에요. PR·커밋 수는 GitHub에서 셌고 커밋은 각 레포 `develop`(.github는 `main`) 기준이에요.</sub>
+## ✨ 주요 기능
 
-## 📖 어떤 앱인가요?
+### 1. 날씨·일정 맞춤 추천 (말로)
 
-시각장애인이 아침에 옷을 고를 때 가장 어려운 건 **"이 옷이 오늘 맞는지, 얼룩은 없는지"를 혼자 확인하는 일**입니다.
-**심청이**는 말로 대화하는 AI 에이전트예요. 오늘 날씨와 일정을 보고 먼저 말로 옷을 추천하고, 꺼낸 옷을 카메라에 비추면 맞는지, 얼룩이나 찢어진 곳은 없는지 알려 줍니다.
+"오늘 뭐 입지?" 한마디면 agent가 **날씨·일정·내 옷장**을 동시에 불러 GPT로 판단하고 말로 추천해요.
 
-- **옷을 따로 등록하지 않아요.** 평소 옷장 정리 방식은 그대로 두고, 꺼낸 옷을 확인만 해요.
-- **사진 찍기 버튼이 없어요.** 폰이 구도를 소리로 안내하고, 옷이 잘 들어오면 알아서 한 장을 찍어요.
-- **쓸수록 내 옷이 기록돼요.** 확인한 옷과 입은 날이 쌓여 다음 추천은 내 옷 중에서 골라요.
+- 날씨: 기온·체감·일교차·강수 확률 (`weather_today`, 날짜별 `weather_forecast`)
+- 일정: 말로 넣은 일정마다 **자리 종류(면접·결혼식·운동 등)와 장소 종류**를 붙여 돌려줘요 (`schedule_list`). 장소는 카카오 로컬로 찾아요
+- 격식 있는 일정은 등록할 때와 3일 전 아침에 **드라이클리닝**을 미리 챙겨 줘요
+- 앱을 열면 오늘 일정과 3일 안의 중요한 일정을 먼저 알려 줘요 (`schedule_briefing`)
+- 일정을 넣으면 알림을 받을지, 며칠 전에 미리 알릴지 물어 저장하고(`schedule_set_reminder`) 그에 맞춰 폰 알림을 띄워요
+
+### 2. 카메라로 옷 확인
+
+꺼낸 옷을 비추면 사진마다 `clothes_inspect`가 **옷 한 벌마다 종류·색·무늬·얼룩·찢어짐**을 찾고, agent가 오늘 날씨와 자리에 맞는지 판단해요.
+
+- 옷 종류 12종·무늬 8종·얼룩·찢어짐은 **우리가 직접 학습한 YOLO 모델**, 옷 색 20가지는 K-Fashion으로 학습한 **작은 CNN**(ONNX)으로 서버에서 봐요
+- 고른 옷끼리 색이 어울리는지는 색 이론 규칙으로 따로 판단해요 (`outfit_color_check`)
+- 얼룩이나 무늬가 애매할 때만 (사용자가 동의한 경우) **그 부분만 잘라** GPT에 한 번 더 물어봐요
+- 코트인지 재킷인지 애매하면 틀린 이름 대신 "겉옷"이라고 말해요
+- 두 벌을 나란히 비추면 "왼쪽 흰 셔츠가 더 나아요"처럼 비교해 줘요
+- 입은 모습은 앞·뒤 두 장으로 한 바퀴 확인해요
+
+### 3. 얼굴 확인
+
+셀카로 **화장이 좌우 고르게 되었는지**(`face_makeup_check`), **이 사이에 뭐가 끼지 않았는지**(`teeth_check`) 확인해요.
+
+- 앱이 ML Kit로 얼굴을 실시간으로 잡아 구도를 안내하고, 멈춘 순간 여러 장을 보내 중간값으로 판단해요
+- 서버가 얼굴 분할 모델(BiSeNet ResNet34)로 눈썹·입술·볼 칸을 나누고, 눈썹 길이·두께, 입술 너비, 볼 터치는 공개 얼굴 데이터(CelebA)로 학습한 **좌우 비교 모델**로 판단해요. 알림 기준은 고화질 실사진(FFHQ)에 맞췄어요
+- 얼굴·치아 사진은 **GPT 같은 외부 AI로 보내지 않고** 서버의 자체 모델로만 봐요
+
+### 4. 내 옷장 (RAG)
+
+확인한 옷과 입은 날을 기록하고(`closet_save`, `closet_wear`), 다음 추천 때 상황에 맞는 내 옷을 찾아요(`closet_search`). "지난번 면접 때 뭐 입었지?"(`closet_outfits`), "내 옷장에 뭐 있어?"(`closet_list`)에도 답해요.
+
+- 같은 옷인지는 `clothes_inspect`가 준 **옷 사진 벡터**(FashionSigLIP 768차원)로 판단해 한 벌로 합쳐요. 애매하면 agent의 GPT가 옷 부분 작은 사진끼리 비교해 합쳐요(`closet_merge`)
+- "옷장 확인해 줘"라고 하면 옷장 옷을 읽어 주고, 말로 옷을 지울 수도 있어요
+- 상황 문장(글 임베딩, multilingual-e5-small)과 영어 검색어(사진 벡터)로 내 옷과 코디 지식을 함께 찾고, 추천 문장은 agent의 GPT가 만들어요
+
+---
 
 ## 📱 앱 화면
 
@@ -211,46 +259,25 @@
 
 <sub>`develop` 앱을 iPhone 17 시뮬레이터에서 띄워 찍었어요(2026-11-22). 화면 문장은 실제 서버(simcheong.java21.net)에 개발용 계정으로 같은 말을 보내 받은 답 그대로예요. 시뮬레이터에는 카메라가 없어서, 옷 화면의 미리 보기 칸에는 서버에 보낸 옷 사진(CC0 clothing-dataset)을 합성했어요. 얼굴 화면은 실제 사람 얼굴을 쓰지 않으려고 미리 보기 칸을 비워 두었어요.</sub>
 
-## ✨ 주요 기능
+## 🔥 25일 동안 남긴 흔적
 
-### 1. 날씨·일정 맞춤 추천 (말로)
+<sub>개발 기간은 2026.10.27 ~ 11.20이고, 아래 숫자는 2026-11-22 기준으로 센 값이에요.</sub>
 
-"오늘 뭐 입지?" 한마디면 agent가 **날씨·일정·내 옷장**을 동시에 불러 GPT로 판단하고 말로 추천해요.
+> 가장 오래 걸린 일은 **모델 학습**이었어요. 화장·옷장·날씨는 박창근, 옷 상태·치아는 정지원 파트에서 모델을 학습하고 비교했고, 앱 뼈대·gateway·agent는 이진행 파트에서 만들었어요.
 
-- 날씨: 기온·체감·일교차·강수 확률 (`weather_today`, 날짜별 `weather_forecast`)
-- 일정: 말로 넣은 일정마다 **자리 종류(면접·결혼식·운동 등)와 장소 종류**를 붙여 돌려줘요 (`schedule_list`). 장소는 카카오 로컬로 찾아요
-- 격식 있는 일정은 등록할 때와 3일 전 아침에 **드라이클리닝**을 미리 챙겨 줘요
-- 앱을 열면 오늘 일정과 3일 안의 중요한 일정을 먼저 알려 줘요 (`schedule_briefing`)
-- 일정을 넣으면 알림을 받을지, 며칠 전에 미리 알릴지 물어 저장하고(`schedule_set_reminder`) 그에 맞춰 폰 알림을 띄워요
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-training.png" width="100%" alt="모델 학습에 들인 시간 176시간 이상: 눈 화장 좌우 비교 101.6시간(젯슨 GPU, 396판), 옷 상태 모델 65시간(젯슨 GPU), 화장 좌우 비교·얼굴 분할 7.5시간, 치아 2.5시간"/></p>
 
-### 2. 카메라로 옷 확인
+| 파트 | 모델 학습 시간 | 학습·비교한 횟수 |
+| --- | ---: | --- |
+| 박창근 파트 (화장·옷장·날씨) | **109시간 이상** | 눈 화장 젯슨 학습 **396판**, 화장 재는 방식 약 35가지, 같은 옷 찾기 사진 모델 12개, 날씨 출처 3개 |
+| 정지원 파트 (옷 상태·치아) | **67시간 이상** | 옷 상태 실험 **56가지**(얼룩·찢어짐 7판, 옷 종류 6판, 무늬 7단계, 입은 옷 실수 단추 6판 등), 치아 18가지 |
 
-꺼낸 옷을 비추면 사진마다 `clothes_inspect`가 **옷 한 벌마다 종류·색·무늬·얼룩·찢어짐**을 찾고, agent가 오늘 날씨와 자리에 맞는지 판단해요.
+기능 하나도 바로 `develop`에 넣지 않고 **브랜치 → PR → CI 테스트 → 리뷰 → 머지**를 거쳤어요.
 
-- 옷 종류 12종·무늬 8종·얼룩·찢어짐은 **우리가 직접 학습한 YOLO 모델**, 옷 색 20가지는 K-Fashion으로 학습한 **작은 CNN**(ONNX)으로 서버에서 봐요
-- 고른 옷끼리 색이 어울리는지는 색 이론 규칙으로 따로 판단해요 (`outfit_color_check`)
-- 얼룩이나 무늬가 애매할 때만 (사용자가 동의한 경우) **그 부분만 잘라** GPT에 한 번 더 물어봐요
-- 코트인지 재킷인지 애매하면 틀린 이름 대신 "겉옷"이라고 말해요
-- 두 벌을 나란히 비추면 "왼쪽 흰 셔츠가 더 나아요"처럼 비교해 줘요
-- 입은 모습은 앞·뒤 두 장으로 한 바퀴 확인해요
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-daily.png" width="100%" alt="누적 PR 선과 날짜별 머지 PR 막대. Gemini로 시작, GPT로 전환, 발표 피드백, 젯슨 상시 배포, 무늬 90%, 발표 버전 릴리스 같은 주요 일 표시"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/charts/1122-effort-repos.png" width="100%" alt="레포마다 무슨 서버인지와 머지한 PR 수, 커밋 수"/></p>
 
-### 3. 얼굴 확인
-
-셀카로 **화장이 좌우 고르게 되었는지**(`face_makeup_check`), **이 사이에 뭐가 끼지 않았는지**(`teeth_check`) 확인해요.
-
-- 앱이 ML Kit로 얼굴을 실시간으로 잡아 구도를 안내하고, 멈춘 순간 여러 장을 보내 중간값으로 판단해요
-- 서버가 얼굴 분할 모델(BiSeNet ResNet34)로 눈썹·입술·볼 칸을 나누고, 눈썹 길이·두께, 입술 너비, 볼 터치는 공개 얼굴 데이터(CelebA)로 학습한 **좌우 비교 모델**로 판단해요. 알림 기준은 고화질 실사진(FFHQ)에 맞췄어요
-- 얼굴·치아 사진은 **GPT 같은 외부 AI로 보내지 않고** 서버의 자체 모델로만 봐요
-
-### 4. 내 옷장 (RAG)
-
-확인한 옷과 입은 날을 기록하고(`closet_save`, `closet_wear`), 다음 추천 때 상황에 맞는 내 옷을 찾아요(`closet_search`). "지난번 면접 때 뭐 입었지?"(`closet_outfits`), "내 옷장에 뭐 있어?"(`closet_list`)에도 답해요.
-
-- 같은 옷인지는 `clothes_inspect`가 준 **옷 사진 벡터**(FashionSigLIP 768차원)로 판단해 한 벌로 합쳐요. 애매하면 agent의 GPT가 옷 부분 작은 사진끼리 비교해 합쳐요(`closet_merge`)
-- "옷장 확인해 줘"라고 하면 옷장 옷을 읽어 주고, 말로 옷을 지울 수도 있어요
-- 상황 문장(글 임베딩, multilingual-e5-small)과 영어 검색어(사진 벡터)로 내 옷과 코디 지식을 함께 찾고, 추천 문장은 agent의 GPT가 만들어요
-
----
+<sub>2026-11-22 기준이에요. 학습 시간은 로그·실험표에 시간이 남은 것만 더했어요: 눈 화장은 젯슨 학습 로그(`loop.log` 시작 시각 ~ 판마다 `eval.json`)로 잰 287판의 합(멈춘 시간이 섞일 수 있음), 옷 상태는 [clothes-state 실험표](https://github.com/fashion-agent-team/mcp-clothes-state/blob/develop/docs/lab.md)의 합, 얼굴 분할·좌우 비교 CNN과 치아는 [face-check 실험표](https://github.com/fashion-agent-team/mcp-face-check/blob/develop/docs/lab.md)에 적힌 시간이에요. PR·커밋 수는 GitHub에서 셌고 커밋은 각 레포 `develop`(.github는 `main`) 기준이에요.</sub>
 
 ## 🎤 발표 자료 (2026 IT Festival)
 
@@ -265,33 +292,6 @@
 <sub>세 파일은 이 저장소의 [릴리스 presentation-2026-11](https://github.com/fashion-agent-team/.github/releases/tag/presentation-2026-11)에 있습니다.</sub>
 
 ---
-
-## 🏗 아키텍처
-
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture-v8.png" width="100%" alt="심청이 아키텍처: 폰 앱 → 도메인·Tailscale Funnel·Nginx → 앱 서버 젯슨(gateway, agent, mcp-schedule, mcp-closet, so400m-embed, PostgreSQL, Redis) → 모델 서버 젯슨(mcp-clothes-state, mcp-face-check, mcp-weather)"/></p>
-
-- **MCP 서버는 데이터만 돌려주고**, "이 옷이 오늘 맞는가" 같은 판단은 agent가 맡아요
-- agent는 말을 의도로 나눠 옷 추천·옷 확인·날씨·얼굴·옷장은 정해진 순서(코드)로 도구를 부르고, 일정 넣기·지우기 같은 나머지만 GPT가 도구를 골라요
-- 안내 목소리는 gateway가 만들어요. Azure Speech 4가지(유진·지민·서현·순복)와 Edge 3가지(선희·인준·현수) 중 고르고, 안 되면 폰 TTS로 읽어요
-- 서버는 **젯슨 오린 나노 8GB 두 대**에 나눠 Docker Compose로 상시 띄워요. 한 대는 gateway·agent·일정·옷장·DB(앱 서버), 다른 한 대는 옷 상태·얼굴·날씨 MCP와 모델 학습(모델 서버)을 맡고, 둘은 Tailscale 사설망으로 이어져요. 8GB 한 대에 다 안 들어가서 나눴고, MCP라 agent는 주소만 바꾸면 됐어요
-- 바깥에서는 `simcheong.java21.net` → Tailscale Funnel → Nginx → gateway 순서로 들어와요
-- 그림 원본은 [`profile/images/src/architecture.html`](images/src/architecture.html)이에요. 고친 뒤 Chrome으로 2배 크기 캡처해서 새 이름(예: `architecture-v9.png`)으로 저장하고 위 그림 주소도 바꿔요. 같은 이름으로 덮으면 GitHub 캐시 때문에 옛 그림이 한동안 보여요
-- 서비스 사이 약속은 앱 레포의 [OpenAPI](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/openapi.yaml)와 [MCP 도구 입출력](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/mcp-tools.md) 하나로 맞춰요
-
-## 🗂 ERD
-
-> 각 서비스 레포의 Flyway 마이그레이션(2026-11-21 `develop`, account·closet V4, schedule V5) 그대로이고, 젯슨 배포 DB와 대조했어요. 스키마 3개, 표 11개(배포 DB에 남아 있는 helper 스키마 2개 표는 서버가 배포에서 빠져 제외).
-
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v8.png" width="100%" alt="심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
-
-- **서비스마다 스키마 하나**: account(gateway) · schedule · closet. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요
-- **BCNF까지 정규화**했어요. 한 칸에는 값 하나만 두고(JSON 묶음 없음), 키가 아닌 칸이 다른 칸을 정하지 않게 표를 나눴어요
-- 로그인 수단은 `user_identities`에 따로 두고 (issuer, subject)에 복합 UNIQUE를 걸어, 한 사람이 Apple·Google 로그인을 여러 개 가질 수 있어요
-- 장소 이름·분류는 `places`(카카오 장소 ID가 키)에 한 번만 저장하고 일정은 장소 ID만 참조해요
-- 옷의 무늬·소재·보조 색은 `garments` 칸으로, 얼룩·보풀 같은 상태는 `garment_defects`에 한 줄씩 저장해요
-- `wears`는 옷 ID만 참조하고 (garment_id, worn_on)에 복합 UNIQUE를 걸어, 같은 옷을 같은 날 두 번 기록하지 않아요
-- **사진은 옷 부분 작은 사진 하나뿐이에요.** 같은 옷 확인용으로 옷 부분만 자른 48KB 이하 사진만 남겨요(옷을 지우면 같이 지워져요)
-- 옷 벡터는 한 사람의 옷(100벌 안팎)만 정확한 거리로 훑고, 공용 코디 지식(`style_docs`)만 HNSW 인덱스를 써요
 
 ## 📦 레포지토리
 
