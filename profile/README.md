@@ -55,7 +55,7 @@
 - **agent**: 옷 추천 두 단계와 MCP 클라이언트 뼈대, 판단 LLM을 Gemini에서 GPT로 바꾸기, GPT 도구 선택(일정 넣기·지우기, 넣은 뒤 알림 묻기), 얼굴 확인을 화장 대칭·치아 두 도구로 나누기, 날짜를 말하면 그날 일정·예보로 추천, "이거 무슨 색이야?" 빠른 색 확인, 색을 감각·느낌으로 설명하기, 입는 사람 정보를 GPT 판단에 넣기, GPT 확인은 동의한 사용자만(처음 애매한 얼룩 때 한 번 묻기), MCP 서버 재시작 뒤 첫 요청 실패 고치기
 - **다른 서버에 더한 것**: mcp-weather `weather_forecast`(날짜별 예보)와 더운 날 일교차로 겉옷 권하지 않기, mcp-schedule `schedule_set_reminder`, mcp-clothes-state 색 어울림 점수(0~100과 까닭)
 - **응답 속도**: 옷 추천 1.77초 → 1.04초, 옷 확인 1.95초 → 1.47초 (GPT priority 처리·짧은 답·연결 데우기, 켜질 때 모델 데우기·모델과 GPT 확인 동시에, 옷 사진 긴 변 960으로 줄여 보내기)
-- **팀 공통**: 레포마다 PR 자동 테스트(CI), 서버 레포 README, 아키텍처·서비스 간 약속 문서(`docs/contracts/`), Spec Kit DB 통합 설계, 발표 버전 릴리스(9개 레포 `develop` → `main`), IT Festival 신청서·발표 자료
+- **팀 공통**: 레포마다 PR 자동 테스트(CI), 서버 레포 README, 아키텍처·서비스 간 약속 문서(`docs/contracts/`), Spec Kit DB 통합 설계, 발표 버전 릴리스(8개 레포 `develop` → `main`), IT Festival 신청서·발표 자료
 
 <details><summary><b>자세히 보기: 쓴 기술·이론·작업 기록 (이진행)</b></summary>
 
