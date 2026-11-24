@@ -23,7 +23,6 @@
       <a href="https://github.com/ehgo508"><img src="https://github.com/ehgo508.png?size=240" width="120" height="120" alt="이진행"/></a>
       <h3>이진행</h3>
       <a href="https://github.com/ehgo508"><sub>@ehgo508</sub></a>
-      <p><b>머지한 PR 105개</b> <sub>(2026-11-24 기준)</sub></p>
       <p><b>기획 · 앱과 대화의 뼈대</b><br/><sub>방향·로그인·음성·대화 흐름·응답 속도</sub></p>
       <p><sub>fashion-agent(앱) · gateway · agent</sub></p>
       <p><img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white"/> <img src="https://img.shields.io/badge/ML_Kit-4285F4?style=flat-square&logo=google&logoColor=white"/><br/><img src="https://img.shields.io/badge/Firebase_Auth-FFCA28?style=flat-square&logo=firebase&logoColor=black"/> <img src="https://img.shields.io/badge/Spring_Cloud_Gateway-6DB33F?style=flat-square&logo=spring&logoColor=white"/><br/><img src="https://img.shields.io/badge/Spring_AI-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/Edge_TTS-0078D7?style=flat-square&logo=microsoftedge&logoColor=white"/></p>
@@ -32,7 +31,6 @@
       <a href="https://github.com/chang0580"><img src="https://github.com/chang0580.png?size=240" width="120" height="120" alt="박창근"/></a>
       <h3>박창근</h3>
       <a href="https://github.com/chang0580"><sub>@chang0580</sub></a>
-      <p><b>머지한 PR 191개</b> <sub>(2026-11-24 기준)</sub></p>
       <p><b>내 옷장 · 화장 확인 · 날씨</b><br/><sub>RAG·얼굴 모델·배포 정리</sub></p>
       <p><sub>mcp-closet · mcp-face-check(화장) · mcp-weather</sub></p>
       <p><img src="https://img.shields.io/badge/pgvector-4169E1?style=flat-square&logo=postgresql&logoColor=white"/> <img src="https://img.shields.io/badge/FashionSigLIP-FFD21E?style=flat-square&logo=huggingface&logoColor=black"/><br/><img src="https://img.shields.io/badge/BiSeNet·ResNet18-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/> <img src="https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat-square&logo=onnx&logoColor=white"/><br/><img src="https://img.shields.io/badge/Azure_Speech-0078D4?style=flat-square&logo=microsoftazure&logoColor=white"/> <img src="https://img.shields.io/badge/MET_Norway-1C4E80?style=flat-square"/></p>
@@ -41,7 +39,6 @@
       <a href="https://github.com/jiwon934"><img src="https://github.com/jiwon934.png?size=240" width="120" height="120" alt="정지원"/></a>
       <h3>정지원</h3>
       <a href="https://github.com/jiwon934"><sub>@jiwon934</sub></a>
-      <p><b>머지한 PR 159개</b> <sub>(2026-11-24 기준)</sub></p>
       <p><b>옷 상태 모델 · 치아 · 일정</b><br/><sub>학습 모델·DB 정규화</sub></p>
       <p><sub>mcp-clothes-state · mcp-face-check(치아) · mcp-schedule</sub></p>
       <p><img src="https://img.shields.io/badge/YOLO26n-111F68?style=flat-square&logo=ultralytics&logoColor=white"/> <img src="https://img.shields.io/badge/K--Fashion_CNN-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/><br/><img src="https://img.shields.io/badge/MobileNetV3-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/> <img src="https://img.shields.io/badge/카카오_로컬-FFCD00?style=flat-square&logo=kakao&logoColor=black"/><br/><img src="https://img.shields.io/badge/PostgreSQL_V4-4169E1?style=flat-square&logo=postgresql&logoColor=white"/> <img src="https://img.shields.io/badge/Docker_Compose-2496ED?style=flat-square&logo=docker&logoColor=white"/></p>
