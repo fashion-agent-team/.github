@@ -23,7 +23,7 @@
       <a href="https://github.com/ehgo508"><img src="https://github.com/ehgo508.png?size=240" width="120" height="120" alt="이진행"/></a>
       <h3>이진행</h3>
       <a href="https://github.com/ehgo508"><sub>@ehgo508</sub></a>
-      <p><b>앱과 대화의 뼈대</b><br/><sub>로그인·음성·대화 흐름</sub></p>
+      <p><b>기획 · 앱과 대화의 뼈대</b><br/><sub>방향·로그인·음성·대화 흐름·응답 속도</sub></p>
       <p><sub>fashion-agent(앱) · gateway · agent</sub></p>
       <p><img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white"/> <img src="https://img.shields.io/badge/ML_Kit-4285F4?style=flat-square&logo=google&logoColor=white"/><br/><img src="https://img.shields.io/badge/Firebase_Auth-FFCA28?style=flat-square&logo=firebase&logoColor=black"/> <img src="https://img.shields.io/badge/Spring_Cloud_Gateway-6DB33F?style=flat-square&logo=spring&logoColor=white"/><br/><img src="https://img.shields.io/badge/Spring_AI-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/Edge_TTS-0078D7?style=flat-square&logo=microsoftedge&logoColor=white"/></p>
     </td>
@@ -46,11 +46,14 @@
   </tr>
 </table>
 
-### <img src="https://github.com/ehgo508.png?size=64" width="28" height="28" align="center"/>&nbsp; 이진행: 앱과 대화의 뼈대
-- **앱(Flutter)**: 음성 에이전트 기본 틀, 이름을 불러 말 걸기, 카메라 구도 말 안내와 자동 촬영(ML Kit), 구글 로그인 → Firebase → gateway 연결, 첫 실행 흐름(인사·허용·로그인·이름), 일정 폰 알림, 시각장애인 관점 점검 반영(기다림 진동·구도 소리·시리 단축어)
-- **gateway**: 로그인(Firebase·개발용)과 JWT, 회원정보, 사용량 제한, 뒤쪽 서버 라우팅. 말 받아 적기(`gpt-4o-mini-transcribe`), 엣지 목소리 사이드카와 Azure가 막힐 때 엣지로 넘기기
-- **agent**: 옷 추천 두 단계와 MCP 클라이언트 뼈대, GPT 도구 선택(일정 넣기·지우기), 날짜를 말하면 그날 일정·예보로 추천, 색을 느낌으로 설명하기, GPT 응답 속도 줄이기
-- **그 밖에**: 레포마다 PR 자동 테스트(CI), 아키텍처·서비스 간 약속 문서, `weather_forecast`·`schedule_set_reminder` 도구, 색 어울림 점수
+### <img src="https://github.com/ehgo508.png?size=64" width="28" height="28" align="center"/>&nbsp; 이진행: 기획, 앱과 대화의 뼈대
+- **방향 잡기**: "옷을 따로 등록하지 않고, 폰으로 비춰 확인하는 음성 AI 에이전트"라는 뼈대, 옷 추천 두 단계(말로 먼저 추천 → 카메라로 꺼낸 옷 확인), 첫 실행 흐름(인사 → 허용 → 구글 로그인 → 말 속도·목소리 → 이름 → 내 정보 → 호칭)
+- **앱(Flutter)**: 음성 에이전트 기본 틀과 음성 온보딩, 오늘 날씨 음성 안내, 앱 대화를 agent `/turn`에 연결, 이름을 불러 말 걸기(서버 음성 인식으로 이름 짐작), 말로 이름·호칭·내 정보 바꾸기, 옷 보여 주는 방식 고르기(내려놓고 비추기 / 입고 한 바퀴), 카메라 구도 말 안내와 자동 촬영(ML Kit), 구글 로그인 → Firebase → gateway 연결, 첫 실행 흐름, 일정 폰 알림(전날 저녁·당일 아침, 일정마다 며칠 전·끄기), 색 설명 방식(짧게/자세히) 기억, 시각장애인 관점 점검 반영(기다림 진동·구도 소리·시리 단축어·잠깐 쉬기)
+- **gateway**: 로그인(Firebase·개발용)과 JWT, 회원정보(호칭·말 빠르기 포함), 사용량 제한, 뒤쪽 서버 라우팅, agent에 옷 판단용 내 정보 넘기기. 말 받아 적기(`gpt-4o-mini-transcribe`), 서버 목소리(Azure 유진 → 막히거나 무료 한도 전이면 엣지 선희, 젯슨 edge-tts 사이드카, 빠르기 반영, 앞뒤 무음 없애기)
+- **agent**: 옷 추천 두 단계와 MCP 클라이언트 뼈대, 판단 LLM을 Gemini에서 GPT로 바꾸기, GPT 도구 선택(일정 넣기·지우기, 넣은 뒤 알림 묻기), 얼굴 확인을 화장 대칭·치아 두 도구로 나누기, 날짜를 말하면 그날 일정·예보로 추천, "이거 무슨 색이야?" 빠른 색 확인, 색을 감각·느낌으로 설명하기, 입는 사람 정보를 GPT 판단에 넣기, GPT 확인은 동의한 사용자만(처음 애매한 얼룩 때 한 번 묻기), MCP 서버 재시작 뒤 첫 요청 실패 고치기
+- **다른 서버에 더한 것**: mcp-weather `weather_forecast`(날짜별 예보)와 더운 날 일교차로 겉옷 권하지 않기, mcp-schedule `schedule_set_reminder`, mcp-clothes-state 색 어울림 점수(0~100과 까닭)
+- **응답 속도**: 옷 추천 1.77초 → 1.04초, 옷 확인 1.95초 → 1.47초 (GPT priority 처리·짧은 답·연결 데우기, 켜질 때 모델 데우기·모델과 GPT 확인 동시에, 옷 사진 긴 변 960으로 줄여 보내기)
+- **팀 공통**: 레포마다 PR 자동 테스트(CI), 서버 레포 README, 아키텍처·서비스 간 약속 문서(`docs/contracts/`), Spec Kit DB 통합 설계, 발표 버전 릴리스(9개 레포 `develop` → `main`), IT Festival 신청서·발표 자료
 
 ### <img src="https://github.com/chang0580.png?size=64" width="28" height="28" align="center"/>&nbsp; 박창근: 내 옷장, 화장 확인, 날씨
 - **mcp-closet**: 서버 전체. 글 벡터(e5) RAG 검색, 옷 사진 벡터(FashionSigLIP)로 같은 옷 합치기, 애매하면 GPT가 작은 사진 두 장으로 확인(`closet_merge`), 옷장 읽기·지우기·입은 조합 도구, 같은 옷 기준값 실측(0.60)
@@ -271,6 +274,8 @@
 | --- | ---: | --- |
 | 박창근 파트 (화장·옷장·날씨) | **109시간 이상** | 눈 화장 젯슨 학습 **396판**, 화장 재는 방식 약 35가지, 같은 옷 찾기 사진 모델 12개, 날씨 출처 3개 |
 | 정지원 파트 (옷 상태·치아) | **67시간 이상** | 옷 상태 실험 **56가지**(얼룩·찢어짐 7판, 옷 종류 6판, 무늬 7단계, 입은 옷 실수 단추 6판 등), 치아 18가지 |
+
+이진행 파트(앱·gateway·agent)는 모델 학습 대신 **모든 기능을 말 한마디로 이어 붙이는 일**이었어요. 8개 레포에서 PR **102개**를 머지했고(앱 40, agent 26, gateway 15, 나머지 서버 21), 실제 폰 리허설과 발표 피드백을 받은 날마다 말투·말 속도·목소리·카메라 안내를 고쳤어요. 응답 시간은 옷 추천 **1.77초 → 1.04초**, 옷 확인 **1.95초 → 1.47초**로 줄였어요.
 
 기능 하나도 바로 `develop`에 넣지 않고 **브랜치 → PR → CI 테스트 → 리뷰 → 머지**를 거쳤어요.
 
@@ -562,7 +567,7 @@ flowchart LR
           <img src="https://github.com/ehgo508.png" width="100" height="100" alt="ehgo508"/>
           <br /><b>이진행</b>
         </a>
-        <br /><sub><b>앱 · gateway · agent</b></sub>
+        <br /><sub><b>기획 · 앱 · gateway · agent</b></sub>
       </td>
       <td align="center">
         <a href="https://github.com/chang0580">
