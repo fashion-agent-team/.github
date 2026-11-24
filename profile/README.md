@@ -23,6 +23,7 @@
       <a href="https://github.com/ehgo508"><img src="https://github.com/ehgo508.png?size=240" width="120" height="120" alt="이진행"/></a>
       <h3>이진행</h3>
       <a href="https://github.com/ehgo508"><sub>@ehgo508</sub></a>
+      <p><b>머지한 PR 105개</b> <sub>(2026-11-24 기준)</sub></p>
       <p><b>기획 · 앱과 대화의 뼈대</b><br/><sub>방향·로그인·음성·대화 흐름·응답 속도</sub></p>
       <p><sub>fashion-agent(앱) · gateway · agent</sub></p>
       <p><img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white"/> <img src="https://img.shields.io/badge/ML_Kit-4285F4?style=flat-square&logo=google&logoColor=white"/><br/><img src="https://img.shields.io/badge/Firebase_Auth-FFCA28?style=flat-square&logo=firebase&logoColor=black"/> <img src="https://img.shields.io/badge/Spring_Cloud_Gateway-6DB33F?style=flat-square&logo=spring&logoColor=white"/><br/><img src="https://img.shields.io/badge/Spring_AI-6DB33F?style=flat-square&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/Edge_TTS-0078D7?style=flat-square&logo=microsoftedge&logoColor=white"/></p>
@@ -31,6 +32,7 @@
       <a href="https://github.com/chang0580"><img src="https://github.com/chang0580.png?size=240" width="120" height="120" alt="박창근"/></a>
       <h3>박창근</h3>
       <a href="https://github.com/chang0580"><sub>@chang0580</sub></a>
+      <p><b>머지한 PR 191개</b> <sub>(2026-11-24 기준)</sub></p>
       <p><b>내 옷장 · 화장 확인 · 날씨</b><br/><sub>RAG·얼굴 모델·배포 정리</sub></p>
       <p><sub>mcp-closet · mcp-face-check(화장) · mcp-weather</sub></p>
       <p><img src="https://img.shields.io/badge/pgvector-4169E1?style=flat-square&logo=postgresql&logoColor=white"/> <img src="https://img.shields.io/badge/FashionSigLIP-FFD21E?style=flat-square&logo=huggingface&logoColor=black"/><br/><img src="https://img.shields.io/badge/BiSeNet·ResNet18-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/> <img src="https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat-square&logo=onnx&logoColor=white"/><br/><img src="https://img.shields.io/badge/Azure_Speech-0078D4?style=flat-square&logo=microsoftazure&logoColor=white"/> <img src="https://img.shields.io/badge/MET_Norway-1C4E80?style=flat-square"/></p>
@@ -39,6 +41,7 @@
       <a href="https://github.com/jiwon934"><img src="https://github.com/jiwon934.png?size=240" width="120" height="120" alt="정지원"/></a>
       <h3>정지원</h3>
       <a href="https://github.com/jiwon934"><sub>@jiwon934</sub></a>
+      <p><b>머지한 PR 159개</b> <sub>(2026-11-24 기준)</sub></p>
       <p><b>옷 상태 모델 · 치아 · 일정</b><br/><sub>학습 모델·DB 정규화</sub></p>
       <p><sub>mcp-clothes-state · mcp-face-check(치아) · mcp-schedule</sub></p>
       <p><img src="https://img.shields.io/badge/YOLO26n-111F68?style=flat-square&logo=ultralytics&logoColor=white"/> <img src="https://img.shields.io/badge/K--Fashion_CNN-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/><br/><img src="https://img.shields.io/badge/MobileNetV3-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/> <img src="https://img.shields.io/badge/카카오_로컬-FFCD00?style=flat-square&logo=kakao&logoColor=black"/><br/><img src="https://img.shields.io/badge/PostgreSQL_V4-4169E1?style=flat-square&logo=postgresql&logoColor=white"/> <img src="https://img.shields.io/badge/Docker_Compose-2496ED?style=flat-square&logo=docker&logoColor=white"/></p>
@@ -55,22 +58,181 @@
 - **응답 속도**: 옷 추천 1.77초 → 1.04초, 옷 확인 1.95초 → 1.47초 (GPT priority 처리·짧은 답·연결 데우기, 켜질 때 모델 데우기·모델과 GPT 확인 동시에, 옷 사진 긴 변 960으로 줄여 보내기)
 - **팀 공통**: 레포마다 PR 자동 테스트(CI), 서버 레포 README, 아키텍처·서비스 간 약속 문서(`docs/contracts/`), Spec Kit DB 통합 설계, 발표 버전 릴리스(9개 레포 `develop` → `main`), IT Festival 신청서·발표 자료
 
-### <img src="https://github.com/chang0580.png?size=64" width="28" height="28" align="center"/>&nbsp; 박창근: 내 옷장, 화장 확인, 날씨
-- **mcp-closet**: 서버 전체. 글 벡터(e5) RAG 검색, 옷 사진 벡터(FashionSigLIP)로 같은 옷 합치기, 애매하면 GPT가 작은 사진 두 장으로 확인(`closet_merge`), 옷장 읽기·지우기·입은 조합 도구, 같은 옷 기준값 실측(0.60)
-- **mcp-face-check 화장 대칭**: 윤곽점·픽셀 측정 서버, 얼굴 분할 모델 비교 후 BiSeNet ResNet34, CelebA로 학습한 좌우 비교 모델(눈썹·입술·볼), FFHQ 실사진 기준값, 눈화장 ResNet18 앙상블(실사진 검출 70.7% → 78.6%)
-- **mcp-weather**: 서버 구현, 연결 끊김 재시도, Open-Meteo가 안 되면 MET Norway
-- **mcp-clothes-state 옷 종류 정확도**: 글 벡터로 애매한 종류 다시 고르기, 학습 벡터(probe), 애매할 때만 큰 모델(SigLIP2 so400m)
-- **agent·앱**: 옷장·날씨 대화 흐름, 앱 시뮬레이션으로 찾은 말투 고치기, 체감 온도 바로잡기, Azure 목소리 4가지, 앱 화면 개편 "인당수의 밤"과 심청이 그림, 아이폰 설치 스크립트
-- **배포·문서**: 젯슨 두 대 배포 문서, 아키텍처 그림·ERD
+### <img src="https://github.com/chang0580.png?size=64" width="28" height="28" align="center"/>&nbsp; 박창근: 내 옷장, 화장 확인, 날씨, 대화 품질, 배포·문서
+> 머지한 PR **191개**(팀 최다) · 모델 학습 **109시간 이상** · 눈화장 학습 **396판** · 화장 측정 방식 **35가지** 비교
 
-### <img src="https://github.com/jiwon934.png?size=64" width="28" height="28" align="center"/>&nbsp; 정지원: 옷 상태 모델, 치아·일정, DB
-- **mcp-clothes-state**: Java MCP 서버, 얼룩·찢어짐 YOLO(v6) 학습·비교, 옷 종류 12종 모델, K-Fashion 색 모델과 색 조합 판단, 무늬 8종(FashionSigLIP LoRA 섞기), 입은 옷 실수(뒤집힘·단추·택) 모델, 애매할 때 GPT 확인과 얼굴 가리기, 젯슨 성능 측정
-- **mcp-face-check 치아**: 직접 학습한 치아 모델(`teeth_check`, ONNX), 앞니 사이 고춧가루를 놓치던 문제 고치기(v4)
-- **mcp-schedule**: 서버 전체. 카카오 로컬로 장소 종류, 격식 일정 드라이클리닝 안내, 아침 브리핑, 일정별 알림 시각(`remind_time`)
-- **DB 정규화(V4)**: account(`user_identities`), schedule(`places`), closet(`garment_defects`) 나누기, spec 시나리오 통합 테스트
-- **앱·배포**: 서버를 기능별 레포로 나누기, 젯슨 상시 배포(Docker Compose·Nginx·Funnel) 처음 구성, 치아·화장 촬영 안내, 앱 켤 때 미리 준비(`/agent/warm`), 조직 프로필 README
+- **mcp-closet (서버 전체, PR 14)**: e5 글 벡터 RAG 검색, 최근 입은 옷 감점과 입은 조합(`closet_outfits`), 옷장 읽기·지우기(`closet_list`·`closet_remove`), FashionSigLIP 사진 벡터로 같은 옷 합치기와 이름 고르기, 애매하면 GPT가 작은 사진 두 장으로 확인(`closet_merge`), 같은 옷 기준값 일상 사진 실측(0.68 → 0.60), 이미지 모델 **12개 비교**(같은 옷 찾기 58% → 85%, 착각 3.0% → 0.4%)
+- **mcp-face-check 화장 대칭 (PR 20)**: 윤곽점·픽셀 측정 서버, CelebA 2,832장·FFHQ 실사진으로 기준값, 얼굴 분할 모델 비교 후 BiSeNet ResNet34, 직접 학습한 좌우 비교 모델(눈썹 길이 22 → 84%, 눈썹 두께 51 → 92%, 입술 너비 20 → 82%, 볼 터치 58 → 77%), 흐린 사진 잘못 알림 16 → 5%, 실사진 잘못 알림 63 → 31%
+- **눈화장 모델 (젯슨 GPU 101.6시간, 396판)**: 픽셀 비교 → 직접 설계한 망 → 넓은 망 + TTA → 안경 거르기 → ResNet18 앙상블. 실사진 검출 약 10% → 78.6%, 처음 보는 사람 56.0 → 63.8%
+- **mcp-weather (서버 전체)**: Open-Meteo 서버, 끊기면 재시도, 학교 망 시간 초과면 MET Norway로, 날짜 바뀌면 캐시 새로
+- **mcp-clothes-state 정확도 보강 (PR 9)**: 글 벡터로 애매한 옷 종류 다시 보기(입은 옷 66 → 75.5%, 빈 벽 오인 60 → 0장), 학습 벡터 probe(폰 사진 세부 13종 78.2 → 81.3%), 애매한 옷만 SigLIP2 So400m(81.4 → 83.1%), So400m 색 분류
+- **agent 대화 품질 (PR 95)**: 앱 시뮬레이션을 여러 회차 돌려 찾은 대화 오류를 고친 PR 95개(날짜 이어 받기 "모레는?"·"다음주 화요일", 면접·결혼식·장례식 자리별 차림, "비 온대"·"영하야?" 날씨 후속 질문, 카메라 중 "그만"·"끝" 등), 옷장·날씨 대화 흐름, 체감 온도를 실제 값으로 바로잡기, 열린 PR 10개 한꺼번에 합치기
+- **목소리·앱·도우미**: Azure 목소리 4가지(유진·지민·서현·순복) 도입과 기본값, TTS 교착(문장마다 9초) 고치기, 앱 화면 개편 "인당수의 밤"과 심청이 그림, 화장 확인이 얼굴을 못 찾던 실기기 버그 고치기, 날씨 30분 캐시, 아이폰 설치 스크립트, mcp-helper 서버 구현
+- **배포·품질·문서**: 젯슨 두 대 배포 설정(서버마다 메모리 상한·스왑 금지), 8개 레포 테스트 커버리지 80% 기준 CI(앱 72 → 81.6%), 아키텍처 그림·ERD, 이 README(역할·Tech Stack·앱 화면 26장·학습 그래프)
 
-<sub>각 레포에서 머지된 PR을 사람별로 모아 정리했어요(2026-11-22 기준). 여러 사람이 함께 고친 부분은 처음 만든 사람 쪽에 적었어요.</sub>
+<details><summary><b>자세히 보기: 쓴 기술·이론·학습 기록 (박창근)</b></summary>
+
+#### 1. 내 옷장 (mcp-closet) · 같은 옷 찾기
+
+| 무엇 | 쓴 기술·이론 | 데이터 | 결과 (전 → 후) | 근거 |
+| --- | --- | --- | --- | --- |
+| RAG 검색 | 상황 문장을 multilingual-e5-small(ONNX) 글 벡터로 바꿔 PostgreSQL **pgvector**에서 가까운 옷·코디 지식을 찾고, 추천 문장은 agent의 GPT가 생성 | 내 옷장 + 코디 지식 문서 | `closet_search` 후보 + 지식 | closet #2 |
+| 같은 옷 합치기 | clothes_inspect가 준 **FashionSigLIP 768차원** 사진 벡터의 코사인 유사도, 본 사진들 평균 벡터 | 옷 30벌 옷장 흉내(DeepFashion In-shop 표본) | 글 설명 규칙 36% → 사진 한 장 58% → 평균 73% | closet #8, DEVELOPMENT.md |
+| 보정 행렬 | **WCCN**(같은 옷 안의 흔들림을 줄이는 선형 변환)을 CC0 사진으로 만들어 비교 전에 곱함 | CC0 clothing-dataset | 73% → **78%**, 착각 2.2 → **1.4%** (DeepFashion 행렬은 85%·0.4%, 시연용) | DEVELOPMENT.md |
+| 이미지 모델 고르기 | FashionSigLIP·SigLIP·SigLIP2·FashionCLIP·Jina CLIP·DINOv2·CLIP 등 **12개** 같은 조건 비교 | 같은 옷 표본 | FashionSigLIP 1등 (DINOv2·CLIP B 계열 26~45%) | DEVELOPMENT.md |
+| 기준값 | "새 옷 잘못 합침 5%"에 맞춰 기준을 정하고 일상 사진으로 다시 잼 | DeepFashion2 일반인 사진 1,500벌 6,343행 | 0.68 → **0.60** | closet #10 |
+| 애매하면 GPT | 기준 아래 일정 구간은 새 옷으로 저장하고 `maybeSameAs`로 가장 가까운 옷 작은 사진을 알려 GPT가 두 장을 비교해 `closet_merge` | – | 섞임 없이 중복만 줄이기 | closet #11 · agent #23 |
+| 서버 두 개 이어 실측 | clothes_inspect → closet_save를 MCP로 이어 30벌 × 5명 | 같은 옷 75번·새 옷 75번 | 맞게 합침 61% → 71%(CC0 보정), 저장 16~20ms | DEVELOPMENT.md |
+
+#### 2. 화장 좌우 비교 (mcp-face-check)
+
+| 무엇 | 쓴 기술·이론 | 데이터 | 학습 | 결과 (전 → 후) | 근거 |
+| --- | --- | --- | --- | --- | --- |
+| 측정 서버 | ML Kit 윤곽점 + 픽셀 측정, 여러 장 **중간값** | – | – | 첫 판 | face-check #2 |
+| 얼굴 분할 | **BiSeNet** ResNet18 → ResNet34(CelebAMask-HQ 19분류), SegFormer·FaRL·MediaPipe 비교 | FFHQ 실사진 | – | 4항목 평균 51.4 → **53.3%**, 같은 사진 짝 비교 **p = 0.019** | face-check #7·#11, face-parsing-models.md |
+| 분할 미세조정 (시도) | 서버 구도(두 눈 기준 512×512)로 다시 학습, 눈썹·입술 손실 2배 | CelebAMask-HQ 26,087장 | 맥북 M2 **1시간 47분** | 분할은 좋아졌지만 검출은 그대로(p = 0.42) → 안 바꿈 | face-check #12 |
+| 좌우 비교 CNN | 왼쪽·오른쪽 같은 자리 조각을 **같은 가중치의 작은 CNN**에 넣어 점수 차이로 판단(좌우를 바꾸면 부호만 바뀜), 0.8MB·약 2ms | CelebA 5,371장 × 편집 4가지 = 항목마다 12,598쌍 | 항목마다 CPU 약 25분 × 4개 | 눈썹 길이 22 → **84%**, 두께 51 → **92%**, 입술 너비 20 → **82%**, 볼 58 → **77%** | face-check #14·#15 |
+| 흐린 사진 거르기 | 흐린 사진에선 눈썹 길이 모델을 건너뜀 | – | – | 흐린 사진 잘못 알림 16 → **5%** | face-check #16 |
+| 기준값 | 손대지 않은 실사진 점수의 **p95**(상위 5%)를 기준선으로 | CelebA 2,832장 → FFHQ 실사진 590장 | – | 멀쩡한 사진에서 하나라도 잘못 알림 63 → **31%** | face-check #17 |
+| 측정 방식 비교 | 재는 방식 약 35가지(분할 모델 4, 좌우 비교 모델 5, 기준값 3벌 포함) | – | – | 항목마다 가장 나은 방식 채택 | face-check docs/lab.md |
+
+#### 3. 눈화장 모델 (젯슨 GPU 101.6시간, 396판)
+
+| 단계 | 쓴 기술·이론 | 데이터 | 학습 | 실사진 검출 | 근거 |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 눈꺼풀·눈 밑 밝기 비교(규칙) | – | – | 약 10% | face-check #18 |
+| 2 | 직접 설계한 작은 CNN, 양쪽 특징을 같이 보는 머리 `h(왼,오) − h(오,왼)` | CelebA 한쪽 섀도·아이라인 합성 1.5만 → 5.9만 쌍 | CPU | 43 → **50%** | face-check #21 |
+| 3 | 넓은 망 4판 + **TTA**(7가지로 옮겨 잘라 평균) | 8.5만 쌍(FFHQ 401장, 머리카락·그늘 덧씌운 쌍 포함) | 8에폭, CPU 4코어 **약 4시간** | **61%** | face-check #22 |
+| 4 | 안경이 눈 조각 2%를 넘으면 건너뛰고 기준 0.31 → 0.26 | FFHQ 346장 | – | **72%** | face-check #25 |
+| 5 | ImageNet ResNet18 몸통 + **앙상블**(서버 모델 + 하나씩 점수 상위 3개, 미리 정한 규칙) | 9.2만 쌍 | 젯슨 GPU 에폭당 약 4분, **396판 · 101.6시간**(시간이 남은 287판 합) | **78.6%**, 잘못 알림 4.1% | face-check #26 |
+| 6 | 다양한 얼굴로 학습한 ResNet18 3개로 교체 | – | – | 처음 보는 사람 56.0 → **63.8%** | face-check #34 |
+
+- 몸통 비교(판마다 최고): ResNet18 79.6%(381판) · ResNet50 71.6 · ConvNeXt-T 71.2 · RegNet 70.5 · ResNet34 70.0 · EfficientNet-B0 68.5 · 작은 망 63.3
+- 서버 부담 실측: 한 번 판단 0.32 → 0.47초, 메모리 619 → 814MB → 젯슨 컨테이너 한도 768 → 1024MiB
+
+#### 4. 날씨 (mcp-weather)
+
+| 무엇 | 내용 | 근거 |
+| --- | --- | --- |
+| 출처 비교 | Open-Meteo·기상청 단기예보·OpenWeatherMap을 5개 도시 × 3번 실제로 불러 비교: 응답 중앙값 0.90초 / 3.46초(최대 15.3초) / 0.71초(키 필요) | mcp-weather-compare |
+| 대체 경로 | Open-Meteo가 안 되면 MET Norway, 시간 초과는 다시 묻지 않고 바로 넘어가기 | weather #7·#8 |
+| 캐시 | 날짜가 바뀌면 다시 부르기(캐시 키에 서울 날짜), 앱은 30분 캐시·마지막 위치 먼저·켤 때 미리 받기 | weather #11 · agent #67 · 앱 #39 |
+
+#### 5. 옷 종류 정확도 보강 (mcp-clothes-state, PR 9)
+
+| 무엇 | 쓴 기술·이론 | 평가 | 결과 (전 → 후) | 근거 |
+| --- | --- | --- | --- | --- |
+| 글 벡터로 다시 보기 | 옷 조각 사진 벡터를 미리 계산한 글 벡터 35개(12종 + 벽·바닥 등 "none")와 비교, 모델이 애매할 때만 바꿈 | DeepFashion2 일반인 사진·CC0 | 입은 옷 66.0 → **75.5%**, 내려놓은 옷 92.7 → 95.3%, 빈 벽 60장 → **0장** | clothes-state #23 |
+| 모델 쪽 가산점 | 모델이 고른 큰 분류에 `0.01 + 확신도 × 0.005` | 폰 사진 364장 | 81.6 → **83.2%** | clothes-state #30 |
+| 학습 벡터 probe_v4 | 글 벡터에서 출발해 서버 박스 벡터로 다듬은 **linear probe** | DF2 train 4,000장 포함, 평가 폰 사진 1,841장 | 큰 분류 80.2 → **81.9%**, 세부 13종 78.2 → **81.3%** | clothes-state #32 |
+| 큰 모델은 애매할 때만 | SigLIP2 **So400m**(fp16, GPU) 벡터 서버, 조건을 만족하는 옷만 다시 고름 | – | 81.4 → **83.1%** | clothes-state #35 |
+| So400m 색 | 무채색·어두운 색일 때만 큰 모델 색 분류로 바꿈 | – | 주황→초록 오답 막기 | clothes-state #44·#46 |
+
+#### 6. agent 대화 품질 (PR 95)
+
+앱 시뮬레이션을 회차마다 돌려 실제 대화에서 틀린 답을 찾아 고쳤어요. 한 PR은 한 주제에만 셌어요.
+
+| 주제 | PR 수 | 예 |
+| --- | ---: | --- |
+| 날짜 이어 받기·날짜 읽기 | 25 | "모레는?", "다음주 월요일" 뒤 "화요일은?", "다음달 3일", 크리스마스 |
+| 날씨 후속 질문 | 24 | "비 온대", "영하야?", "운동화 젖어?", "뭐 신지?", 지금 맑아도 오늘 비면 알려 주기 |
+| 자리별 차림 | 16 | 면접·결혼식·장례식에 청바지·운동화, 데이트·소개팅은 더 깔끔하게, 넥타이·가방 |
+| 카메라 중 말 | 8 | "그만", "끝", 본 옷 없이 그만이면 카메라 끄기 |
+| 옷장·옷 종류·색 | 8 | 샌들·부츠·후드티 추가, "이 두 개 어울려?"에 어울림 점수 |
+| 그 밖 | 14 | 시뮬 회차별 오류 7가지, 한 사진 여러 벌, 열린 PR 10개 합치기, 커버리지 CI |
+
+#### 7. 목소리·앱·배포·품질
+
+| 무엇 | 내용 | 근거 |
+| --- | --- | --- |
+| 서버 목소리 | Azure Speech 유진·지민·서현·순복 도입, 기본 유진, 엣지 3명과 함께 고르기, 32kbps(16kHz)로 파일 줄이기 | gateway #9·#16, 앱 #57·#64·#70 |
+| TTS 고치기 | 새 문장마다 9초 기다리던 TtsCache 교착, 긴 답이 폰 목소리로 넘어가지 않게 조각 나누기 | 앱 #60·#84 |
+| 화장 실기기 버그 | release 빌드의 FAKE_CAMERA가 얼굴을 못 찾게 하던 원인, ML Kit 윤곽점 같이 보내기, 못 찾으면 폰에서 바로 다시 비추기, 사진 긴 변 1080 | 앱 #58·#63·#66·#88 |
+| 화면 | 앱 화면 개편 "인당수의 밤"(쪽빛 바탕·노랑 큰 글씨), 심청이 그림 | 앱 #51·#53 |
+| 설치·도우미 | 아이폰 설치 스크립트, mcp-helper 서버(helper_contacts·helper_ask·helper_answer) | 앱 #68·#74, helper #2 |
+| 배포 | 젯슨 두 대 compose: 서버마다 메모리 상한, 스왑 금지, 포트는 Tailscale IP에만 | 앱 #99 |
+| 테스트 | 8개 레포 커버리지 80% 기준 CI(JaCoCo·pytest-cov), 앱 72 → **81.6%** | 앱 #106, agent #144 등 |
+| 문서 | 아키텍처를 실제 배포 기준으로, 이 README의 역할·Tech Stack·앱 화면 26장·그래프 10장 | 앱 #98, .github PR 14개 |
+
+</details>
+
+### <img src="https://github.com/jiwon934.png?size=64" width="28" height="28" align="center"/>&nbsp; 정지원: 옷 상태 모델, 치아, 일정, DB
+> 머지한 PR **159개** · 모델 학습 **67시간 이상** · 옷 상태 실험 **56가지** · 치아 실험 **18가지**
+
+- **mcp-clothes-state (서버 전체, PR 32)**: Java MCP 서버, 얼룩·찢어짐 YOLO v1 ~ v7 학습·비교(v6 채택, 애매하면 GPT → 사진 단위 정답률 98.1%, 장당 14ms), 옷 종류 12종 모델(80.3 → 86.7%), K-Fashion 2.5만 벌로 시험한 색 모델(45.3 → 76.8%)과 색 조합 판단, 무늬 8종(FashionSigLIP LoRA 섞기 + GPT high, 입은 옷 84.5 → 90.0%, 교체 준비), 입은 옷 실수 모델(단추 79.7 → 93.7%, 뒤집힘·택), GPT에 보낼 때 얼굴 가리기, 젯슨 성능 측정
+- **mcp-face-check 치아 (직접 학습)**: `teeth_check` ONNX 모델, 앞니 사이 고춧가루 실제 사진 0.03 → 0.96(v4), 6번 보고 평균으로 잘못 알림 3.1 → 1.1%
+- **mcp-schedule (서버 전체)**: 카카오 로컬 장소 분류, 격식 일정 드라이클리닝 안내, 아침 브리핑, 일정별 알림 시각(`remind_time`)
+- **DB 설계·정규화**: 전체 DB 설계와 Spec Kit 기능 spec, V4 정규화(account `user_identities`, schedule `places`, closet `garment_defects`), spec 시나리오 통합 테스트
+- **보안·구조 정리**: `X-User-Id` 헤더 없애고 로그인 토큰 직접 확인, 로그인 없는 경로 횟수 제한, 레포 패키지 구조 정리, 테스트 보강
+- **앱·배포**: 서버를 기능별 레포로 나누기, 젯슨 상시 배포(Docker Compose·Nginx·Funnel) 처음 구성, 치아·화장 촬영 안내와 입 주변만 잘라 보내기, 앱 켤 때 미리 준비(`/agent/warm`), 조직 프로필 README·ERD 처음 작성
+
+<details><summary><b>자세히 보기: 쓴 기술·이론·학습 기록 (정지원)</b></summary>
+
+#### 1. 얼룩·찢어짐 모델 (YOLO26n 검출, v1 ~ v7)
+
+모두 Ultralytics YOLO 미세조정이고, 시험 사진 114장(얼룩 박스 212, 찢어짐 박스 32)과 깨끗한 옷 200장으로 쟀어요.
+
+| 판 | 바꾼 것 | 데이터 | 학습 | mAP50 | 깨끗한 옷 오탐(0.5↑) |
+| --- | --- | --- | --- | --- | --- |
+| v1 | Roboflow 공개 데이터 합치기 | 2,604장(찢어짐 63장) | 30에폭 · 27분 | 0.485 | – |
+| v2 | 찢어짐 사진 2,071장 추가 | 5,239장 | 60에폭 · 103분 | 0.610 | 20장 |
+| v3 | 옷 전체 사진 365장(자동 라벨 후 검토) + 얼룩 합성 411장, 입력 1024 | – | 20에폭 · 155분 | 0.613 | – |
+| v4 | 쇼핑몰 깨끗한 옷 1,592장으로 오탐 줄이기, v2와 같이 씀 | – | v2에서 이어서 | 0.620 | 7장 |
+| v5 | 기본 모델에서 처음부터 한 모델로, 찢어짐 사진 2배 | – | 60에폭 | 0.602 | 1장 |
+| **v6 (채택)** | 하이퍼파라미터 **자동 조정(tune) 30회**, 밝기·크기 변화 줄임 | 8,663장(얼룩 박스 9,527·찢어짐 7,998) | 조정 약 12시간 + 2시간 25분 | **0.636** | **1장** |
+| v7 (안 씀) | 실사진 12 + 입은 사진 합성 330 | – | 53에폭 | 0.693 | 3장(의심 10 → 32장) |
+| v6ft (탈락) | v6에서 낮은 학습률로 이어서 | + 실사진 12×5, 깨끗한 옷 400 | 2시간 28분 | 0.626 | 4장 |
+
+| 같이 한 실험 | 내용 | 결과 |
+| --- | --- | --- |
+| 모델 크기 비교 | YOLO11n·11s·26n·26s를 같은 v2 데이터 60에폭(81·122·103·151분) | 26n: 점수 비슷, 11s보다 1.4배 빠름 |
+| 큰 공개 모델 | OWLv2·Grounding DINO 그대로(zero-shot), OWLv2 + **LoRA**(r 8, 2시간 22분) | AP50 0.081·0.058 → LoRA 0.487, 우리 v6 0.555 |
+| 판단 기준 | 0.5 이상 바로 알림, 0.2~0.5는 동의한 사용자만 gpt-4.1-mini로 확인 | 사진 단위 91.9 → **98.1%** |
+| 젯슨 실행 방식 | PyTorch / TensorRT FP32·FP16·INT8 비교 | FP16: 점수 그대로 계산 약 4배 빠름, INT8은 점수 약 0.1 하락 |
+
+#### 2. 옷 종류·색·무늬·입은 옷 실수
+
+| 모델 | 쓴 기술 | 데이터 | 학습 | 결과 (전 → 후) |
+| --- | --- | --- | --- | --- |
+| 옷 종류 5종 | YOLO26n 검출 | Fashionpedia | 30에폭 · 7시간 20분 | 시험 mAP50 0.901 |
+| 옷 종류 12종 2차 | 12종으로 다시, Clothing dataset 4,104장 추가 | – | 30에폭 · 약 8시간 | 바닥에 펼친 옷 80.3% |
+| fashion12c | 중고 의류 5,809장(가디건·조끼·니트·재킷·코트) | – | 15에폭 · 4시간 40분 | 82.8%, 중고 시험 0.719 → 0.860 |
+| fashion12d | 바닥에 놓인 신발 410장 | – | 8에폭 · 2시간 21분 | 85.2%, 놓인 신발 0.015 → 0.986 |
+| **fashion12e (채택)** | 학습률 1/5로 다듬기 | – | 8에폭 · 2시간 19분 | **86.7%**, 큰 분류 91.6% |
+| 코트·재킷 애매 | 1·2등 점수 비율이 0.1 이상이면 "겉옷" | 652장 | – | 잘못 부름 23 → 14장 |
+| 옷 색 | 작은 CNN 64×64(0.8MB), 히스토그램 + MLP와 비교 | AI Hub K-Fashion 17만 벌 20색, 시험 25,626벌 | 18에폭 · 약 40분 | 색 계열 45.3 → **76.8%**, 흰 옷 15 → 87% |
+| 무늬 8종 (지금 서버) | YOLO26n-cls + 모르면 GPT | Fashionpedia + 중고 의류 무늬 | 25에폭 · 47분 | 바닥에 펼친 옷 86.5 → **90.5%** |
+| 무늬 (교체 준비) | FashionSigLIP + **LoRA**(r 8), linear probe 비교, K-Fashion 76,182장 이어 학습, **가중 확률 섞기**(0.7 : 0.3), 확신 낮은 옷만 GPT high | Fashionpedia 7,465 시험 | 89분 + 2시간 7분 (+ 384px 5시간 36분, r16 2시간 59분은 탈락) | 입은 옷 84.5 → **90.02%** |
+| 입은 옷 실수 | YOLO26n-cls 두 클래스, 택·단추·뒤집힘을 합성 | 택 10,792 · 단추 8,284 · 뒤집힘 9,012장 | 1차 → 2차, 실제 사진으로 이어 학습(단추 6판) | 택 87.8 → 90.9, 단추 79.7 → **93.7**, 뒤집힘 87.0 → 90.0% |
+
+#### 3. 치아 이물질 (teeth_check)
+
+| 판 | 바꾼 것 | 학습 | 결과 |
+| --- | --- | --- | --- |
+| v1 | 바깥 입술 + 25%로 자르기 | – | 앱에서 같은 구도를 못 만들어 바꿈 |
+| v2 | ML Kit 입술 안쪽 점 × 1.36으로 자르기 | 최고 6에폭 | 합성 시험 87.2%, 고춧가루 실사진 0.03 |
+| v3 (탈락) | 320px, 고춧가루 2배·립스틱·저화질 | CPU 약 33분 | 실사진 점수가 0.21~0.97로 흔들림 |
+| **v4 (채택)** | 384px, 고춧가루 3배 | CPU 약 38분 + 합성 4분 | 합성 시험 **91.2%**, 고춧가루 실사진 **0.96~1.0** |
+| 보는 방식 | 여백 3가지 × 좌우 뒤집기 **6번 평균** | – | 깨끗한 이 잘못 알림 3.1 → **1.1%** |
+| 이어 학습·LoRA 7판 | full·LoRA r4·r8·r16 등 | 젯슨 GPU 판당 약 5분 | AUC 0.958 ~ 0.967, 실제 깨끗한 이 오알림이 늘어 v4 유지 |
+
+- 데이터: FFHQ 얼굴에서 이가 보이는 1,310명을 학습, 262명은 시험에만, 깨끗한 이 사진에 고춧가루·깨·밥알을 그려 넣은 합성
+- 얼굴·치아 사진은 외부 AI(GPT)로 보내지 않기로 정함
+
+#### 4. 일정·DB·보안·배포
+
+| 무엇 | 내용 | 근거 |
+| --- | --- | --- |
+| mcp-schedule | 카카오 로컬로 장소 종류, 격식 일정 드라이클리닝 안내, 아침 브리핑, 며칠 전 알림을 아침(또는 정한 시각)으로 | schedule #5·#12, 앱 #95 |
+| DB 설계 | 전체 DB 설계·ERD와 Spec Kit 기능 spec | 앱 #14 |
+| V4 정규화 | 로그인 수단을 `user_identities`로, 장소를 `places`로, 옷 결함을 `garment_defects`로 나누기 | gateway #22, 앱 #96 |
+| 보안 | `X-User-Id` 헤더 없애고 로그인 토큰 직접 확인, 내 정보를 헤더 대신 본문으로, 로그인 없는 `/api/v1/auth/*` 횟수 제한 | agent #60·#130, schedule #17, gateway #24·#25, 앱 #104 |
+| 테스트·구조 | 컨트롤러 슬라이스 / 진짜 DB 통합 테스트 나누기, spec 시나리오 테스트, 패키지 나누기 | gateway #21·#23·#33, schedule #9·#11·#20, weather #17 |
+| 촬영·배포 | 치아·화장 촬영 위치 안내·입 주변만 잘라 보내기·화면 조명, 사진 긴 변 1280(치아 1600), 젯슨 상시 배포 처음 구성 | 앱 #52·#73·#89 |
+
+</details>
+
+<sub>머지된 PR 제목과 각 레포 실험 기록(docs/lab.md·training-log.md)으로 확인되는 것만 적었어요(2026-11-24 기준).</sub>
 
 ## 🏗 아키텍처
 
