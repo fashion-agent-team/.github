@@ -12,7 +12,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--sea)}
 body{width:1860px;font-family:G,sans-serif;color:var(--hanji)}
-.page{position:relative;width:1860px;height:1872px;overflow:hidden}
+.page{position:relative;width:1860px;overflow:hidden}
 .head{position:absolute;left:64px;top:52px;width:1060px}
 .head h1{font-family:M;font-weight:700;font-size:52px;line-height:1.2;letter-spacing:-.5px}
 .head p{font-family:M;font-size:19px;line-height:1.75;color:var(--mist);margin-top:14px}
@@ -27,19 +27,23 @@ body{width:1860px;font-family:G,sans-serif;color:var(--hanji)}
 .th{display:flex;align-items:baseline;justify-content:space-between;height:46px;padding:0 14px;align-items:center;border-bottom:1px solid var(--line)}
 .th .n{font-size:18px;font-weight:800;color:var(--hanji)}
 .th .d{font-size:12.5px;color:var(--mist)}
-.r{display:flex;align-items:center;height:27px;padding:0 14px 0 10px;font-size:14px}
+.r{display:flex;align-items:center;height:28px;padding:0 14px 0 10px;font-size:14px}
 .r+.r{border-top:1px solid rgba(51,67,122,.55)}
 .k{width:38px;flex:none}
 .k i{display:inline-block;font-style:normal;font-size:10.5px;font-weight:700;line-height:1;padding:3px 5px;border-radius:5px}
 .k i.pk{background:var(--jeogori);color:var(--deep)}
 .k i.fk{border:1px solid var(--jeogori);color:var(--jeogori);padding:2px 4px}
 .k i.uq{border:1px solid var(--mist);color:var(--mist);padding:2px 4px}
-.c{font-weight:500;white-space:nowrap}
-.y{margin-left:auto;padding-left:10px;font-size:12.5px;color:var(--mist);white-space:nowrap}
+.c{font-weight:500;white-space:nowrap;flex:none}
+.l{white-space:nowrap;flex:none;font-size:13.5px;color:var(--jeogori);padding-left:14px}
+.nn{flex:none;width:34px;margin-left:auto;padding-left:10px;font-size:11px;font-weight:700;color:var(--hanji);letter-spacing:.3px}
+.th .lg{font-size:15px;font-weight:600;color:var(--jeogori);margin-left:10px}
+.th .ln{display:flex;align-items:baseline}
+.y{padding-left:12px;font-size:12.5px;color:var(--mist);white-space:nowrap;flex:none;text-align:right}
 .r.combo .c{color:var(--mist)}
 .r.vecr .y{color:var(--lotus)}
 .r.new .y em{font-style:normal;color:var(--deep);background:var(--jeogori);border-radius:5px;font-size:10.5px;font-weight:700;padding:2px 5px;margin-left:6px}
-.side{position:absolute;left:1170px;top:240px;width:626px}
+.side{position:absolute}
 .side h3{font-size:19px;font-weight:800;color:var(--hanji);margin-bottom:12px}
 .side section{padding:0 0 26px;margin-bottom:26px;border-bottom:1px solid var(--line)}
 .side section:last-child{border:0}
@@ -47,7 +51,7 @@ body{width:1860px;font-family:G,sans-serif;color:var(--hanji)}
 .side li{list-style:none;padding-left:16px;position:relative;margin-bottom:4px}
 .side li:before{content:"";position:absolute;left:2px;top:12px;width:5px;height:5px;border-radius:50%;background:var(--line)}
 .side code{font-family:G;font-size:14px;color:var(--hanji)}
-.key{display:grid;grid-template-columns:100px 1fr;row-gap:12px;align-items:center}
+.key{display:grid;grid-template-columns:150px 1fr;row-gap:12px;align-items:center}
 .key span{font-family:M;font-size:15.5px;color:var(--mist)}
 .inb{position:absolute;font-family:M;font-size:14px;line-height:1.7;color:var(--mist)}
 .inb b{font-family:G;color:var(--hanji);font-weight:700;font-size:15px;display:block;margin-bottom:6px}
@@ -61,37 +65,20 @@ svg.wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
  <h1>심청이 ERD</h1>
  <p>서버 셋이 스키마를 하나씩 가져요. 스키마끼리는 FK 없이 user_id 값만 같이 써요. 사진 원본과 얼굴 사진은 어디에도 없어요.</p>
 </div>
-<div class="stamp"><b>2026년 11월 21일</b> 각 레포 develop Flyway 기준<br>젯슨 실제 DB와 칸 98개 대조, 표 11개</div>
+<div class="stamp"><b>2026년 11월 25일</b> 각 레포 develop Flyway 기준<br>칸 98개, 표 11개 · 물리명 옆 노란 글씨가 논리명</div>
 
-<div class="board" style="left:64px;top:240px;width:1076px;height:712px">
- <div class="bh"><b>account</b><span>fashion-agent-gateway, 로그인과 회원정보</span></div>
-</div>
-<div class="board" style="left:64px;top:992px;width:700px;height:770px">
- <div class="bh"><b>schedule</b><span>mcp-schedule, 일정과 장소</span></div>
- <div class="inb" style="left:24px;top:230px;width:262px">
+<div class="board" id="bA"><div class="bh"><b>account</b><span>계정 · fashion-agent-gateway, 로그인과 회원정보</span></div></div>
+<div class="board" id="bB"><div class="bh"><b>schedule</b><span>일정 · mcp-schedule, 일정과 장소</span></div>
+ <div class="inb" id="note">
   <b>참고</b>
   카카오 장소 이름과 분류는 장소 ID에 딸린 값이라 <code>places</code>에 따로 둬요.<br><br>
   <code>events.place</code>에는 사용자가 말한 장소가 그대로 있어요.<br><br>
   <code>remind_time</code>은 미리 알림을 띄울 시각이에요. 비어 있으면 아침 8시예요.
  </div>
 </div>
-<div class="board" style="left:796px;top:992px;width:1000px;height:770px">
- <div class="bh"><b>closet</b><span>mcp-closet, 내 옷장과 코디 지식</span></div>
-</div>
+<div class="board" id="bC"><div class="bh"><b>closet</b><span>옷장 · mcp-closet, 내 옷장과 코디 지식</span></div></div>
 
-<div class="side">
- <section>
-  <h3>읽는 법</h3>
-  <div class="key">
-   <div><span class="k"><i class="pk">키</i></span></div><span>기본 키</span>
-   <div><span class="k"><i class="fk">참조</i></span></div><span>같은 스키마 안의 외래 키</span>
-   <div><span class="k"><i class="uq">유일</i></span></div><span>겹치면 안 되는 값. 흐린 줄은 여러 칸을 묶은 제약</span>
-   <svg width="60" height="18"><line x1="0" y1="9" x2="60" y2="9" stroke="#FFD86B" stroke-width="2"/><path d="M44 9 L60 1 M44 9 L60 9 M44 9 L60 17" stroke="#FFD86B" stroke-width="2" fill="none"/></svg><span>외래 키. 갈라진 쪽이 여러 개, 막대 쪽이 하나</span>
-   <svg width="60" height="18"><line x1="0" y1="9" x2="60" y2="9" stroke="#FFD86B" stroke-width="2"/><circle cx="48" cy="9" r="5" fill="#14204A" stroke="#FFD86B" stroke-width="2"/></svg><span>동그라미 쪽은 없을 수도 있어요</span>
-   <svg width="60" height="18"><line x1="0" y1="9" x2="60" y2="9" stroke="#A9B1D1" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/></svg><span>user_id 값만 같이 써요. 스키마가 달라 FK는 없어요</span>
-   <span style="font-family:G;color:#F7A1B5;font-size:13px">vector(384)</span><span>pgvector 벡터 칸. 분홍 띠를 두른 표에 있어요</span>
-  </div>
- </section>
+<div class="side" id="side1">
  <section>
   <h3>정규화</h3>
   <p>칸 하나에는 값 하나만 넣고, 되풀이되는 값은 따로 표로 뺐어요. 키가 아닌 칸이 다른 키 아닌 칸에 기대지 않게 나눴어요. 로그인 수단, 장소, 옷 상태가 그렇게 떨어져 나온 표예요.</p>
@@ -99,84 +86,143 @@ svg.wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
  <section>
   <h3>그림에 없는 것</h3>
   <ul>
-   <li>대부분의 표에 있는 <code>created_at</code>, <code>updated_at</code>. <code>garment_defects</code>는 <code>created_at</code>만, <code>style_docs</code>는 둘 다 없어요.</li>
+   <li>대부분의 표에 있는 <code>created_at</code>(만든 시각), <code>updated_at</code>(고친 시각). <code>garment_defects</code>는 <code>created_at</code>만, <code>style_docs</code>는 둘 다 없어요.</li>
    <li>실제 DB에 남아 있는 <code>helper</code> 스키마(contacts, requests). 그 서버가 지금 배포에서 빠져 있어요.</li>
    <li>스키마마다 하나씩 있는 Flyway 기록 표.</li>
   </ul>
  </section>
 </div>
 
-<div class="foot"><span>팀 심청이, 이진행 박창근 정지원</span><span>PostgreSQL 17 + pgvector 0.8.7</span></div>
-<svg class="wires" id="wires" width="1860" height="1872"></svg>
+<div class="side" id="side2">
+ <section>
+  <h3>읽는 법</h3>
+  <div class="key">
+   <span style="font-family:G;font-size:14px;font-weight:500">user_id <span style="color:#FFD86B;font-size:13.5px;font-weight:400">사용자 ID</span></span><span>왼쪽이 물리명(DB 이름), 노란 글씨가 논리명</span>
+   <div><span class="k"><i class="pk">키</i></span></div><span>기본 키</span>
+   <div><span class="k"><i class="fk">참조</i></span></div><span>같은 스키마 안의 외래 키</span>
+   <div><span class="k"><i class="uq">유일</i></span></div><span>겹치면 안 되는 값. 흐린 줄은 여러 칸을 묶은 제약</span>
+   <span style="font-family:G;font-size:11px;font-weight:700;color:#F3EBDD;letter-spacing:.3px">nn</span><span>NOT NULL. 비어 있으면 안 되는 칸. 표시가 없으면 비어 있어도 돼요</span>
+   <svg width="60" height="18"><line x1="0" y1="9" x2="60" y2="9" stroke="#FFD86B" stroke-width="2"/><path d="M44 9 L60 1 M44 9 L60 9 M44 9 L60 17" stroke="#FFD86B" stroke-width="2" fill="none"/></svg><span>외래 키. 갈라진 쪽이 여러 개, 막대 쪽이 하나</span>
+   <svg width="60" height="18"><line x1="0" y1="9" x2="60" y2="9" stroke="#FFD86B" stroke-width="2"/><circle cx="48" cy="9" r="5" fill="#14204A" stroke="#FFD86B" stroke-width="2"/></svg><span>동그라미 쪽은 없을 수도 있어요</span>
+   <svg width="60" height="18"><line x1="0" y1="9" x2="60" y2="9" stroke="#A9B1D1" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/></svg><span>user_id 값만 같이 써요. 스키마가 달라 FK는 없어요</span>
+   <span style="font-family:G;color:#F7A1B5;font-size:13px">vector(384)</span><span>pgvector 벡터 칸. 분홍 띠를 두른 표에 있어요</span>
+  </div>
+ </section>
+</div>
+<div class="foot" id="foot"><span>팀 심청이, 이진행 박창근 정지원</span><span>PostgreSQL 17 + pgvector 0.8.7</span></div>
+<svg class="wires" id="wires" width="1860" height="10"></svg>
 </div>
 <script>
+document.fonts.ready.then(()=>{
+const NN = {"profiles.user_id": true, "profiles.name": false, "profiles.birth_date": false, "profiles.gender": false, "profiles.job": false, "profiles.height_cm": false, "profiles.weight_kg": false, "profiles.agent_name": false, "profiles.created_at": true, "profiles.updated_at": true, "profiles.call_name": false, "profiles.speech_rate": false, "push_tokens.id": true, "push_tokens.user_id": true, "push_tokens.token": true, "push_tokens.platform": true, "push_tokens.last_seen_at": true, "push_tokens.created_at": true, "push_tokens.updated_at": true, "refresh_tokens.id": true, "refresh_tokens.user_id": true, "refresh_tokens.token_hash": true, "refresh_tokens.expires_at": true, "refresh_tokens.revoked_at": false, "refresh_tokens.created_at": true, "refresh_tokens.updated_at": true, "user_identities.id": true, "user_identities.user_id": true, "user_identities.issuer": true, "user_identities.subject": true, "user_identities.sign_in_provider": true, "user_identities.created_at": true, "user_identities.updated_at": true, "users.id": true, "users.last_login_at": false, "users.created_at": true, "users.updated_at": true, "garment_defects.id": true, "garment_defects.garment_id": true, "garment_defects.kind": true, "garment_defects.location": false, "garment_defects.confidence": false, "garment_defects.checked_by": false, "garment_defects.created_at": true, "garments.id": true, "garments.user_id": true, "garments.category": true, "garments.name": true, "garments.color_name": true, "garments.color_family": true, "garments.tone": true, "garments.formality": true, "garments.embedding": false, "garments.first_seen_at": true, "garments.last_seen_at": true, "garments.created_at": true, "garments.updated_at": true, "garments.image_embedding": false, "garments.image_model": false, "garments.image_count": true, "garments.thumbnail": false, "garments.thumbnail_at": false, "garments.pattern": false, "garments.pattern_checked_by": false, "garments.pattern_guess": false, "garments.material": false, "garments.notes": false, "garments.sub_color_name": false, "garments.sub_color_family": false, "style_docs.id": true, "style_docs.content": true, "style_docs.metadata": true, "style_docs.embedding": true, "wears.id": true, "wears.garment_id": true, "wears.worn_on": true, "wears.created_at": true, "wears.updated_at": true, "events.id": true, "events.user_id": true, "events.title": true, "events.start_at": true, "events.place": false, "events.kakao_place_id": false, "events.occasion": true, "events.occasion_source": true, "events.notified_at": false, "events.created_at": true, "events.updated_at": true, "events.care_reminded_at": false, "events.remind": true, "events.remind_days_before": false, "events.remind_time": false, "places.kakao_place_id": true, "places.place_name": true, "places.category": false, "places.created_at": true, "places.updated_at": true};
+// [키, 물리명, 논리명, 타입·값]
 const T = {
- profiles:{x:88,y:310,w:268,h:'회원정보, 없을 수도',rows:[
-  ['pkfk','user_id','uuid'],['','name','varchar(50), null'],['','birth_date','date, null'],['','gender','varchar(20), null'],['','job','varchar(50), null'],
-  ['','height_cm','numeric(4,1)'],['','weight_kg','numeric(4,1)'],['','agent_name','varchar(30)'],['','call_name','varchar(30)'],['','speech_rate','numeric(3,2)']]},
- users:{x:404,y:310,w:252,h:'id = JWT sub',rows:[['pk','id','uuid'],['','last_login_at','timestamptz, null']]},
- identities:{name:'user_identities',x:740,y:310,w:376,h:'로그인 수단, 여러 개',rows:[
-  ['pk','id','bigint'],['fk','user_id','uuid'],['','issuer','firebase, dev'],['','subject','firebase uid, 기기 id'],['','sign_in_provider','apple, google, dev'],['uqc','(issuer, subject)','묶음']]},
- push:{name:'push_tokens',x:740,y:540,w:376,h:'폰마다 하나',rows:[['pk','id','bigint'],['fk','user_id','uuid'],['uq','token','text'],['','platform','ios, android'],['','last_seen_at','timestamptz']]},
- refresh:{name:'refresh_tokens',x:740,y:743,w:376,h:'30일',rows:[['pk','id','bigint'],['fk','user_id','uuid'],['uq','token_hash','char(64), SHA-256'],['','expires_at','timestamptz'],['','revoked_at','timestamptz, null']]},
- places:{x:88,y:1062,w:262,h:'카카오 장소',rows:[['pk','kakao_place_id','varchar(20)'],['','place_name','varchar(200)'],['','category','예: 예식장']]},
- events:{x:394,y:1062,w:346,h:'일정',rows:[
-  ['pk','id','varchar, e_…'],['','user_id','uuid'],['','title','varchar(200)'],['','start_at','timestamptz'],['','place','말한 그대로'],['fk','kakao_place_id','varchar(20), null'],
-  ['','occasion','mourning … casual'],['','occasion_source','title, place, default'],['','remind','boolean'],['','remind_days_before','int, null'],['','remind_time','time, null'],['','notified_at','timestamptz'],['','care_reminded_at','timestamptz']]},
- garments:{x:820,y:1062,w:340,h:'내 옷',vec:1,rows:[
-  ['pk','id','varchar, c_…'],['','user_id','uuid'],['','category','top, bottom, outer …'],['','name','varchar(50)'],['','color_name','예: 차콜 그레이'],['','color_family','black … unknown'],['','tone','light, mid, dark'],
-  ['','sub_color_name','varchar(30), null'],['','sub_color_family','varchar(10), null'],['','pattern','varchar(30), null'],['','pattern_checked_by','model, gpt'],['','pattern_guess','varchar(30), null'],
-  ['','material','varchar(50), null'],['','formality','formal … unknown'],['','notes','varchar(500), null'],['v','embedding','vector(384), 글'],['v','image_embedding','vector(768), 사진'],
-  ['','image_model','varchar(40)'],['','image_count','int'],['','thumbnail','bytea, 64KB 이하'],['','thumbnail_at','timestamptz'],['','first_seen_at','timestamptz'],['','last_seen_at','timestamptz']]},
- wears:{x:1218,y:1062,w:554,h:'입은 날',rows:[['pk','id','bigint'],['fk','garment_id','bigint'],['','worn_on','date'],['uqc','(garment_id, worn_on)','묶음, 같은 옷은 하루 한 번']]},
- defects:{name:'garment_defects',x:1218,y:1244,w:554,h:'얼룩, 찢어짐',rows:[['pk','id','bigint'],['fk','garment_id','varchar'],['','kind','stain, tear …'],['','location','varchar(50)'],['','confidence','numeric(4,3)'],['','checked_by','model, gpt']]},
- styledocs:{name:'style_docs',x:1218,y:1480,w:554,h:'코디 지식, 모두 같이 씀',vec:1,rows:[['pk','id','uuid'],['','content','text'],['','metadata','json, source와 chunkNo'],['uqc','(metadata→source, →chunkNo)','묶음, 식 인덱스'],['v','embedding','vector(384), HNSW']]},
+ profiles:{table:'profiles',lg:'회원정보',rows:[
+  ['pkfk','user_id','사용자 ID','uuid → users.id'],['','name','이름','varchar(50)'],['','birth_date','생년월일','date'],['','gender','성별','varchar(20)'],['','job','직업','varchar(50)'],
+  ['','height_cm','키(cm)','numeric(4,1)'],['','weight_kg','몸무게(kg)','numeric(4,1)'],['','agent_name','에이전트 이름','varchar(30)'],['','call_name','부를 호칭','varchar(30)'],['','speech_rate','읽기 빠르기','numeric(3,2)']]},
+ users:{table:'users',lg:'사용자 계정',rows:[['pk','id','사용자 ID','uuid'],['','last_login_at','마지막 로그인','timestamptz']]},
+ identities:{table:'user_identities',lg:'로그인 수단',rows:[
+  ['pk','id','수단 ID','bigint'],['fk','user_id','사용자 ID','→ users.id'],['','issuer','발급처','firebase, dev'],['','subject','발급처 계정 ID','firebase uid, 기기 id'],['','sign_in_provider','로그인 방법','apple, google, dev'],['uqc','(issuer, subject)','발급처+계정 묶음','묶음 유일']]},
+ push:{table:'push_tokens',lg:'푸시 토큰',rows:[['pk','id','토큰 ID','bigint'],['fk','user_id','사용자 ID','→ users.id'],['uq','token','푸시 토큰','text'],['','platform','폰 종류','ios, android'],['','last_seen_at','마지막 확인 시각','timestamptz']]},
+ refresh:{table:'refresh_tokens',lg:'갱신 토큰 (30일)',rows:[['pk','id','토큰 ID','bigint'],['fk','user_id','사용자 ID','→ users.id'],['uq','token_hash','토큰 해시','char(64), SHA-256'],['','expires_at','만료 시각','timestamptz'],['','revoked_at','폐기 시각','timestamptz']]},
+ places:{table:'places',lg:'장소',rows:[['pk','kakao_place_id','카카오 장소 ID','varchar(20)'],['','place_name','장소 이름','varchar(200)'],['','category','장소 분류','예: 예식장']]},
+ events:{table:'events',lg:'일정',rows:[
+  ['pk','id','일정 ID','varchar, e_…'],['','user_id','사용자 ID','uuid'],['','title','일정 제목','varchar(200)'],['','start_at','시작 시각','timestamptz'],['','place','말한 장소','varchar(200)'],['fk','kakao_place_id','카카오 장소 ID','→ places'],
+  ['','occasion','자리 종류','mourning … casual'],['','occasion_source','자리 판단 근거','title, place, default'],['','remind','알림 받기','boolean'],['','remind_days_before','며칠 전 알림','int'],['','remind_time','알림 시각','time'],['','notified_at','알림 보낸 시각','timestamptz'],['','care_reminded_at','옷 관리 안내 시각','timestamptz']]},
+ garments:{table:'garments',lg:'내 옷',vec:1,rows:[
+  ['pk','id','옷 ID','varchar, c_…'],['','user_id','사용자 ID','uuid'],['','category','옷 종류','top, bottom, outer …'],['','name','옷 이름','varchar(50)'],['','color_name','색 이름','예: 차콜 그레이'],['','color_family','색 계열','black … unknown'],['','tone','밝기','light, mid, dark'],
+  ['','sub_color_name','보조 색 이름','varchar(30)'],['','sub_color_family','보조 색 계열','varchar(10)'],['','pattern','무늬','varchar(30)'],['','pattern_checked_by','무늬 판단 주체','model, gpt'],['','pattern_guess','모델 무늬 추측','varchar(30)'],
+  ['','material','소재','varchar(50)'],['','formality','격식','formal … unknown'],['','notes','메모','varchar(500)'],['v','embedding','설명 벡터','vector(384), 글'],['v','image_embedding','사진 벡터','vector(768), 사진'],
+  ['','image_model','사진 벡터 모델','varchar(40)'],['','image_count','평균 낸 사진 수','int'],['','thumbnail','옷 작은 사진','bytea, 64KB 이하'],['','thumbnail_at','사진 저장 시각','timestamptz'],['','first_seen_at','처음 본 시각','timestamptz'],['','last_seen_at','마지막 본 시각','timestamptz']]},
+ wears:{table:'wears',lg:'입은 날',rows:[['pk','id','기록 ID','bigint'],['fk','garment_id','옷 ID','→ garments.id'],['','worn_on','입은 날짜','date'],['uqc','(garment_id, worn_on)','옷+날짜 묶음','같은 옷은 하루 한 번']]},
+ defects:{table:'garment_defects',lg:'옷 상태 (얼룩·찢어짐)',rows:[['pk','id','상태 ID','bigint'],['fk','garment_id','옷 ID','→ garments.id'],['','kind','상태 종류','stain, tear …'],['','location','위치','varchar(50)'],['','confidence','확신도','numeric(4,3)'],['','checked_by','판단 주체','model, gpt']]},
+ styledocs:{table:'style_docs',lg:'코디 지식 (모두 같이 씀)',vec:1,rows:[['pk','id','조각 ID','uuid'],['','content','본문','text'],['','metadata','출처 정보','json, source·chunkNo'],['uqc','(metadata→source, →chunkNo)','출처+조각 번호 묶음','식 인덱스'],['v','embedding','본문 벡터','vector(384), HNSW']]},
 };
-// fix types that I may not know exactly: keep FK types as in original
-T.wears.rows[1][2]='→ garments.id'; T.defects.rows[1][2]='→ garments.id';
-T.identities.rows[1][2]='→ users.id'; T.push.rows[1][2]='→ users.id'; T.refresh.rows[1][2]='→ users.id'; T.profiles.rows[0][2]='uuid → users.id';
-T.events.rows[5][2]='→ places, null';
-const page=document.getElementById('page'), R={};
+const page=document.getElementById('page');
 const chip={pk:'<i class="pk">키</i>',fk:'<i class="fk">참조</i>',uq:'<i class="uq">유일</i>',uqc:'<i class="uq">유일</i>',pkfk:'<i class="pk">키</i>'};
+const E={};
 for(const [id,t] of Object.entries(T)){
- const d=document.createElement('div'); d.className='t'+(t.vec?' vec':''); d.id=id; d.style.cssText=`left:${t.x}px;top:${t.y}px;width:${t.w}px`;
- let h=`<div class="th"><span class="n">${t.name||id}</span><span class="d">${t.h}</span></div>`;
- t.rows.forEach((r,i)=>{const cls=r[0]=='uqc'?'combo':r[0]=='v'?'vecr':r[0]=='new'?'new':'';
-  h+=`<div class="r ${cls}" id="${id}-${r[1]}"><span class="k">${chip[r[0]]||''}</span><span class="c">${r[1]}</span><span class="y">${r[2]}${r[0]=='new'?'<em>V5</em>':''}</span></div>`});
- d.innerHTML=h; page.appendChild(d);
+ const d=document.createElement('div'); d.className='t'+(t.vec?' vec':''); d.id=id;
+ let h=`<div class="th"><span class="ln"><span class="n">${t.table}</span><span class="lg">${t.lg}</span></span></div>`;
+ t.rows.forEach(r=>{const cls=r[0]=='uqc'?'combo':r[0]=='v'?'vecr':'';
+  const isNN = r[0]!='uqc' && NN[t.table+'.'+r[1]];
+  h+=`<div class="r ${cls}" id="${id}-${r[1]}"><span class="k">${chip[r[0]]||''}</span><span class="c">${r[1]}</span><span class="l">${r[2]}</span><span class="nn">${isNN?'nn':''}</span><span class="y">${r[3]}</span></div>`});
+ d.innerHTML=h; page.appendChild(d); E[id]=d;
+ // 칸 너비 맞추기
+ const w=s=>Math.max(...[...d.querySelectorAll(s)].map(e=>e.getBoundingClientRect().width));
+ const cw=w('.c'), lw=w('.l'), yw=w('.y');
+ d.querySelectorAll('.c').forEach(e=>e.style.width=cw+'px'); d.querySelectorAll('.l').forEach(e=>e.style.width=lw+'px'); d.querySelectorAll('.y').forEach(e=>e.style.width=yw+'px');
+ const hw=d.querySelector('.th .ln').getBoundingClientRect().width+28;
+ d.style.width=Math.ceil(Math.max(10+38+cw+lw+34+yw+14, hw))+'px';
 }
-const svg=document.getElementById('wires'), NS='http://www.w3.org/2000/svg';
+const W=id=>E[id].getBoundingClientRect().width, H=id=>E[id].getBoundingClientRect().height;
+function put(id,x,y,w){const s=E[id].style; s.left=x+'px'; s.top=y+'px'; if(w) s.width=w+'px'}
+function board(id,x,y,w,h){Object.assign(document.getElementById(id).style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'})}
+const G=72, PAD=24, TOP=70, L=64, RIGHT=1796;
+// account
+let y0=240, x=L+PAD;
+put('profiles',x,y0+TOP); x+=W('profiles')+G;
+put('users',x,y0+TOP); x+=W('users')+G;
+const c3=Math.max(W('identities'),W('push'),W('refresh'));
+put('identities',x,y0+TOP,c3); put('push',x,y0+TOP+H('identities')+22,c3); put('refresh',x,y0+TOP+H('identities')+22+H('push')+22,c3);
+const accRight=x+c3+PAD, accH=TOP+H('identities')+H('push')+H('refresh')+44+PAD+6;
+board('bA',L,y0,accRight-L,accH);
+const s1=document.getElementById('side1'); Object.assign(s1.style,{left:(accRight+40)+'px',top:y0+'px',width:(RIGHT-accRight-40)+'px'});
+// schedule
+let y1=y0+accH+56; x=L+PAD;
+const pw=Math.max(W('places'),300);
+put('places',x,y1+TOP,pw); x+=pw+G;
+put('events',x,y1+TOP);
+const note=document.getElementById('note'); Object.assign(note.style,{left:PAD+'px',top:(TOP+H('places')+36)+'px',width:pw+'px'});
+const schRight=x+W('events')+PAD, schH=TOP+H('events')+PAD+6;
+board('bB',L,y1,schRight-L,schH);
+const s2=document.getElementById('side2'); Object.assign(s2.style,{left:(schRight+40)+'px',top:y1+'px',width:(RIGHT-schRight-40)+'px'});
+// closet
+let y2=y1+schH+56; x=L+PAD;
+put('garments',x,y2+TOP); x+=W('garments')+G;
+const c2=Math.max(W('wears'),W('defects'));
+put('wears',x,y2+TOP,c2); put('defects',x,y2+TOP+H('wears')+22,c2);
+x+=c2+48; put('styledocs',x,y2+TOP);
+const cloH=TOP+H('garments')+PAD+6;
+board('bC',L,y2,RIGHT-L,cloH);
+const pageH=y2+cloH+100; page.style.height=pageH+'px';
+const svg=document.getElementById('wires'); svg.setAttribute('height',pageH);
+window.__layout={accRight,schRight,closetRight:x+W('styledocs'),pageH};
+const NS='http://www.w3.org/2000/svg';
 function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e}
-function pt(tid,col,side){const r=document.getElementById(tid+'-'+col).getBoundingClientRect(), t=document.getElementById(tid).getBoundingClientRect();
+function pt(tid,col,side){const r=document.getElementById(tid+'-'+col).getBoundingClientRect(), t=E[tid].getBoundingClientRect();
  return {x: side=='l'?t.left:t.right, y:r.top+r.height/2, d: side=='l'?-1:1}}
 const Y='#FFD86B';
-function end(p,kind){const s=p.d; // s: direction outwards
- const L=(x1,y1,x2,y2)=>el('line',{x1,y1,x2,y2,stroke:Y,'stroke-width':2});
- if(kind=='one'){L(p.x+s*10,p.y-8,p.x+s*10,p.y+8);L(p.x+s*16,p.y-8,p.x+s*16,p.y+8)}
- if(kind=='zeroOne'){L(p.x+s*10,p.y-8,p.x+s*10,p.y+8);el('circle',{cx:p.x+s*21,cy:p.y,r:5,fill:'#1C2B5E',stroke:Y,'stroke-width':2})}
- if(kind=='many'){const b=p.x+s*16;L(b,p.y,p.x,p.y-8);L(b,p.y,p.x,p.y+8);L(b,p.y,p.x,p.y);L(p.x+s*21,p.y-8,p.x+s*21,p.y+8)}
+function end(p,kind){const s=p.d;
+ const Ln=(x1,y1,x2,y2)=>el('line',{x1,y1,x2,y2,stroke:Y,'stroke-width':2});
+ if(kind=='one'){Ln(p.x+s*10,p.y-8,p.x+s*10,p.y+8);Ln(p.x+s*16,p.y-8,p.x+s*16,p.y+8)}
+ if(kind=='zeroOne'){Ln(p.x+s*10,p.y-8,p.x+s*10,p.y+8);el('circle',{cx:p.x+s*21,cy:p.y,r:5,fill:'#1C2B5E',stroke:Y,'stroke-width':2})}
+ if(kind=='many'){const b=p.x+s*16;Ln(b,p.y,p.x,p.y-8);Ln(b,p.y,p.x,p.y+8);Ln(b,p.y,p.x,p.y);Ln(p.x+s*21,p.y-8,p.x+s*21,p.y+8)}
 }
 function bus(a,ka,b,kb,X){const r=8, sy=Math.sign(b.y-a.y)||1, sx1=Math.sign(X-a.x), sx2=Math.sign(b.x-X);
  const d= Math.abs(b.y-a.y)<1 ? `M${a.x} ${a.y} H${b.x}` : `M${a.x} ${a.y} H${X-sx1*r} Q${X} ${a.y} ${X} ${a.y+sy*r} V${b.y-sy*r} Q${X} ${b.y} ${X+sx2*r} ${b.y} H${b.x}`;
  el('path',{d,stroke:Y,'stroke-width':2,fill:'none'});end(a,ka);end(b,kb)}
-function rel(a,ka,b,kb){const c=Math.max(50,Math.abs(b.x-a.x)/2);
- el('path',{d:`M${a.x} ${a.y} C${a.x+a.d*c} ${a.y} ${b.x+b.d*c} ${b.y} ${b.x} ${b.y}`,stroke:Y,'stroke-width':2,fill:'none'});end(a,ka);end(b,kb)}
+function rel(a,ka,b,kb){el('path',{d:`M${a.x} ${a.y} H${b.x}`,stroke:Y,'stroke-width':2,fill:'none'});end(a,ka);end(b,kb)}
+const R=id=>E[id].getBoundingClientRect();
+// profiles.user_id 와 users.id 높이가 같도록
 rel(pt('users','id','l'),'one',pt('profiles','user_id','r'),'zeroOne');
-bus(pt('users','id','r'),'one',pt('identities','user_id','l'),'many',700);
-bus(pt('users','id','r'),'one',pt('push','user_id','l'),'many',700);
-bus(pt('users','id','r'),'one',pt('refresh','user_id','l'),'many',700);
-bus(pt('places','kakao_place_id','r'),'zeroOne',pt('events','kakao_place_id','l'),'many',372);
-bus(pt('garments','id','r'),'one',pt('wears','garment_id','l'),'many',1190);
-bus(pt('garments','id','r'),'one',pt('defects','garment_id','l'),'many',1190);
-// cross-schema user_id
-const u=document.getElementById('users').getBoundingClientRect();
-const ev=document.getElementById('events').getBoundingClientRect(), ga=document.getElementById('garments').getBoundingClientRect();
-const tx=u.left+150, my=972;
+const xA=R('identities').left-G/2;
+bus(pt('users','id','r'),'one',pt('identities','user_id','l'),'many',xA);
+bus(pt('users','id','r'),'one',pt('push','user_id','l'),'many',xA);
+bus(pt('users','id','r'),'one',pt('refresh','user_id','l'),'many',xA);
+bus(pt('places','kakao_place_id','r'),'zeroOne',pt('events','kakao_place_id','l'),'many',R('events').left-G/2);
+const xC=R('wears').left-G/2;
+bus(pt('garments','id','r'),'one',pt('wears','garment_id','l'),'many',xC);
+bus(pt('garments','id','r'),'one',pt('defects','garment_id','l'),'many',xC);
+// 스키마 넘는 user_id (FK 없음)
 const D={stroke:'#A9B1D1','stroke-width':2,fill:'none','stroke-dasharray':'2 7','stroke-linecap':'round'};
-el('path',{...D,d:`M${tx} ${u.bottom} V${my-16} Q${tx} ${my} ${tx-16} ${my} H${ev.left+92} Q${ev.left+76} ${my} ${ev.left+76} ${my+16} V${ev.top}`});
-el('path',{...D,d:`M${tx} ${my-16} Q${tx} ${my} ${tx+16} ${my} H${ga.left+299} Q${ga.left+315} ${my} ${ga.left+315} ${my+16} V${ga.top}`});
-el('path',{d:`M${ev.left+70} ${ev.top-12} L${ev.left+76} ${ev.top-2} L${ev.left+82} ${ev.top-12}`,stroke:'#A9B1D1','stroke-width':2,fill:'none'});
-el('path',{d:`M${ga.left+309} ${ga.top-12} L${ga.left+315} ${ga.top-2} L${ga.left+321} ${ga.top-12}`,stroke:'#A9B1D1','stroke-width':2,fill:'none'});
-const tg=document.createElement('div');tg.className='tag';tg.style.cssText=`left:${tx-176}px;top:${u.bottom+230}px;color:#A9B1D1;background:#1C2B5E`;tg.textContent='user_id 값만 같이 써요';page.appendChild(tg);
-</script>
-</body></html>
+const u=R('users'), ev=R('events'), ga=R('garments');
+const tx=u.left+u.width/2, yAB=y1-28, yBC=y2-28, ex=ev.left+ev.width/2, lx=40, gx=ga.right-60;
+el('path',{...D,d:`M${tx} ${u.bottom} V${yAB} H${ex} V${ev.top}`});
+el('path',{...D,d:`M${tx} ${yAB} H${lx} V${yBC} H${gx} V${ga.top}`});
+const arr=(X,Yt)=>el('path',{d:`M${X-6} ${Yt-12} L${X} ${Yt-2} L${X+6} ${Yt-12}`,stroke:'#A9B1D1','stroke-width':2,fill:'none'});
+arr(ex,ev.top); arr(gx,ga.top);
+const tg=document.createElement('div');tg.className='tag';tg.style.cssText=`left:${tx+16}px;top:${yAB-13}px;color:#A9B1D1;background:var(--sea)`;tg.textContent='user_id 값만 같이 써요';page.appendChild(tg);
+window.__done=1;
+});
+</script></body></html>
