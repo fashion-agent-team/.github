@@ -151,18 +151,6 @@ CREATE TABLE schedule.places (
 
 
 /* create foreign keys. */
-ALTER TABLE schedule.events
-    ADD FOREIGN KEY (kakao_place_id)
-    REFERENCES schedule.places (kakao_place_id)
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
-
-ALTER TABLE account.push_tokens
-    ADD FOREIGN KEY (user_id)
-    REFERENCES account.users (id)
-    ON UPDATE NO ACTION
-    ON DELETE CASCADE;
-
 ALTER TABLE account.profiles
     ADD FOREIGN KEY (user_id)
     REFERENCES account.users (id)
@@ -175,7 +163,7 @@ ALTER TABLE account.refresh_tokens
     ON UPDATE NO ACTION
     ON DELETE CASCADE;
 
-ALTER TABLE account.user_identities
+ALTER TABLE account.push_tokens
     ADD FOREIGN KEY (user_id)
     REFERENCES account.users (id)
     ON UPDATE NO ACTION
@@ -187,11 +175,23 @@ ALTER TABLE closet.garment_defects
     ON UPDATE NO ACTION
     ON DELETE CASCADE;
 
+ALTER TABLE account.user_identities
+    ADD FOREIGN KEY (user_id)
+    REFERENCES account.users (id)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE;
+
 ALTER TABLE closet.wears
     ADD FOREIGN KEY (garment_id)
     REFERENCES closet.garments (id)
     ON UPDATE NO ACTION
     ON DELETE CASCADE;
+
+ALTER TABLE schedule.events
+    ADD FOREIGN KEY (kakao_place_id)
+    REFERENCES schedule.places (kakao_place_id)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
 
 
 /* create comments. */
