@@ -27,7 +27,7 @@ body{width:1860px;font-family:G,sans-serif;color:var(--hanji)}
 .th{display:flex;align-items:baseline;justify-content:space-between;height:46px;padding:0 14px;align-items:center;border-bottom:1px solid var(--line)}
 .th .n{font-size:18px;font-weight:800;color:var(--hanji)}
 .th .d{font-size:12.5px;color:var(--mist)}
-.r{display:flex;align-items:center;height:28px;padding:0 14px 0 10px;font-size:14px}
+.r{display:flex;align-items:center;height:28px;padding:0 14px 0 16px;font-size:14px}
 .r+.r{border-top:1px solid rgba(51,67,122,.55)}
 .k{width:38px;flex:none}
 .k i{display:inline-block;font-style:normal;font-size:10.5px;font-weight:700;line-height:1;padding:3px 5px;border-radius:5px}
@@ -153,7 +153,7 @@ for(const [id,t] of Object.entries(T)){
  const cw=w('.c'), lw=w('.l'), yw=w('.y');
  d.querySelectorAll('.c').forEach(e=>e.style.width=cw+'px'); d.querySelectorAll('.l').forEach(e=>e.style.width=lw+'px'); d.querySelectorAll('.y').forEach(e=>e.style.width=yw+'px');
  const hw=d.querySelector('.th .ln').getBoundingClientRect().width+28;
- d.style.width=Math.ceil(Math.max(10+38+cw+lw+34+yw+14, hw))+'px';
+ d.style.width=Math.ceil(Math.max(16+38+cw+lw+34+yw+14, hw))+'px';
 }
 const W=id=>E[id].getBoundingClientRect().width, H=id=>E[id].getBoundingClientRect().height;
 function put(id,x,y,w){const s=E[id].style; s.left=x+'px'; s.top=y+'px'; if(w) s.width=w+'px'}
@@ -191,38 +191,37 @@ window.__layout={accRight,schRight,closetRight:x+W('styledocs'),pageH};
 const NS='http://www.w3.org/2000/svg';
 function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e}
 function pt(tid,col,side){const r=document.getElementById(tid+'-'+col).getBoundingClientRect(), t=E[tid].getBoundingClientRect();
- return {x: side=='l'?t.left:t.right, y:r.top+r.height/2, d: side=='l'?-1:1}}
+ return {x: side=='l'?t.left-10:t.right+10, y:r.top+r.height/2, d: side=='l'?-1:1}}
 const Y='#FFD86B';
-function end(p,kind){const s=p.d;
+function end(p,kind,hh){const s=p.d; hh=hh||8;
  const Ln=(x1,y1,x2,y2)=>el('line',{x1,y1,x2,y2,stroke:Y,'stroke-width':2});
- if(kind=='one'){Ln(p.x+s*10,p.y-8,p.x+s*10,p.y+8);Ln(p.x+s*16,p.y-8,p.x+s*16,p.y+8)}
- if(kind=='zeroOne'){Ln(p.x+s*10,p.y-8,p.x+s*10,p.y+8);el('circle',{cx:p.x+s*21,cy:p.y,r:5,fill:'#1C2B5E',stroke:Y,'stroke-width':2})}
+ if(kind=='one'){Ln(p.x+s*10,p.y-hh,p.x+s*10,p.y+hh);Ln(p.x+s*16,p.y-hh,p.x+s*16,p.y+hh)}
+ if(kind=='zeroOne'){Ln(p.x+s*10,p.y-hh,p.x+s*10,p.y+hh);el('circle',{cx:p.x+s*21,cy:p.y,r:5,fill:'#1C2B5E',stroke:Y,'stroke-width':2})}
  if(kind=='many'){const b=p.x+s*16;Ln(b,p.y,p.x,p.y-8);Ln(b,p.y,p.x,p.y+8);Ln(b,p.y,p.x,p.y);Ln(p.x+s*21,p.y-8,p.x+s*21,p.y+8)}
 }
-function bus(a,ka,b,kb,X){const r=8, sy=Math.sign(b.y-a.y)||1, sx1=Math.sign(X-a.x), sx2=Math.sign(b.x-X);
+function bus(a,ka,b,kb,X,hh){const r=8, sy=Math.sign(b.y-a.y)||1, sx1=Math.sign(X-a.x), sx2=Math.sign(b.x-X);
  const d= Math.abs(b.y-a.y)<1 ? `M${a.x} ${a.y} H${b.x}` : `M${a.x} ${a.y} H${X-sx1*r} Q${X} ${a.y} ${X} ${a.y+sy*r} V${b.y-sy*r} Q${X} ${b.y} ${X+sx2*r} ${b.y} H${b.x}`;
- el('path',{d,stroke:Y,'stroke-width':2,fill:'none'});end(a,ka);end(b,kb)}
+ el('path',{d,stroke:Y,'stroke-width':2,fill:'none'});end(a,ka,hh);end(b,kb)}
 function rel(a,ka,b,kb){el('path',{d:`M${a.x} ${a.y} H${b.x}`,stroke:Y,'stroke-width':2,fill:'none'});end(a,ka);end(b,kb)}
 const R=id=>E[id].getBoundingClientRect();
 // profiles.user_id 와 users.id 높이가 같도록
 rel(pt('users','id','l'),'one',pt('profiles','user_id','r'),'zeroOne');
-const xA=R('identities').left-G/2;
-bus(pt('users','id','r'),'one',pt('identities','user_id','l'),'many',xA);
-bus(pt('users','id','r'),'one',pt('push','user_id','l'),'many',xA);
-bus(pt('users','id','r'),'one',pt('refresh','user_id','l'),'many',xA);
+// 한 표에서 여러 표로 가는 관계는 선을 하나씩 따로(갈라지지 않게): 나가는 높이와 꺾는 자리를 다르게
+function fan(src,col,targets,X0){const n=targets.length, gap=11, base=pt(src,col,'r');
+ targets.forEach(([tid,tcol],i)=>{const a={...base,y:base.y+(i-(n-1)/2)*gap};
+  const X=X0+(n-1-i)*22-((n-1)*22)/2; bus(a,'one',pt(tid,tcol,'l'),'many',X,4);});}
+fan('users','id',[['identities','user_id'],['push','user_id'],['refresh','user_id']],R('identities').left-G/2);
 bus(pt('places','kakao_place_id','r'),'zeroOne',pt('events','kakao_place_id','l'),'many',R('events').left-G/2);
-const xC=R('wears').left-G/2;
-bus(pt('garments','id','r'),'one',pt('wears','garment_id','l'),'many',xC);
-bus(pt('garments','id','r'),'one',pt('defects','garment_id','l'),'many',xC);
+fan('garments','id',[['wears','garment_id'],['defects','garment_id']],R('wears').left-G/2);
 // 스키마 넘는 user_id (FK 없음)
 const D={stroke:'#A9B1D1','stroke-width':2,fill:'none','stroke-dasharray':'2 7','stroke-linecap':'round'};
 const u=R('users'), ev=R('events'), ga=R('garments');
-const tx=u.left+u.width/2, yAB=y1-28, yBC=y2-28, ex=ev.left+ev.width/2, lx=40, gx=ga.right-60;
-el('path',{...D,d:`M${tx} ${u.bottom} V${yAB} H${ex} V${ev.top}`});
-el('path',{...D,d:`M${tx} ${yAB} H${lx} V${yBC} H${gx} V${ga.top}`});
+const tx=u.left+u.width/2, txE=tx+14, txG=tx-14, yAB=y1-28, yBC=y2-28, ex=ev.left+ev.width/2, lx=40, gx=ga.right-60;
+el('path',{...D,d:`M${txE} ${u.bottom} V${yAB} H${ex} V${ev.top}`});
+el('path',{...D,d:`M${txG} ${u.bottom} V${yAB} H${lx} V${yBC} H${gx} V${ga.top}`});
 const arr=(X,Yt)=>el('path',{d:`M${X-6} ${Yt-12} L${X} ${Yt-2} L${X+6} ${Yt-12}`,stroke:'#A9B1D1','stroke-width':2,fill:'none'});
 arr(ex,ev.top); arr(gx,ga.top);
-const tg=document.createElement('div');tg.className='tag';tg.style.cssText=`left:${tx+16}px;top:${yAB-13}px;color:#A9B1D1;background:var(--sea)`;tg.textContent='user_id 값만 같이 써요';page.appendChild(tg);
+const tg=document.createElement('div');tg.className='tag';tg.style.cssText=`left:${(lx+txG)/2-80}px;top:${yAB-13}px;color:#A9B1D1;background:var(--sea)`;tg.textContent='user_id 값만 같이 써요';page.appendChild(tg);
 window.__done=1;
 });
 </script></body></html>
