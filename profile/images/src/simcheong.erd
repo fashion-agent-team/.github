@@ -1,21 +1,21 @@
 {
     "documentName": "심청이 ERD",
-    "lastUpdatedAt": "2026-11-25T08:12:58.843Z",
+    "lastUpdatedAt": "2026-11-25T08:15:44.620Z",
     "schemaConfig": {
         "defaultSchemaId": "",
         "schemas": [
             {
-                "schemaId": "820afb2e-48de-4195-bdbf-5b487c914b5c",
+                "schemaId": "56b343f5-18aa-4758-8857-5825e8be4284",
                 "schemaName": "account",
                 "description": "회원(gateway)"
             },
             {
-                "schemaId": "41a1de58-2e30-4575-80cb-775929a49342",
+                "schemaId": "17a4b07a-3e2b-432d-99c4-4f5431136b7e",
                 "schemaName": "schedule",
                 "description": "일정(mcp-schedule)"
             },
             {
-                "schemaId": "6fa6347f-9da4-47c0-a7f2-e6fc131b09ad",
+                "schemaId": "720033c8-9520-41de-8577-b12c192808ee",
                 "schemaName": "closet",
                 "description": "옷장(mcp-closet)"
             }
@@ -24,26 +24,26 @@
     "tableViewModels": [
         {
             "tableModel": {
-                "tableModelId": "16bbcb6e-69dc-4382-821b-6e8590d74d4e",
+                "tableModelId": "cac51010-8077-4390-8a2b-ab9faf107eeb",
                 "physicalName": "profiles",
                 "logicalName": "내 정보",
-                "schemaId": "820afb2e-48de-4195-bdbf-5b487c914b5c",
+                "schemaId": "56b343f5-18aa-4758-8857-5825e8be4284",
                 "columnModelIds": [
-                    "c31d05b2-2380-4775-a413-d4778ce677ff",
-                    "d436779d-d83c-426b-8052-5c4aa7496924",
-                    "b34205ed-909d-47f5-888d-f69bb7ec342f",
-                    "49dc4911-8c82-4a40-b997-4d34288ddf83",
-                    "8b86e98f-82af-4e5c-bea8-f19f513dfd82",
-                    "ffb0112a-6e02-4c92-8591-f473d42b31b9",
-                    "b812f224-30c6-42a7-b529-953243cb6af4",
-                    "6c172676-ceb0-4ebc-92ca-222150232f6f",
-                    "101af31d-498d-479f-9222-3256babe4ea0",
-                    "215f4294-f5b4-4fbb-b93d-fbab634ac770",
-                    "32d07fed-6f89-4603-bf32-774ccf22a786",
-                    "e676484f-152f-438e-88a9-88dc7432f57b"
+                    "2965fd2c-f150-4ec5-bf5d-72307bd839b4",
+                    "9ab45148-0283-4744-9f80-a64808eec72c",
+                    "19add7d4-3b82-4058-b4e2-5a99d2018ddd",
+                    "bc88f36a-5368-4800-9595-ca74693b0401",
+                    "066273ee-8e26-4061-87d9-59aa1f4824ba",
+                    "9dbbac15-a61e-49ee-908a-2cc621cbf01d",
+                    "b85c312c-ab09-439a-b4cd-ca1e450c0c03",
+                    "929bc6fb-8d20-4bfb-ae9b-3ed2c3cf16ea",
+                    "4c2443cc-1908-4cac-bfac-2809f425ff85",
+                    "77827b8c-a596-4a45-a43f-2774fd28b137",
+                    "b306e677-fb28-456d-a765-f12f9dafea87",
+                    "a40ae6f6-cdda-4b7d-8ed1-c30633ae307a"
                 ]
             },
-            "top": 540,
+            "top": 160,
             "left": 0,
             "headerBackgroundColor": {
                 "red": 20,
@@ -55,26 +55,26 @@
                 "green": 216,
                 "blue": 107
             },
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
             "tableModel": {
-                "tableModelId": "835b7a7d-6109-48aa-a2fd-240d60ecca12",
+                "tableModelId": "cbacdc2e-a312-4882-a1bc-21bbb7d9587e",
                 "physicalName": "push_tokens",
                 "logicalName": "푸시 토큰",
-                "schemaId": "820afb2e-48de-4195-bdbf-5b487c914b5c",
+                "schemaId": "56b343f5-18aa-4758-8857-5825e8be4284",
                 "columnModelIds": [
-                    "6671e9ba-75e8-45de-80e4-066706c8d44c",
-                    "3350d9f9-b578-48db-81a4-920fe90a11e5",
-                    "bd0df1fe-c868-42d3-a7ca-a93153d4d8bc",
-                    "a94ea1a5-28c6-4468-af20-96b6fc5d1ad3",
-                    "a391f133-635f-403d-8d2e-afe9c52cc473",
-                    "335aaa5e-c266-441b-9e30-f97abd684b68",
-                    "99239f9f-b77a-43ee-a591-124751e725da"
+                    "8743ea1d-e645-4b68-a821-043851c7f977",
+                    "277e93d9-16ae-4d18-b300-d23e0858f3cf",
+                    "9d1cc019-453f-497f-8a44-e979927d7991",
+                    "62f708d6-b3db-4253-89b6-41c012b8ba7f",
+                    "6d3c923d-e046-43cc-af0c-7461f4892bc2",
+                    "a389cf35-49a5-410b-ba1d-af86409f32e9",
+                    "b8310743-53a4-424f-881e-42a193834e10"
                 ]
             },
-            "top": 800,
-            "left": 640,
+            "top": 700,
+            "left": 580,
             "headerBackgroundColor": {
                 "red": 20,
                 "green": 32,
@@ -85,26 +85,26 @@
                 "green": 216,
                 "blue": 107
             },
-            "createdAt": "2026-11-25T08:12:53.001Z"
+            "createdAt": "2026-11-25T08:15:38.868Z"
         },
         {
             "tableModel": {
-                "tableModelId": "b4b62fa9-bdb9-47b2-88f4-8a7eeb448d42",
+                "tableModelId": "8eed0434-fac4-418c-a895-d4f7ebb53b51",
                 "physicalName": "refresh_tokens",
                 "logicalName": "갱신 토큰",
-                "schemaId": "820afb2e-48de-4195-bdbf-5b487c914b5c",
+                "schemaId": "56b343f5-18aa-4758-8857-5825e8be4284",
                 "columnModelIds": [
-                    "f377fc49-85df-4f8b-adca-9b5889564362",
-                    "01130ee9-69b0-47a9-937a-47a825973a16",
-                    "1eba7501-e742-47c0-895d-3854d55333ee",
-                    "13630722-1f9d-41ee-8d55-8b7d870a0617",
-                    "eaa6793b-3292-49d8-8fe3-1bbbe0a93163",
-                    "29f64c2a-1446-4cf3-91af-ba7acd991500",
-                    "cc063180-77b6-46e9-b43f-8b15e86ca429"
+                    "4ca0920a-fccc-4443-b67e-da61d6da92b2",
+                    "e243838e-decb-409c-8084-956776cf557f",
+                    "3c10534c-2339-4713-819b-f553518dc73b",
+                    "80ac96c9-2bde-4ce8-9283-40ded9f5629c",
+                    "bad5115b-cecf-4514-888f-6c6f2b0b098f",
+                    "aa177fd6-07eb-44e8-9231-eb33932d7229",
+                    "697fd07f-e927-43cf-b0ff-9ddfb4bc84c2"
                 ]
             },
             "top": 480,
-            "left": 640,
+            "left": 1260,
             "headerBackgroundColor": {
                 "red": 20,
                 "green": 32,
@@ -115,40 +115,40 @@
                 "green": 216,
                 "blue": 107
             },
-            "createdAt": "2026-11-25T08:12:53.155Z"
+            "createdAt": "2026-11-25T08:15:39.020Z"
         },
         {
             "tableModel": {
-                "tableModelId": "d0d10938-aead-440a-a863-ef8daf908128",
+                "tableModelId": "f83c0167-ad08-442d-97f4-574805dc774a",
                 "physicalName": "user_identities",
                 "logicalName": "로그인 수단",
-                "schemaId": "820afb2e-48de-4195-bdbf-5b487c914b5c",
+                "schemaId": "56b343f5-18aa-4758-8857-5825e8be4284",
                 "columnModelIds": [
-                    "1c552a86-a12a-4f1a-9663-b2d460c1e913",
-                    "70af447b-92b4-4941-b330-c36f3b87de22",
-                    "1b77c6dd-e92b-4797-b3e1-3fdedf012610",
-                    "2890865e-403e-4d23-b70f-0ebff766a2e1",
-                    "0fc3bbe8-6477-4438-81e3-6815f552f22c",
-                    "d1816e8e-044d-4e18-b0d1-3da99892b074",
-                    "d8cde29b-4858-462d-819e-397d916dd5d0"
+                    "5cb5315f-83a3-431c-986b-535209700aa8",
+                    "4a17f24c-7e5b-492b-aa61-2c5d7489fc56",
+                    "d54b57a4-1e7a-4fa6-a4df-6aadca89004a",
+                    "d85bfbcb-9ce0-4422-9abf-3e548c525649",
+                    "9e199c5a-e1ec-433f-b01e-1b682452a11d",
+                    "78275479-b2b3-4ff2-9c7f-67f3badff517",
+                    "b60c48ee-057c-4a5b-b359-632aea032c6b"
                 ],
                 "uniqueKeysModels": [
                     {
-                        "tableUniqueKeysModelId": "ce40699f-d20d-439b-8e99-0bd98dba4b8c",
+                        "tableUniqueKeysModelId": "5b44d021-993c-4b8a-a020-66a91f12e3c1",
                         "physicalName": "user_identities_subject_uq",
                         "uniqueKeysColumnModels": [
                             {
-                                "columnModelId": "1b77c6dd-e92b-4797-b3e1-3fdedf012610"
+                                "columnModelId": "d54b57a4-1e7a-4fa6-a4df-6aadca89004a"
                             },
                             {
-                                "columnModelId": "2890865e-403e-4d23-b70f-0ebff766a2e1"
+                                "columnModelId": "d85bfbcb-9ce0-4422-9abf-3e548c525649"
                             }
                         ]
                     }
                 ]
             },
             "top": 160,
-            "left": 640,
+            "left": 1260,
             "headerBackgroundColor": {
                 "red": 20,
                 "green": 32,
@@ -159,23 +159,23 @@
                 "green": 216,
                 "blue": 107
             },
-            "createdAt": "2026-11-25T08:12:53.309Z"
+            "createdAt": "2026-11-25T08:15:39.169Z"
         },
         {
             "tableModel": {
-                "tableModelId": "24f7a5d1-9642-40a4-a298-cce078b13859",
+                "tableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
                 "physicalName": "users",
                 "logicalName": "회원",
-                "schemaId": "820afb2e-48de-4195-bdbf-5b487c914b5c",
+                "schemaId": "56b343f5-18aa-4758-8857-5825e8be4284",
                 "columnModelIds": [
-                    "e296fe0a-ba41-479d-85cb-4cae9e6fbfe0",
-                    "9320e416-a008-42fc-9f08-6849e0e4fd63",
-                    "2517377e-e8f2-4dbe-850d-f5ddefd20de4",
-                    "dce7d82e-572a-4c1c-ada1-2f8a41f1dea2"
+                    "56f90695-10d4-4d50-b0a5-1170ff45aedb",
+                    "b5fe958b-5551-48c9-8377-1af89c796758",
+                    "b5b3b45e-e70a-45e9-9d72-f2a49d338e9c",
+                    "507bf370-f2e9-4a84-8cca-a65a8ba214fc"
                 ]
             },
             "top": 160,
-            "left": 0,
+            "left": 600,
             "headerBackgroundColor": {
                 "red": 20,
                 "green": 32,
@@ -186,26 +186,26 @@
                 "green": 216,
                 "blue": 107
             },
-            "createdAt": "2026-11-25T08:12:53.459Z"
+            "createdAt": "2026-11-25T08:15:39.319Z"
         },
         {
             "tableModel": {
-                "tableModelId": "06113555-d39d-4119-b90e-0c350525221e",
+                "tableModelId": "95a39742-81c3-45a3-b0d3-fa37df4ab495",
                 "physicalName": "garment_defects",
                 "logicalName": "옷 상태(얼룩 등)",
-                "schemaId": "6fa6347f-9da4-47c0-a7f2-e6fc131b09ad",
+                "schemaId": "720033c8-9520-41de-8577-b12c192808ee",
                 "columnModelIds": [
-                    "5e786eff-b8f1-4f67-b209-5451eee36b21",
-                    "933b97bc-d13e-41e0-8293-0293428556b3",
-                    "2c1c7dce-3e11-4782-bc4a-ba2e27def81d",
-                    "229848ef-b3ef-43b4-be43-97eb1cc38fd9",
-                    "4c4ac9a9-063b-4a73-b102-98977e681c3f",
-                    "0bb8a25f-74da-4a99-af9b-6377d45d3239",
-                    "bac9554e-e02b-41bb-9a75-9e6424e94017"
+                    "14b6318d-9fe2-43cb-af59-a939c5b6aee9",
+                    "f56af8a3-015b-4d66-a42c-2e53846e3e98",
+                    "0dd4d67f-18f6-4e7e-bcce-c5da84456180",
+                    "ef20d398-1333-400a-89e1-d0db89805fdf",
+                    "227254cd-e80d-4fc1-bd1d-1dea29acbd41",
+                    "8c66a1b3-bcb1-413b-a12c-0f5ed25a0dbc",
+                    "d8ec88fa-7e78-411d-9342-714e15520539"
                 ]
             },
             "top": 160,
-            "left": 2760,
+            "left": 3380,
             "headerBackgroundColor": {
                 "red": 184,
                 "green": 69,
@@ -216,44 +216,44 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:12:53.609Z"
+            "createdAt": "2026-11-25T08:15:39.470Z"
         },
         {
             "tableModel": {
-                "tableModelId": "2e78086c-7e7c-4918-9344-723f56d9723e",
+                "tableModelId": "5e8ebe89-1fbc-48a9-b086-3f2d019899da",
                 "physicalName": "garments",
                 "logicalName": "옷",
-                "schemaId": "6fa6347f-9da4-47c0-a7f2-e6fc131b09ad",
+                "schemaId": "720033c8-9520-41de-8577-b12c192808ee",
                 "columnModelIds": [
-                    "fa8e6eb8-9030-4e52-ac04-8f854094b54b",
-                    "c8a7329c-ba6a-4ea7-bca3-03a79b0e12f8",
-                    "56bdb508-408c-4c4b-82fd-a42d1c8466b4",
-                    "8bb47c87-4a32-4a05-8232-e5e809585a9c",
-                    "de6228a8-f7ae-41ad-8b79-afb9a84a1775",
-                    "cb93831d-195f-488c-8c69-d0ff9c79f8d4",
-                    "ae8b7ff9-d4fe-400b-bff4-9b2cbc9b1b1b",
-                    "d1daff27-1e8f-4857-84e3-636edf08a629",
-                    "e7a733ec-d962-4962-9d29-f258c8bdd9f2",
-                    "e8b793d2-2111-4c13-b8b7-a75dd8a51845",
-                    "f8eba857-3c89-42ca-9a0c-2f7b84dd55bc",
-                    "7a48a6ec-5661-4dbe-9138-132966188771",
-                    "28592999-7aef-4707-b20f-cd76633b539e",
-                    "75a820cc-134e-4dd8-8fb0-77a594faf597",
-                    "f211fb2a-d286-4303-82e2-a1e5499dc739",
-                    "fea38014-8ec0-4cbf-9857-bfff0b2a104d",
-                    "42f6dc21-f15a-4621-89eb-d10cbdab5ca3",
-                    "8bbbd48c-9cd6-427f-a036-210e08b71439",
-                    "32dc2fe9-5596-4459-9036-966d66f5d7ae",
-                    "af4c86f9-d396-46e5-9646-4a52bb2f9089",
-                    "aabdf197-0bd7-448a-9fe6-1bec39cb8da5",
-                    "44e4e7d5-4ada-4c0d-8a09-99877374fccf",
-                    "7ecb581e-b506-4df4-a968-7d78e2466195",
-                    "3905b021-3a8c-41d7-991a-31ba6c162113",
-                    "df405fb7-40df-4a39-aa08-f243fe2a53b1"
+                    "da9aa3b6-e0ef-4332-8379-944bbd1d5328",
+                    "db0ae064-c4c4-4fda-a543-0674e99c03c1",
+                    "9dd99870-c70e-4268-99bc-3042e63044b9",
+                    "50884082-2c79-4c15-b620-e3fa70e3b55a",
+                    "49b9c0ae-8a5d-41e1-899b-2b450152be83",
+                    "6d843f74-0ea5-4e5f-8c26-0e5a9eb18470",
+                    "e29ea1c2-12ee-4da5-aef5-946ef42c9df0",
+                    "4b754349-f7cb-43ae-be5c-6df5a4cbf55f",
+                    "3a3f6c7c-314d-435b-bc77-2cad8e7ffe5f",
+                    "de7488ea-e7c0-47d0-9f60-bb6029e5ed34",
+                    "669fac79-5f09-4437-893c-63febac8262b",
+                    "b11134cb-fa1b-465c-b950-55be8b9aaed6",
+                    "167e3744-7e12-4834-a1e0-d026e78877ae",
+                    "dd30243e-0807-4141-b1df-9597ff744edb",
+                    "aae1bf03-eb34-431f-9680-722538a99778",
+                    "5091e483-37f7-4d24-8589-03b73d210d32",
+                    "552e64a8-8b00-438e-920e-699fb271e2e8",
+                    "e99f3413-1c22-4698-b11d-8e25309974de",
+                    "77d3d2b3-595f-4a69-b2dc-dc8cf5af91e7",
+                    "568b3cd4-01b8-4f92-b508-02d756c50290",
+                    "f48e9124-c029-43ec-9d6e-e0badfac4477",
+                    "ee4011a0-6b98-4912-82e5-41a7f4ca4949",
+                    "2cb89e4b-3cf1-40fa-8f36-b518970f5922",
+                    "bf906195-f6a5-4666-8a7c-6133dbbb2e22",
+                    "5e6e6fb9-61d3-45fa-bfc0-c106b9a21496"
                 ]
             },
             "top": 160,
-            "left": 2060,
+            "left": 2680,
             "headerBackgroundColor": {
                 "red": 184,
                 "green": 69,
@@ -264,23 +264,23 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.622Z"
         },
         {
             "tableModel": {
-                "tableModelId": "14214de9-c282-411d-84ff-cd1f6f13f236",
+                "tableModelId": "84b5051d-c288-4f25-973d-cd3184454486",
                 "physicalName": "style_docs",
                 "logicalName": "코디 지식(RAG)",
-                "schemaId": "6fa6347f-9da4-47c0-a7f2-e6fc131b09ad",
+                "schemaId": "720033c8-9520-41de-8577-b12c192808ee",
                 "columnModelIds": [
-                    "2bf6d378-d00f-4f96-82d4-a4e198e5b1c3",
-                    "c954865c-5c1c-4866-afac-839822cc5efb",
-                    "93c2060d-0a9d-48c3-9242-ad2f7e8e1a63",
-                    "f2a98139-3ded-41ae-b9cd-b8f809256892"
+                    "626ed3cf-4048-4fba-a8e6-5be47bdf6cd0",
+                    "a027d7e3-8371-4d8f-95ba-a528734dc5d0",
+                    "5a6d8750-2f6a-4ded-b780-84a18b9ed6bc",
+                    "c21231f5-a42a-4741-99b4-ec64c328b97c"
                 ]
             },
             "top": 740,
-            "left": 2760,
+            "left": 3380,
             "headerBackgroundColor": {
                 "red": 184,
                 "green": 69,
@@ -291,38 +291,38 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:12:53.916Z"
+            "createdAt": "2026-11-25T08:15:39.772Z"
         },
         {
             "tableModel": {
-                "tableModelId": "331b1387-8908-4d2d-8e3f-1bb54b93eee9",
+                "tableModelId": "38e9d6a6-65df-4f74-be7e-a63dfe03ffb5",
                 "physicalName": "wears",
                 "logicalName": "입은 날",
-                "schemaId": "6fa6347f-9da4-47c0-a7f2-e6fc131b09ad",
+                "schemaId": "720033c8-9520-41de-8577-b12c192808ee",
                 "columnModelIds": [
-                    "e583f089-0e59-4406-a7d1-865f5861517a",
-                    "97cc775a-5616-4dec-9f84-f842a529954e",
-                    "7c50d73a-54bd-4265-b814-ea47351d2354",
-                    "599c08b3-7559-4b80-a8cb-b30262be798b",
-                    "052e9c15-adc3-433b-8e0b-6dd734a0a641"
+                    "3c9c8b21-a73e-4823-838f-d42ce9373b44",
+                    "0cc78542-187d-4d46-9f2a-426ccbe754ca",
+                    "63ac67fd-617b-45c5-a59b-16217487e307",
+                    "94673768-c2ff-427c-97cd-46ccbdec19e2",
+                    "7ec20a30-c3b6-4a57-acab-7c30c6cc9205"
                 ],
                 "uniqueKeysModels": [
                     {
-                        "tableUniqueKeysModelId": "c3561468-199c-46e2-82cc-ee6fc3135ec0",
+                        "tableUniqueKeysModelId": "a9a26ff4-0ce3-4b0b-a439-b71245f9e09e",
                         "physicalName": "wears_garment_day_uq",
                         "uniqueKeysColumnModels": [
                             {
-                                "columnModelId": "97cc775a-5616-4dec-9f84-f842a529954e"
+                                "columnModelId": "0cc78542-187d-4d46-9f2a-426ccbe754ca"
                             },
                             {
-                                "columnModelId": "7c50d73a-54bd-4265-b814-ea47351d2354"
+                                "columnModelId": "63ac67fd-617b-45c5-a59b-16217487e307"
                             }
                         ]
                     }
                 ]
             },
             "top": 480,
-            "left": 2760,
+            "left": 3380,
             "headerBackgroundColor": {
                 "red": 184,
                 "green": 69,
@@ -333,34 +333,34 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:12:54.070Z"
+            "createdAt": "2026-11-25T08:15:39.923Z"
         },
         {
             "tableModel": {
-                "tableModelId": "dd657450-6537-4c16-b667-82651549b888",
+                "tableModelId": "b6c901de-6331-43bf-8f73-98198ea5569d",
                 "physicalName": "events",
                 "logicalName": "일정",
-                "schemaId": "41a1de58-2e30-4575-80cb-775929a49342",
+                "schemaId": "17a4b07a-3e2b-432d-99c4-4f5431136b7e",
                 "columnModelIds": [
-                    "87892cb6-dc92-4fbe-baa3-da4c9b6a382e",
-                    "93716869-1957-4b3c-ac5b-71b8823413d2",
-                    "634eca40-084f-48f3-9b0c-387c03318c5c",
-                    "76d68635-555c-476d-a3a8-e2abba5bc958",
-                    "fbe61200-0467-45eb-bb27-62e4a3b2f8bd",
-                    "f4686ce2-0a62-4161-803b-8bfca070c068",
-                    "2030ed25-3c0b-484c-8467-541cfe483a06",
-                    "af2a0e9f-ad5f-4385-aea4-3f04997c081e",
-                    "e23f1a65-a2d7-4d61-bac8-3015c0ac1ebd",
-                    "f3d88ce2-2401-45ca-9bd9-042da5197c4d",
-                    "571ab1a8-b496-48bf-969a-ea0a8e2b1506",
-                    "d183bcad-37c2-4746-9b64-392aab0211bf",
-                    "9516d8cb-da57-4d89-9de5-3e56db8d2d6f",
-                    "de475e7b-f4cc-4b02-9a79-a81d92f0c4da",
-                    "5c1fc9ef-8647-4402-a1cd-f86d27812f82"
+                    "c6d53f0c-ea6a-45a4-b867-831135ced94a",
+                    "4539f398-6f87-4833-96d7-e0b56fe9a57f",
+                    "a890ba39-c8e5-430f-9d0b-e3060faa49b2",
+                    "0ba8477f-3ea1-4175-bab5-19c250ee271a",
+                    "27cc5f72-2f05-42d4-b425-ddf061e650af",
+                    "90e6f2b7-2e00-4b0d-ab7c-2ea99a3f4ac4",
+                    "4c97ce36-79e0-432c-b8fd-0caea0b051b3",
+                    "1ca17a1b-4b0e-4c33-9420-666ac61a5f5d",
+                    "5190fc8e-e74c-4f7f-a1b0-2cd0b71f0fcc",
+                    "cda9cde5-dfdb-4ad8-84f2-a3a9f0e62ad0",
+                    "fedc498c-652e-4bc8-8db7-e10e546e23ce",
+                    "0066138d-1f03-4308-a559-cd932e1edf6d",
+                    "3911bc41-ae25-4a19-bf4d-eb476f10754f",
+                    "43e93008-ee9f-4b9f-9ce6-ed9c280d0eec",
+                    "2eb99b62-0152-4d30-86e0-2f20344eb1de"
                 ]
             },
             "top": 560,
-            "left": 1340,
+            "left": 1960,
             "headerBackgroundColor": {
                 "red": 46,
                 "green": 107,
@@ -371,24 +371,24 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
             "tableModel": {
-                "tableModelId": "2031413e-2e81-4cc7-a09a-f134841f11f2",
+                "tableModelId": "756d1304-34b5-4a55-ba64-afc50dd5f906",
                 "physicalName": "places",
                 "logicalName": "장소(카카오)",
-                "schemaId": "41a1de58-2e30-4575-80cb-775929a49342",
+                "schemaId": "17a4b07a-3e2b-432d-99c4-4f5431136b7e",
                 "columnModelIds": [
-                    "13d2d589-5dc9-4d50-85fc-ce6a453c0652",
-                    "856b00b3-1be9-4883-a613-cf8074e7fa0a",
-                    "4628a64a-4166-491a-b6eb-f1215d187d79",
-                    "532bf76c-b6c7-49fe-acdf-1c2660b16611",
-                    "6e0fd393-e32e-4f80-a860-a3cce16399cb"
+                    "54ef56f6-4ecb-41fd-a4d5-f9ae5ab7a63d",
+                    "792e3166-9422-4c28-abec-cdabf5e89c60",
+                    "139b2ecd-ccc6-4cb0-b0b5-0e652f5f1a6b",
+                    "63ab7dad-3bb0-470c-bc8e-0165ee6972ad",
+                    "cd25fbe5-ac04-4913-bb60-f4ee8b293060"
                 ]
             },
             "top": 160,
-            "left": 1340,
+            "left": 1960,
             "headerBackgroundColor": {
                 "red": 46,
                 "green": 107,
@@ -399,1379 +399,1281 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:12:54.373Z"
+            "createdAt": "2026-11-25T08:15:40.224Z"
         }
     ],
     "columnGroupModels": [],
     "columnModels": [
         {
-            "columnModelId": "01130ee9-69b0-47a9-937a-47a825973a16",
-            "columnShareModelId": "ee5e05aa-044e-440b-8ee3-0c9aaba0a37a",
+            "columnModelId": "0066138d-1f03-4308-a559-cd932e1edf6d",
+            "columnShareModelId": "498f5c1e-f04d-471d-997c-f581e10bdcf8"
+        },
+        {
+            "columnModelId": "066273ee-8e26-4061-87d9-59aa1f4824ba",
+            "columnShareModelId": "7cf90706-afda-48a4-be83-5cf98fef3f39"
+        },
+        {
+            "columnModelId": "0ba8477f-3ea1-4175-bab5-19c250ee271a",
+            "columnShareModelId": "13b21a91-aed0-42c9-b8b6-5079f2bff486",
             "notNull": true
         },
         {
-            "columnModelId": "052e9c15-adc3-433b-8e0b-6dd734a0a641",
-            "columnShareModelId": "d9d9ea85-c776-4d85-a52d-3c8c3b3d8543",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "0bb8a25f-74da-4a99-af9b-6377d45d3239",
-            "columnShareModelId": "99cc7de6-c556-463a-b541-f8dacf5378b2"
-        },
-        {
-            "columnModelId": "0fc3bbe8-6477-4438-81e3-6815f552f22c",
-            "columnShareModelId": "1ba99af4-f63c-4b63-b874-37d897b24bda",
+            "columnModelId": "0cc78542-187d-4d46-9f2a-426ccbe754ca",
+            "columnShareModelId": "18bf7363-ac27-4077-af53-8ff244f8d41b",
             "notNull": true
         },
         {
-            "columnModelId": "101af31d-498d-479f-9222-3256babe4ea0",
-            "columnShareModelId": "51a8b6c0-70c1-4368-93f6-dba3cd97695d",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "13630722-1f9d-41ee-8d55-8b7d870a0617",
-            "columnShareModelId": "aaa76fb9-3150-4da7-8804-f0c9e3af6f4e",
+            "columnModelId": "0dd4d67f-18f6-4e7e-bcce-c5da84456180",
+            "columnShareModelId": "3b3e3731-d6fd-4c3b-87ed-f407aef35ac5",
             "notNull": true
         },
         {
-            "columnModelId": "13d2d589-5dc9-4d50-85fc-ce6a453c0652",
-            "columnShareModelId": "5a3c658b-2e58-4473-960a-c8e9bc97d691",
-            "primaryKey": true,
-            "notNull": true
+            "columnModelId": "139b2ecd-ccc6-4cb0-b0b5-0e652f5f1a6b",
+            "columnShareModelId": "75359462-5edc-4d0b-ae4f-6ba193f5fd66"
         },
         {
-            "columnModelId": "1b77c6dd-e92b-4797-b3e1-3fdedf012610",
-            "columnShareModelId": "1f0322bb-0cea-4e42-ab49-df94208f2e76",
-            "notNull": true
-        },
-        {
-            "columnModelId": "1c552a86-a12a-4f1a-9663-b2d460c1e913",
-            "columnShareModelId": "faa219f1-0626-47a2-a309-f78fd77f2435",
+            "columnModelId": "14b6318d-9fe2-43cb-af59-a939c5b6aee9",
+            "columnShareModelId": "912ef724-b063-467b-b34d-7c67df13045f",
             "primaryKey": true,
             "notNull": true,
             "autoIncrement": true
         },
         {
-            "columnModelId": "1eba7501-e742-47c0-895d-3854d55333ee",
-            "columnShareModelId": "0cce2e36-8fff-462b-abcb-6d4f7b7c76f7",
-            "notNull": true,
-            "unique": true
-        },
-        {
-            "columnModelId": "2030ed25-3c0b-484c-8467-541cfe483a06",
-            "columnShareModelId": "ed1e3b3f-d2f5-4cd0-8cd5-a0f23ec6bcdc",
-            "notNull": true,
-            "defaultValue": "'casual'"
-        },
-        {
-            "columnModelId": "215f4294-f5b4-4fbb-b93d-fbab634ac770",
-            "columnShareModelId": "a1c3d444-9f7b-49d7-a39a-8a184b7bea6b",
+            "columnModelId": "167e3744-7e12-4834-a1e0-d026e78877ae",
+            "columnShareModelId": "7c42e213-673e-42fe-a991-2c59079e04fc",
             "notNull": true,
             "defaultValue": "now()"
         },
         {
-            "columnModelId": "229848ef-b3ef-43b4-be43-97eb1cc38fd9",
-            "columnShareModelId": "76684b4c-3e18-47d4-8b62-6964f9512c00"
+            "columnModelId": "19add7d4-3b82-4058-b4e2-5a99d2018ddd",
+            "columnShareModelId": "2d82f577-c848-4b22-b4fd-994e9dab1e3d"
         },
         {
-            "columnModelId": "2517377e-e8f2-4dbe-850d-f5ddefd20de4",
-            "columnShareModelId": "5a5d777e-bce5-4415-ab28-45308ac10682",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "28592999-7aef-4707-b20f-cd76633b539e",
-            "columnShareModelId": "74673e55-df30-42c5-96c1-b6ff92abc764",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "2890865e-403e-4d23-b70f-0ebff766a2e1",
-            "columnShareModelId": "a7d58a1d-153d-4913-9815-0a0d9178450a",
-            "notNull": true
-        },
-        {
-            "columnModelId": "29f64c2a-1446-4cf3-91af-ba7acd991500",
-            "columnShareModelId": "b9a6d74f-6fb4-4e11-962e-9863fb5e61ef",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "2bf6d378-d00f-4f96-82d4-a4e198e5b1c3",
-            "columnShareModelId": "0597d22c-57df-42b1-9974-02f0597f0cd2",
-            "primaryKey": true,
-            "notNull": true,
-            "defaultValue": "gen_random_uuid()"
-        },
-        {
-            "columnModelId": "2c1c7dce-3e11-4782-bc4a-ba2e27def81d",
-            "columnShareModelId": "ea248b33-7fa1-411c-81c0-769267431ce7",
-            "notNull": true
-        },
-        {
-            "columnModelId": "32d07fed-6f89-4603-bf32-774ccf22a786",
-            "columnShareModelId": "2f49fb19-08ef-47e1-a889-9fabca8ca5e0"
-        },
-        {
-            "columnModelId": "32dc2fe9-5596-4459-9036-966d66f5d7ae",
-            "columnShareModelId": "1758e916-3c81-475f-8e11-5f543d8124fb"
-        },
-        {
-            "columnModelId": "3350d9f9-b578-48db-81a4-920fe90a11e5",
-            "columnShareModelId": "f87b7085-ffb5-453b-89fb-f49c920fcc84",
-            "notNull": true
-        },
-        {
-            "columnModelId": "335aaa5e-c266-441b-9e30-f97abd684b68",
-            "columnShareModelId": "aa1a35b0-7ed2-4f97-9325-2cd4badf4fdb",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "3905b021-3a8c-41d7-991a-31ba6c162113",
-            "columnShareModelId": "52e924fb-a385-4924-b8a4-64889317a776"
-        },
-        {
-            "columnModelId": "42f6dc21-f15a-4621-89eb-d10cbdab5ca3",
-            "columnShareModelId": "c906ecd1-11ba-41cd-bc3b-6a2944014826"
-        },
-        {
-            "columnModelId": "44e4e7d5-4ada-4c0d-8a09-99877374fccf",
-            "columnShareModelId": "8f247aff-e426-4a11-844c-3c2bbbe5ba82"
-        },
-        {
-            "columnModelId": "4628a64a-4166-491a-b6eb-f1215d187d79",
-            "columnShareModelId": "5918c10a-daa1-46c1-9182-6a154bae57a2"
-        },
-        {
-            "columnModelId": "49dc4911-8c82-4a40-b997-4d34288ddf83",
-            "columnShareModelId": "fd33c2f5-5852-40b0-9237-d4e0e175ce59"
-        },
-        {
-            "columnModelId": "4c4ac9a9-063b-4a73-b102-98977e681c3f",
-            "columnShareModelId": "f67840d8-88f8-4d12-a03e-a89b3992f10d"
-        },
-        {
-            "columnModelId": "532bf76c-b6c7-49fe-acdf-1c2660b16611",
-            "columnShareModelId": "643f13b7-7225-421b-8810-8decb7762cbc",
-            "notNull": true,
-            "defaultValue": "CURRENT_TIMESTAMP"
-        },
-        {
-            "columnModelId": "56bdb508-408c-4c4b-82fd-a42d1c8466b4",
-            "columnShareModelId": "3960a417-e3d9-4c5a-9806-a9150f305342",
-            "notNull": true
-        },
-        {
-            "columnModelId": "571ab1a8-b496-48bf-969a-ea0a8e2b1506",
-            "columnShareModelId": "a46aae62-3d33-4bb8-8d09-626ee70d5773",
-            "notNull": true,
-            "defaultValue": "CURRENT_TIMESTAMP"
-        },
-        {
-            "columnModelId": "599c08b3-7559-4b80-a8cb-b30262be798b",
-            "columnShareModelId": "4cedf0ac-49c7-47a0-86cc-b8232ff5bad6",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "5c1fc9ef-8647-4402-a1cd-f86d27812f82",
-            "columnShareModelId": "a7004a53-5e97-4512-8adc-ccaebcb02c09"
-        },
-        {
-            "columnModelId": "5e786eff-b8f1-4f67-b209-5451eee36b21",
-            "columnShareModelId": "36438ac4-ce7f-4200-99f4-1afd452f0106",
-            "primaryKey": true,
-            "notNull": true,
-            "autoIncrement": true
-        },
-        {
-            "columnModelId": "634eca40-084f-48f3-9b0c-387c03318c5c",
-            "columnShareModelId": "02247eea-44c2-446c-9782-418fe36e7d16",
-            "notNull": true
-        },
-        {
-            "columnModelId": "6671e9ba-75e8-45de-80e4-066706c8d44c",
-            "columnShareModelId": "8e3981ae-a061-4221-b590-fe351adb4c29",
-            "primaryKey": true,
-            "notNull": true,
-            "autoIncrement": true
-        },
-        {
-            "columnModelId": "6c172676-ceb0-4ebc-92ca-222150232f6f",
-            "columnShareModelId": "1b884258-b66e-4f73-8862-e57ad3ae3db7"
-        },
-        {
-            "columnModelId": "6e0fd393-e32e-4f80-a860-a3cce16399cb",
-            "columnShareModelId": "c804b537-8484-4853-a392-4695b7d5bc12",
-            "notNull": true,
-            "defaultValue": "CURRENT_TIMESTAMP"
-        },
-        {
-            "columnModelId": "70af447b-92b4-4941-b330-c36f3b87de22",
-            "columnShareModelId": "f6fcb82b-a630-4c15-990c-47305517c6ab",
-            "notNull": true
-        },
-        {
-            "columnModelId": "75a820cc-134e-4dd8-8fb0-77a594faf597",
-            "columnShareModelId": "45de87c2-b950-4980-8c10-658e328dffbf"
-        },
-        {
-            "columnModelId": "76d68635-555c-476d-a3a8-e2abba5bc958",
-            "columnShareModelId": "c561290f-62fa-4d22-b7bc-c018dc113a42",
-            "notNull": true
-        },
-        {
-            "columnModelId": "7a48a6ec-5661-4dbe-9138-132966188771",
-            "columnShareModelId": "dd3097b6-57df-4ebf-b052-53f0a2ece33a",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "7c50d73a-54bd-4265-b814-ea47351d2354",
-            "columnShareModelId": "f6d1f3b4-b9a1-47c3-bfd4-b5f9be5e5832",
-            "notNull": true
-        },
-        {
-            "columnModelId": "7ecb581e-b506-4df4-a968-7d78e2466195",
-            "columnShareModelId": "9b62478e-f0fd-40bc-8378-9a7fe4df317c"
-        },
-        {
-            "columnModelId": "856b00b3-1be9-4883-a613-cf8074e7fa0a",
-            "columnShareModelId": "e09200b2-a2f8-4db6-bf51-684f23b714de",
-            "notNull": true
-        },
-        {
-            "columnModelId": "87892cb6-dc92-4fbe-baa3-da4c9b6a382e",
-            "columnShareModelId": "515fedeb-68e0-4419-99ef-7a9742507bcd",
-            "primaryKey": true,
-            "notNull": true
-        },
-        {
-            "columnModelId": "8b86e98f-82af-4e5c-bea8-f19f513dfd82",
-            "columnShareModelId": "46b7430e-c0b0-4fc5-affe-dca98ad51beb"
-        },
-        {
-            "columnModelId": "8bb47c87-4a32-4a05-8232-e5e809585a9c",
-            "columnShareModelId": "51cad8cb-8e27-42ea-b67a-df2bbf94e9b9",
-            "notNull": true
-        },
-        {
-            "columnModelId": "8bbbd48c-9cd6-427f-a036-210e08b71439",
-            "columnShareModelId": "a3be5690-7d16-402a-8a7e-8dcc59c82d68"
-        },
-        {
-            "columnModelId": "9320e416-a008-42fc-9f08-6849e0e4fd63",
-            "columnShareModelId": "60c6ae1f-a19f-46cf-a36b-82fdd9378e8e"
-        },
-        {
-            "columnModelId": "933b97bc-d13e-41e0-8293-0293428556b3",
-            "columnShareModelId": "b7966621-ef37-470a-9b3d-8ff880a1c2c6",
-            "notNull": true
-        },
-        {
-            "columnModelId": "93716869-1957-4b3c-ac5b-71b8823413d2",
-            "columnShareModelId": "8fb09859-d562-4fb5-a87a-acad6b9d6235",
-            "notNull": true
-        },
-        {
-            "columnModelId": "93c2060d-0a9d-48c3-9242-ad2f7e8e1a63",
-            "columnShareModelId": "b4ca97bd-3672-48d4-9a21-94b3b355777d",
-            "notNull": true
-        },
-        {
-            "columnModelId": "9516d8cb-da57-4d89-9de5-3e56db8d2d6f",
-            "columnShareModelId": "6f2d0489-4482-4605-ac60-3cc2846392e6",
-            "notNull": true,
-            "defaultValue": "true"
-        },
-        {
-            "columnModelId": "97cc775a-5616-4dec-9f84-f842a529954e",
-            "columnShareModelId": "e7fd016d-80f7-447b-ac5c-5ae5e45998e5",
-            "notNull": true
-        },
-        {
-            "columnModelId": "99239f9f-b77a-43ee-a591-124751e725da",
-            "columnShareModelId": "7b40b074-2c5b-47ce-995d-3ac56abfb924",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "a391f133-635f-403d-8d2e-afe9c52cc473",
-            "columnShareModelId": "5ade3ee9-6cd9-40d6-ad84-f2099a1e14c0",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "a94ea1a5-28c6-4468-af20-96b6fc5d1ad3",
-            "columnShareModelId": "5ac93830-6a58-42e2-aa8e-10e954b08776",
-            "notNull": true
-        },
-        {
-            "columnModelId": "aabdf197-0bd7-448a-9fe6-1bec39cb8da5",
-            "columnShareModelId": "2b5d1f14-46b2-42e8-b849-3b2bbe75204b"
-        },
-        {
-            "columnModelId": "ae8b7ff9-d4fe-400b-bff4-9b2cbc9b1b1b",
-            "columnShareModelId": "a7f666be-62b9-412a-858a-ed1023a1ec30",
-            "notNull": true
-        },
-        {
-            "columnModelId": "af2a0e9f-ad5f-4385-aea4-3f04997c081e",
-            "columnShareModelId": "8de80405-06b5-4bbe-a541-2b46e1649b91",
+            "columnModelId": "1ca17a1b-4b0e-4c33-9420-666ac61a5f5d",
+            "columnShareModelId": "5ace43f2-3d5a-4bdc-b760-862854125ccb",
             "notNull": true,
             "defaultValue": "'default'"
         },
         {
-            "columnModelId": "af4c86f9-d396-46e5-9646-4a52bb2f9089",
-            "columnShareModelId": "f41830a4-1b2d-46ee-8efa-05121ffa2772"
+            "columnModelId": "227254cd-e80d-4fc1-bd1d-1dea29acbd41",
+            "columnShareModelId": "403e5ac1-68fc-4557-b429-34fa26e5aa0c"
         },
         {
-            "columnModelId": "b34205ed-909d-47f5-888d-f69bb7ec342f",
-            "columnShareModelId": "bcef7c46-2ea8-40f9-8640-93e427f3ed8b"
+            "columnModelId": "277e93d9-16ae-4d18-b300-d23e0858f3cf",
+            "columnShareModelId": "deb62638-d294-43af-870a-5301edc24835",
+            "notNull": true
         },
         {
-            "columnModelId": "b812f224-30c6-42a7-b529-953243cb6af4",
-            "columnShareModelId": "19eb8d52-3be4-464a-9226-53cfc171dbb7"
+            "columnModelId": "27cc5f72-2f05-42d4-b425-ddf061e650af",
+            "columnShareModelId": "3b80a082-052a-41c4-8834-ee17952abc49"
         },
         {
-            "columnModelId": "bac9554e-e02b-41bb-9a75-9e6424e94017",
-            "columnShareModelId": "12a2102d-1c0b-4b55-897a-7c45a6dc5a28",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "bd0df1fe-c868-42d3-a7ca-a93153d4d8bc",
-            "columnShareModelId": "6a2eafba-5ee2-42c7-81f7-ee6ff824316f",
-            "notNull": true,
-            "unique": true
-        },
-        {
-            "columnModelId": "c31d05b2-2380-4775-a413-d4778ce677ff",
-            "columnShareModelId": "5bee8826-b9e7-44a9-9a74-d085987fa3ed",
+            "columnModelId": "2965fd2c-f150-4ec5-bf5d-72307bd839b4",
+            "columnShareModelId": "c77eec53-bf02-4462-8cde-e3d0e78e6535",
             "primaryKey": true,
             "notNull": true
         },
         {
-            "columnModelId": "c8a7329c-ba6a-4ea7-bca3-03a79b0e12f8",
-            "columnShareModelId": "6deed8c5-6e3b-4771-a61c-5f47ce785d23",
-            "notNull": true
+            "columnModelId": "2cb89e4b-3cf1-40fa-8f36-b518970f5922",
+            "columnShareModelId": "bdaad769-a970-4c6c-b9b4-098342fc7584"
         },
         {
-            "columnModelId": "c954865c-5c1c-4866-afac-839822cc5efb",
-            "columnShareModelId": "dc66a3cd-ff23-4c3b-a933-6b1d9b18d3dd",
-            "notNull": true
+            "columnModelId": "2eb99b62-0152-4d30-86e0-2f20344eb1de",
+            "columnShareModelId": "81467715-a240-42d5-9ae6-012c8b5b637a"
         },
         {
-            "columnModelId": "cb93831d-195f-488c-8c69-d0ff9c79f8d4",
-            "columnShareModelId": "d5d37ef0-ef84-46b7-a300-2e7e3af50545",
-            "notNull": true
-        },
-        {
-            "columnModelId": "cc063180-77b6-46e9-b43f-8b15e86ca429",
-            "columnShareModelId": "5291ab03-f6e7-4877-8191-116fd7950f47",
+            "columnModelId": "3911bc41-ae25-4a19-bf4d-eb476f10754f",
+            "columnShareModelId": "dffc5ce8-337e-4efc-aba8-63c5ef057a4d",
             "notNull": true,
-            "defaultValue": "now()"
+            "defaultValue": "true"
         },
         {
-            "columnModelId": "d1816e8e-044d-4e18-b0d1-3da99892b074",
-            "columnShareModelId": "cf33d8a2-249d-481c-bd9a-21d076758e1a",
+            "columnModelId": "3a3f6c7c-314d-435b-bc77-2cad8e7ffe5f",
+            "columnShareModelId": "0a935724-97bf-4bbe-a283-dda3de1c36c5"
+        },
+        {
+            "columnModelId": "3c10534c-2339-4713-819b-f553518dc73b",
+            "columnShareModelId": "ec025238-bcea-408d-90dc-122ecd7c8991",
             "notNull": true,
-            "defaultValue": "now()"
+            "unique": true
         },
         {
-            "columnModelId": "d183bcad-37c2-4746-9b64-392aab0211bf",
-            "columnShareModelId": "4dd363d5-b617-40c9-b20c-fc7fab7ba4b6"
+            "columnModelId": "3c9c8b21-a73e-4823-838f-d42ce9373b44",
+            "columnShareModelId": "d8ce4747-3c59-4793-b532-7428fb39375d",
+            "primaryKey": true,
+            "notNull": true,
+            "autoIncrement": true
         },
         {
-            "columnModelId": "d1daff27-1e8f-4857-84e3-636edf08a629",
-            "columnShareModelId": "cf9c5924-2645-46c8-bb47-5059b71e4e87",
+            "columnModelId": "43e93008-ee9f-4b9f-9ce6-ed9c280d0eec",
+            "columnShareModelId": "0d856e5d-4bbb-4d79-8f1d-6d36efaf0fbf"
+        },
+        {
+            "columnModelId": "4539f398-6f87-4833-96d7-e0b56fe9a57f",
+            "columnShareModelId": "1f880866-11cc-4749-85c5-ffc1c89b92b7",
+            "notNull": true
+        },
+        {
+            "columnModelId": "49b9c0ae-8a5d-41e1-899b-2b450152be83",
+            "columnShareModelId": "b0d15ad8-97d4-4f1d-a2f2-ddc05993d598",
+            "notNull": true
+        },
+        {
+            "columnModelId": "4a17f24c-7e5b-492b-aa61-2c5d7489fc56",
+            "columnShareModelId": "753df783-2a95-4769-82b4-27de6793f49a",
+            "notNull": true
+        },
+        {
+            "columnModelId": "4b754349-f7cb-43ae-be5c-6df5a4cbf55f",
+            "columnShareModelId": "66ced064-8bc5-4ca5-a5c9-275929c41599",
             "notNull": true,
             "defaultValue": "'unknown'"
         },
         {
-            "columnModelId": "d436779d-d83c-426b-8052-5c4aa7496924",
-            "columnShareModelId": "c1ce95f3-a31a-4998-9794-b05c67ec166c"
-        },
-        {
-            "columnModelId": "d8cde29b-4858-462d-819e-397d916dd5d0",
-            "columnShareModelId": "55095a80-d3fe-43ed-83a4-c3565ecce28c",
+            "columnModelId": "4c2443cc-1908-4cac-bfac-2809f425ff85",
+            "columnShareModelId": "b12a5904-efba-40ec-a5d2-02df4379f5cd",
             "notNull": true,
             "defaultValue": "now()"
         },
         {
-            "columnModelId": "dce7d82e-572a-4c1c-ada1-2f8a41f1dea2",
-            "columnShareModelId": "249488d5-f3c1-4fc7-8802-9afddefbf20d",
+            "columnModelId": "4c97ce36-79e0-432c-b8fd-0caea0b051b3",
+            "columnShareModelId": "a6332d15-3733-45e6-b4bb-a504817fc64b",
+            "notNull": true,
+            "defaultValue": "'casual'"
+        },
+        {
+            "columnModelId": "4ca0920a-fccc-4443-b67e-da61d6da92b2",
+            "columnShareModelId": "4c8806d5-fae6-44ca-856c-b6c4bba46f1d",
+            "primaryKey": true,
+            "notNull": true,
+            "autoIncrement": true
+        },
+        {
+            "columnModelId": "507bf370-f2e9-4a84-8cca-a65a8ba214fc",
+            "columnShareModelId": "46ed85b0-6eb6-4742-9446-4c4bd1dfb2a6",
             "notNull": true,
             "defaultValue": "now()"
         },
         {
-            "columnModelId": "de475e7b-f4cc-4b02-9a79-a81d92f0c4da",
-            "columnShareModelId": "7c3509ad-0a48-4838-9e51-6b2855c9d489"
-        },
-        {
-            "columnModelId": "de6228a8-f7ae-41ad-8b79-afb9a84a1775",
-            "columnShareModelId": "1bef1e7d-f9d0-4571-b246-a02895c2e2ee",
+            "columnModelId": "50884082-2c79-4c15-b620-e3fa70e3b55a",
+            "columnShareModelId": "09db0d22-1ed8-49fe-9d16-ea31ab724cbc",
             "notNull": true
         },
         {
-            "columnModelId": "df405fb7-40df-4a39-aa08-f243fe2a53b1",
-            "columnShareModelId": "0d4e1f15-9e05-437f-a7b7-0565fb620e08"
+            "columnModelId": "5091e483-37f7-4d24-8589-03b73d210d32",
+            "columnShareModelId": "55fbcfb9-5bf5-47f8-8cf6-ae3b641ef265",
+            "notNull": true,
+            "defaultValue": "0"
         },
         {
-            "columnModelId": "e23f1a65-a2d7-4d61-bac8-3015c0ac1ebd",
-            "columnShareModelId": "f08e0b58-4471-4af9-b9f7-64da362cbcf7"
+            "columnModelId": "5190fc8e-e74c-4f7f-a1b0-2cd0b71f0fcc",
+            "columnShareModelId": "ddaf8598-8ead-4ba2-9b10-4eb201bc69f0"
         },
         {
-            "columnModelId": "e296fe0a-ba41-479d-85cb-4cae9e6fbfe0",
-            "columnShareModelId": "ebcabe9a-cf37-4f2b-a07c-689d83640d2b",
+            "columnModelId": "54ef56f6-4ecb-41fd-a4d5-f9ae5ab7a63d",
+            "columnShareModelId": "befe5c58-8437-4601-ad7b-2e804a534a17",
+            "primaryKey": true,
+            "notNull": true
+        },
+        {
+            "columnModelId": "552e64a8-8b00-438e-920e-699fb271e2e8",
+            "columnShareModelId": "ccd99eba-4bea-4324-bc90-d9a7dbb6995d"
+        },
+        {
+            "columnModelId": "568b3cd4-01b8-4f92-b508-02d756c50290",
+            "columnShareModelId": "1be34401-0fde-4624-9351-b55f2cdc487a"
+        },
+        {
+            "columnModelId": "56f90695-10d4-4d50-b0a5-1170ff45aedb",
+            "columnShareModelId": "1d3b2feb-6762-486e-afbc-392269d19c63",
             "primaryKey": true,
             "notNull": true,
             "defaultValue": "gen_random_uuid()"
         },
         {
-            "columnModelId": "e583f089-0e59-4406-a7d1-865f5861517a",
-            "columnShareModelId": "73b5e1ce-33ee-464f-ba51-6719da407c21",
-            "primaryKey": true,
-            "notNull": true,
-            "autoIncrement": true
-        },
-        {
-            "columnModelId": "e676484f-152f-438e-88a9-88dc7432f57b",
-            "columnShareModelId": "d53adf02-922f-4711-b817-d8e024a1b8f8"
-        },
-        {
-            "columnModelId": "e7a733ec-d962-4962-9d29-f258c8bdd9f2",
-            "columnShareModelId": "171e168b-f686-401e-bc18-dbfa35d63df1"
-        },
-        {
-            "columnModelId": "e8b793d2-2111-4c13-b8b7-a75dd8a51845",
-            "columnShareModelId": "7b313935-d481-4d0c-88ae-acc0d43b2779",
-            "notNull": true,
-            "defaultValue": "now()"
-        },
-        {
-            "columnModelId": "eaa6793b-3292-49d8-8fe3-1bbbe0a93163",
-            "columnShareModelId": "1a821c32-db44-44c1-9c9c-731963037981"
-        },
-        {
-            "columnModelId": "f211fb2a-d286-4303-82e2-a1e5499dc739",
-            "columnShareModelId": "2b58b5f8-a6da-4171-8211-5989ea43ea6d"
-        },
-        {
-            "columnModelId": "f2a98139-3ded-41ae-b9cd-b8f809256892",
-            "columnShareModelId": "fa9f6c38-7bbc-43c1-955a-5385bab40d44",
+            "columnModelId": "5a6d8750-2f6a-4ded-b780-84a18b9ed6bc",
+            "columnShareModelId": "d0e5f836-2b20-46bf-aca4-c8f9c1db7a06",
             "notNull": true
         },
         {
-            "columnModelId": "f377fc49-85df-4f8b-adca-9b5889564362",
-            "columnShareModelId": "2f92b7cc-50e3-4486-ab85-33228ded5937",
+            "columnModelId": "5cb5315f-83a3-431c-986b-535209700aa8",
+            "columnShareModelId": "f3eb065c-f31b-47d9-b922-3df11c377d3e",
             "primaryKey": true,
             "notNull": true,
             "autoIncrement": true
         },
         {
-            "columnModelId": "f3d88ce2-2401-45ca-9bd9-042da5197c4d",
-            "columnShareModelId": "f2de54ce-80eb-4f8d-a5a3-c9a1b9b4a86f",
+            "columnModelId": "5e6e6fb9-61d3-45fa-bfc0-c106b9a21496",
+            "columnShareModelId": "85bcccf6-b5bd-4d74-9c67-0c9ce8580cd1"
+        },
+        {
+            "columnModelId": "626ed3cf-4048-4fba-a8e6-5be47bdf6cd0",
+            "columnShareModelId": "122a155f-4fec-4bb7-bdf0-3799ec00ec43",
+            "primaryKey": true,
+            "notNull": true,
+            "defaultValue": "gen_random_uuid()"
+        },
+        {
+            "columnModelId": "62f708d6-b3db-4253-89b6-41c012b8ba7f",
+            "columnShareModelId": "84970cf2-9ea7-4242-993c-713a87de4b9d",
+            "notNull": true
+        },
+        {
+            "columnModelId": "63ab7dad-3bb0-470c-bc8e-0165ee6972ad",
+            "columnShareModelId": "23d2fc58-2f20-409d-82b3-fb1248455e52",
             "notNull": true,
             "defaultValue": "CURRENT_TIMESTAMP"
         },
         {
-            "columnModelId": "f4686ce2-0a62-4161-803b-8bfca070c068",
-            "columnShareModelId": "018b0437-eda6-476d-9436-00b750b30082"
+            "columnModelId": "63ac67fd-617b-45c5-a59b-16217487e307",
+            "columnShareModelId": "7e7f2e8b-b6e1-40d3-8503-246e2c041250",
+            "notNull": true
         },
         {
-            "columnModelId": "f8eba857-3c89-42ca-9a0c-2f7b84dd55bc",
-            "columnShareModelId": "3667dca6-ce0f-442a-800c-087933090bbe",
+            "columnModelId": "669fac79-5f09-4437-893c-63febac8262b",
+            "columnShareModelId": "1cccfe07-d7d6-4c28-8617-eab3da5bd024",
             "notNull": true,
             "defaultValue": "now()"
         },
         {
-            "columnModelId": "fa8e6eb8-9030-4e52-ac04-8f854094b54b",
-            "columnShareModelId": "bce20b4f-7b28-4923-9a72-35b8ee10f9d1",
+            "columnModelId": "697fd07f-e927-43cf-b0ff-9ddfb4bc84c2",
+            "columnShareModelId": "7c59a581-8aca-4bc5-a274-7edd05e3ebd7",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "6d3c923d-e046-43cc-af0c-7461f4892bc2",
+            "columnShareModelId": "8eb506f1-2655-4f78-9da6-5853657d222f",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "6d843f74-0ea5-4e5f-8c26-0e5a9eb18470",
+            "columnShareModelId": "4525c5c9-d331-475f-8f55-424fff59c203",
+            "notNull": true
+        },
+        {
+            "columnModelId": "77827b8c-a596-4a45-a43f-2774fd28b137",
+            "columnShareModelId": "315d43dd-b7e5-44a5-b85b-04eb39d2e5ff",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "77d3d2b3-595f-4a69-b2dc-dc8cf5af91e7",
+            "columnShareModelId": "6df6683a-f5dc-47cc-9c6a-3832104c7912"
+        },
+        {
+            "columnModelId": "78275479-b2b3-4ff2-9c7f-67f3badff517",
+            "columnShareModelId": "a8c89ca8-3d34-40ad-aa1a-14c4ce4d8952",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "792e3166-9422-4c28-abec-cdabf5e89c60",
+            "columnShareModelId": "281557c6-1fa9-430c-a757-cf220b45f935",
+            "notNull": true
+        },
+        {
+            "columnModelId": "7ec20a30-c3b6-4a57-acab-7c30c6cc9205",
+            "columnShareModelId": "97d654ca-de07-4fb8-979c-6528331b754b",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "80ac96c9-2bde-4ce8-9283-40ded9f5629c",
+            "columnShareModelId": "6e1798e8-ed54-4a56-ad81-665c38817fa0",
+            "notNull": true
+        },
+        {
+            "columnModelId": "8743ea1d-e645-4b68-a821-043851c7f977",
+            "columnShareModelId": "275bd87e-77fa-4ddf-be50-d3208bb45366",
+            "primaryKey": true,
+            "notNull": true,
+            "autoIncrement": true
+        },
+        {
+            "columnModelId": "8c66a1b3-bcb1-413b-a12c-0f5ed25a0dbc",
+            "columnShareModelId": "74df9d15-464b-4f53-8c20-fdd5debed815"
+        },
+        {
+            "columnModelId": "90e6f2b7-2e00-4b0d-ab7c-2ea99a3f4ac4",
+            "columnShareModelId": "ca7a8aa4-05a6-4adc-ab69-d644de203d4c"
+        },
+        {
+            "columnModelId": "929bc6fb-8d20-4bfb-ae9b-3ed2c3cf16ea",
+            "columnShareModelId": "cb7661f0-5e83-4d52-81d1-f1e151a68de2"
+        },
+        {
+            "columnModelId": "94673768-c2ff-427c-97cd-46ccbdec19e2",
+            "columnShareModelId": "153a594c-af4f-40c6-b6b7-95922cf7a86c",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "9ab45148-0283-4744-9f80-a64808eec72c",
+            "columnShareModelId": "eb3418d7-1ed3-4d1b-8c00-0e5d257f1870"
+        },
+        {
+            "columnModelId": "9d1cc019-453f-497f-8a44-e979927d7991",
+            "columnShareModelId": "56eaa294-f51d-4a09-8446-4712d306434f",
+            "notNull": true,
+            "unique": true
+        },
+        {
+            "columnModelId": "9dbbac15-a61e-49ee-908a-2cc621cbf01d",
+            "columnShareModelId": "d622dbf0-71fb-43ad-88ff-3c7f4b6353f3"
+        },
+        {
+            "columnModelId": "9dd99870-c70e-4268-99bc-3042e63044b9",
+            "columnShareModelId": "5929fa5f-f299-4928-a196-9e0b437aaac3",
+            "notNull": true
+        },
+        {
+            "columnModelId": "9e199c5a-e1ec-433f-b01e-1b682452a11d",
+            "columnShareModelId": "5b086e61-d292-4ae7-a41d-cd438ad97737",
+            "notNull": true
+        },
+        {
+            "columnModelId": "a027d7e3-8371-4d8f-95ba-a528734dc5d0",
+            "columnShareModelId": "18c43689-56ba-44bd-9a09-685ae68ac55d",
+            "notNull": true
+        },
+        {
+            "columnModelId": "a389cf35-49a5-410b-ba1d-af86409f32e9",
+            "columnShareModelId": "ee3c934e-2800-4f2e-ad05-f74c3f1e111c",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "a40ae6f6-cdda-4b7d-8ed1-c30633ae307a",
+            "columnShareModelId": "b36b84ec-ea6c-4aee-a3c8-cf185f5609c1"
+        },
+        {
+            "columnModelId": "a890ba39-c8e5-430f-9d0b-e3060faa49b2",
+            "columnShareModelId": "4007c63e-2c15-43ff-b117-9250fb2609df",
+            "notNull": true
+        },
+        {
+            "columnModelId": "aa177fd6-07eb-44e8-9231-eb33932d7229",
+            "columnShareModelId": "5256bfbc-2328-45a5-aff0-859037009e71",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "aae1bf03-eb34-431f-9680-722538a99778",
+            "columnShareModelId": "273ff98d-dded-4b72-8b77-9f2e60d2d96a"
+        },
+        {
+            "columnModelId": "b11134cb-fa1b-465c-b950-55be8b9aaed6",
+            "columnShareModelId": "2234766a-0af5-4d63-990b-6fb35a95cf17",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "b306e677-fb28-456d-a765-f12f9dafea87",
+            "columnShareModelId": "b5a35024-665b-4e01-85d9-c5dacc6ba4f5"
+        },
+        {
+            "columnModelId": "b5b3b45e-e70a-45e9-9d72-f2a49d338e9c",
+            "columnShareModelId": "6495f7b6-e644-4406-a626-a6d5a9560ffa",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "b5fe958b-5551-48c9-8377-1af89c796758",
+            "columnShareModelId": "87936295-3a73-402c-8def-b7ad63c0d7b7"
+        },
+        {
+            "columnModelId": "b60c48ee-057c-4a5b-b359-632aea032c6b",
+            "columnShareModelId": "0f6c673e-6cc9-480f-907d-763b9eab1134",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "b8310743-53a4-424f-881e-42a193834e10",
+            "columnShareModelId": "a34d277c-3986-4196-af91-836214ca8544",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "b85c312c-ab09-439a-b4cd-ca1e450c0c03",
+            "columnShareModelId": "12821300-4c28-4fb3-95af-f2d285c4c8d5"
+        },
+        {
+            "columnModelId": "bad5115b-cecf-4514-888f-6c6f2b0b098f",
+            "columnShareModelId": "7be0729d-e054-4d94-8f6c-f5e9e194adce"
+        },
+        {
+            "columnModelId": "bc88f36a-5368-4800-9595-ca74693b0401",
+            "columnShareModelId": "25184670-e40d-49d4-88a8-975e6e796149"
+        },
+        {
+            "columnModelId": "bf906195-f6a5-4666-8a7c-6133dbbb2e22",
+            "columnShareModelId": "d4333d81-585c-463d-ab72-ff2cf0249430"
+        },
+        {
+            "columnModelId": "c21231f5-a42a-4741-99b4-ec64c328b97c",
+            "columnShareModelId": "18384f87-4ea9-44cf-a060-ec4c160285e4",
+            "notNull": true
+        },
+        {
+            "columnModelId": "c6d53f0c-ea6a-45a4-b867-831135ced94a",
+            "columnShareModelId": "c470b5fc-2e5c-46eb-b5f0-3861c1e22f23",
             "primaryKey": true,
             "notNull": true
         },
         {
-            "columnModelId": "fbe61200-0467-45eb-bb27-62e4a3b2f8bd",
-            "columnShareModelId": "ee69cccc-3985-4862-bbe6-5866eb074010"
-        },
-        {
-            "columnModelId": "fea38014-8ec0-4cbf-9857-bfff0b2a104d",
-            "columnShareModelId": "65bc34b8-54d0-4d69-ba57-1a2b07996b27",
+            "columnModelId": "cd25fbe5-ac04-4913-bb60-f4ee8b293060",
+            "columnShareModelId": "328a3fe9-3ccd-4b2e-bd97-22f79a4f3dc1",
             "notNull": true,
-            "defaultValue": "0"
+            "defaultValue": "CURRENT_TIMESTAMP"
         },
         {
-            "columnModelId": "ffb0112a-6e02-4c92-8591-f473d42b31b9",
-            "columnShareModelId": "7c13fc3e-ccc1-415d-9ca1-ea8a0d223c67"
+            "columnModelId": "cda9cde5-dfdb-4ad8-84f2-a3a9f0e62ad0",
+            "columnShareModelId": "c3830275-c9fe-4379-8aac-a5eb809fbaae",
+            "notNull": true,
+            "defaultValue": "CURRENT_TIMESTAMP"
+        },
+        {
+            "columnModelId": "d54b57a4-1e7a-4fa6-a4df-6aadca89004a",
+            "columnShareModelId": "d8382eb9-a834-4dc8-98da-419767883538",
+            "notNull": true
+        },
+        {
+            "columnModelId": "d85bfbcb-9ce0-4422-9abf-3e548c525649",
+            "columnShareModelId": "d5ffae73-03d7-4640-bf9c-05386c4b1541",
+            "notNull": true
+        },
+        {
+            "columnModelId": "d8ec88fa-7e78-411d-9342-714e15520539",
+            "columnShareModelId": "deef7072-9cf6-4758-ac62-2de1fe93b2e4",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "da9aa3b6-e0ef-4332-8379-944bbd1d5328",
+            "columnShareModelId": "00a754f5-e48e-465f-aa9a-7cf6d9c7181e",
+            "primaryKey": true,
+            "notNull": true
+        },
+        {
+            "columnModelId": "db0ae064-c4c4-4fda-a543-0674e99c03c1",
+            "columnShareModelId": "1a35535b-dc0a-462d-bb04-a536ae02b66e",
+            "notNull": true
+        },
+        {
+            "columnModelId": "dd30243e-0807-4141-b1df-9597ff744edb",
+            "columnShareModelId": "a0691688-caf7-444b-9f8a-ad97aa43c4db"
+        },
+        {
+            "columnModelId": "de7488ea-e7c0-47d0-9f60-bb6029e5ed34",
+            "columnShareModelId": "2250eb3a-f977-4898-80af-4296dc9f5f47",
+            "notNull": true,
+            "defaultValue": "now()"
+        },
+        {
+            "columnModelId": "e243838e-decb-409c-8084-956776cf557f",
+            "columnShareModelId": "7dd8f7e9-3c28-4474-b09e-3750b6515cbd",
+            "notNull": true
+        },
+        {
+            "columnModelId": "e29ea1c2-12ee-4da5-aef5-946ef42c9df0",
+            "columnShareModelId": "cf213d31-b1f0-4cd2-96c4-30464ad26c24",
+            "notNull": true
+        },
+        {
+            "columnModelId": "e99f3413-1c22-4698-b11d-8e25309974de",
+            "columnShareModelId": "6153f1f1-8acc-40c3-ab56-8182f8d532c6"
+        },
+        {
+            "columnModelId": "ee4011a0-6b98-4912-82e5-41a7f4ca4949",
+            "columnShareModelId": "bcf29a80-d407-4b8a-83b5-2c2b511692bb"
+        },
+        {
+            "columnModelId": "ef20d398-1333-400a-89e1-d0db89805fdf",
+            "columnShareModelId": "cf3f8c44-d23c-4db5-b96a-ff7876cefcd3"
+        },
+        {
+            "columnModelId": "f48e9124-c029-43ec-9d6e-e0badfac4477",
+            "columnShareModelId": "3c2cc765-40bb-4bcf-a2c0-ed5b3a7f564f"
+        },
+        {
+            "columnModelId": "f56af8a3-015b-4d66-a42c-2e53846e3e98",
+            "columnShareModelId": "690e636e-5b0a-41c2-9c78-3e9bdef7a930",
+            "notNull": true
+        },
+        {
+            "columnModelId": "fedc498c-652e-4bc8-8db7-e10e546e23ce",
+            "columnShareModelId": "d940b008-dcbb-401f-95bb-bd0c4b98b2ac",
+            "notNull": true,
+            "defaultValue": "CURRENT_TIMESTAMP"
         }
     ],
     "columnShareModels": [
         {
-            "columnShareModelId": "1b884258-b66e-4f73-8862-e57ad3ae3db7",
+            "columnShareModelId": "cb7661f0-5e83-4d52-81d1-f1e151a68de2",
             "physicalName": "agent_name",
             "logicalName": "에이전트 이름",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "bcef7c46-2ea8-40f9-8640-93e427f3ed8b",
+            "columnShareModelId": "2d82f577-c848-4b22-b4fd-994e9dab1e3d",
             "physicalName": "birth_date",
             "logicalName": "생년월일",
             "columnTypeId": 101,
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "2f49fb19-08ef-47e1-a889-9fabca8ca5e0",
+            "columnShareModelId": "b5a35024-665b-4e01-85d9-c5dacc6ba4f5",
             "physicalName": "call_name",
             "logicalName": "호칭",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "4dd363d5-b617-40c9-b20c-fc7fab7ba4b6",
+            "columnShareModelId": "498f5c1e-f04d-471d-997c-f581e10bdcf8",
             "physicalName": "care_reminded_at",
             "logicalName": "드라이클리닝 안내 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "3960a417-e3d9-4c5a-9806-a9150f305342",
+            "columnShareModelId": "5929fa5f-f299-4928-a196-9e0b437aaac3",
             "physicalName": "category",
             "logicalName": "분류",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "5918c10a-daa1-46c1-9182-6a154bae57a2",
+            "columnShareModelId": "75359462-5edc-4d0b-ae4f-6ba193f5fd66",
             "physicalName": "category",
             "logicalName": "분류",
             "columnTypeId": 312,
             "precision": "100",
-            "createdAt": "2026-11-25T08:12:54.373Z"
+            "createdAt": "2026-11-25T08:15:40.224Z"
         },
         {
-            "columnShareModelId": "99cc7de6-c556-463a-b541-f8dacf5378b2",
+            "columnShareModelId": "74df9d15-464b-4f53-8c20-fdd5debed815",
             "physicalName": "checked_by",
             "logicalName": "판단 주체",
             "columnTypeId": 312,
             "precision": "5",
-            "createdAt": "2026-11-25T08:12:53.609Z"
+            "createdAt": "2026-11-25T08:15:39.469Z"
         },
         {
-            "columnShareModelId": "d5d37ef0-ef84-46b7-a300-2e7e3af50545",
+            "columnShareModelId": "4525c5c9-d331-475f-8f55-424fff59c203",
             "physicalName": "color_family",
             "logicalName": "색 계열",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "1bef1e7d-f9d0-4571-b246-a02895c2e2ee",
+            "columnShareModelId": "b0d15ad8-97d4-4f1d-a2f2-ddc05993d598",
             "physicalName": "color_name",
             "logicalName": "색 이름",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "f67840d8-88f8-4d12-a03e-a89b3992f10d",
+            "columnShareModelId": "403e5ac1-68fc-4557-b429-34fa26e5aa0c",
             "physicalName": "confidence",
             "logicalName": "확신도",
             "columnTypeId": 46,
             "precision": "4",
             "scale": "3",
-            "createdAt": "2026-11-25T08:12:53.609Z"
+            "createdAt": "2026-11-25T08:15:39.469Z"
         },
         {
-            "columnShareModelId": "dc66a3cd-ff23-4c3b-a933-6b1d9b18d3dd",
+            "columnShareModelId": "18c43689-56ba-44bd-9a09-685ae68ac55d",
             "physicalName": "content",
             "logicalName": "내용",
             "columnTypeId": 325,
-            "createdAt": "2026-11-25T08:12:53.916Z"
+            "createdAt": "2026-11-25T08:15:39.772Z"
         },
         {
-            "columnShareModelId": "12a2102d-1c0b-4b55-897a-7c45a6dc5a28",
+            "columnShareModelId": "153a594c-af4f-40c6-b6b7-95922cf7a86c",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.609Z"
+            "createdAt": "2026-11-25T08:15:39.923Z"
         },
         {
-            "columnShareModelId": "4cedf0ac-49c7-47a0-86cc-b8232ff5bad6",
+            "columnShareModelId": "2234766a-0af5-4d63-990b-6fb35a95cf17",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.069Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "51a8b6c0-70c1-4368-93f6-dba3cd97695d",
+            "columnShareModelId": "23d2fc58-2f20-409d-82b3-fb1248455e52",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:40.224Z"
         },
         {
-            "columnShareModelId": "5a5d777e-bce5-4415-ab28-45308ac10682",
+            "columnShareModelId": "5256bfbc-2328-45a5-aff0-859037009e71",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.459Z"
+            "createdAt": "2026-11-25T08:15:39.020Z"
         },
         {
-            "columnShareModelId": "643f13b7-7225-421b-8810-8decb7762cbc",
+            "columnShareModelId": "6495f7b6-e644-4406-a626-a6d5a9560ffa",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.373Z"
+            "createdAt": "2026-11-25T08:15:39.319Z"
         },
         {
-            "columnShareModelId": "aa1a35b0-7ed2-4f97-9325-2cd4badf4fdb",
+            "columnShareModelId": "a8c89ca8-3d34-40ad-aa1a-14c4ce4d8952",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.001Z"
+            "createdAt": "2026-11-25T08:15:39.169Z"
         },
         {
-            "columnShareModelId": "b9a6d74f-6fb4-4e11-962e-9863fb5e61ef",
+            "columnShareModelId": "b12a5904-efba-40ec-a5d2-02df4379f5cd",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.155Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "cf33d8a2-249d-481c-bd9a-21d076758e1a",
+            "columnShareModelId": "c3830275-c9fe-4379-8aac-a5eb809fbaae",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.309Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "dd3097b6-57df-4ebf-b052-53f0a2ece33a",
+            "columnShareModelId": "deef7072-9cf6-4758-ac62-2de1fe93b2e4",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.469Z"
         },
         {
-            "columnShareModelId": "f2de54ce-80eb-4f8d-a5a3-c9a1b9b4a86f",
+            "columnShareModelId": "ee3c934e-2800-4f2e-ad05-f74c3f1e111c",
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:38.868Z"
         },
         {
-            "columnShareModelId": "171e168b-f686-401e-bc18-dbfa35d63df1",
+            "columnShareModelId": "0a935724-97bf-4bbe-a283-dda3de1c36c5",
             "physicalName": "embedding",
             "logicalName": "글 벡터 vector(384)",
             "columnTypeId": 31,
             "isArray": true,
             "description": "pgvector vector 칼럼(erd-designer에 vector 타입이 없어 real[]로 표시)",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "fa9f6c38-7bbc-43c1-955a-5385bab40d44",
+            "columnShareModelId": "18384f87-4ea9-44cf-a060-ec4c160285e4",
             "physicalName": "embedding",
             "logicalName": "글 벡터 vector(384)",
             "columnTypeId": 31,
             "isArray": true,
             "description": "pgvector vector 칼럼(erd-designer에 vector 타입이 없어 real[]로 표시)",
-            "createdAt": "2026-11-25T08:12:53.916Z"
+            "createdAt": "2026-11-25T08:15:39.772Z"
         },
         {
-            "columnShareModelId": "aaa76fb9-3150-4da7-8804-f0c9e3af6f4e",
+            "columnShareModelId": "6e1798e8-ed54-4a56-ad81-665c38817fa0",
             "physicalName": "expires_at",
             "logicalName": "만료 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.155Z"
+            "createdAt": "2026-11-25T08:15:39.020Z"
         },
         {
-            "columnShareModelId": "7b313935-d481-4d0c-88ae-acc0d43b2779",
+            "columnShareModelId": "2250eb3a-f977-4898-80af-4296dc9f5f47",
             "physicalName": "first_seen_at",
             "logicalName": "처음 본 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "cf9c5924-2645-46c8-bb47-5059b71e4e87",
+            "columnShareModelId": "66ced064-8bc5-4ca5-a5c9-275929c41599",
             "physicalName": "formality",
             "logicalName": "격식",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "b7966621-ef37-470a-9b3d-8ff880a1c2c6",
+            "columnShareModelId": "18bf7363-ac27-4077-af53-8ff244f8d41b",
             "physicalName": "garment_id",
             "logicalName": "옷 ID",
             "columnTypeId": 312,
             "precision": "40",
-            "createdAt": "2026-11-25T08:12:53.609Z"
+            "createdAt": "2026-11-25T08:15:39.923Z"
         },
         {
-            "columnShareModelId": "e7fd016d-80f7-447b-ac5c-5ae5e45998e5",
+            "columnShareModelId": "690e636e-5b0a-41c2-9c78-3e9bdef7a930",
             "physicalName": "garment_id",
             "logicalName": "옷 ID",
             "columnTypeId": 312,
             "precision": "40",
-            "createdAt": "2026-11-25T08:12:54.069Z"
+            "createdAt": "2026-11-25T08:15:39.469Z"
         },
         {
-            "columnShareModelId": "fd33c2f5-5852-40b0-9237-d4e0e175ce59",
+            "columnShareModelId": "25184670-e40d-49d4-88a8-975e6e796149",
             "physicalName": "gender",
             "logicalName": "성별",
             "columnTypeId": 312,
             "precision": "20",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "7c13fc3e-ccc1-415d-9ca1-ea8a0d223c67",
+            "columnShareModelId": "d622dbf0-71fb-43ad-88ff-3c7f4b6353f3",
             "physicalName": "height_cm",
             "logicalName": "키(cm)",
             "columnTypeId": 46,
             "precision": "4",
             "scale": "1",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "2f92b7cc-50e3-4486-ab85-33228ded5937",
+            "columnShareModelId": "275bd87e-77fa-4ddf-be50-d3208bb45366",
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 17,
             "description": "GENERATED ALWAYS AS IDENTITY(DB가 1씩 늘려 만듦)",
-            "createdAt": "2026-11-25T08:12:53.155Z"
+            "createdAt": "2026-11-25T08:15:38.868Z"
         },
         {
-            "columnShareModelId": "36438ac4-ce7f-4200-99f4-1afd452f0106",
+            "columnShareModelId": "4c8806d5-fae6-44ca-856c-b6c4bba46f1d",
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 17,
             "description": "GENERATED ALWAYS AS IDENTITY(DB가 1씩 늘려 만듦)",
-            "createdAt": "2026-11-25T08:12:53.609Z"
+            "createdAt": "2026-11-25T08:15:39.020Z"
         },
         {
-            "columnShareModelId": "73b5e1ce-33ee-464f-ba51-6719da407c21",
+            "columnShareModelId": "912ef724-b063-467b-b34d-7c67df13045f",
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 17,
             "description": "GENERATED ALWAYS AS IDENTITY(DB가 1씩 늘려 만듦)",
-            "createdAt": "2026-11-25T08:12:54.069Z"
+            "createdAt": "2026-11-25T08:15:39.469Z"
         },
         {
-            "columnShareModelId": "8e3981ae-a061-4221-b590-fe351adb4c29",
+            "columnShareModelId": "d8ce4747-3c59-4793-b532-7428fb39375d",
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 17,
             "description": "GENERATED ALWAYS AS IDENTITY(DB가 1씩 늘려 만듦)",
-            "createdAt": "2026-11-25T08:12:53.001Z"
+            "createdAt": "2026-11-25T08:15:39.923Z"
         },
         {
-            "columnShareModelId": "faa219f1-0626-47a2-a309-f78fd77f2435",
+            "columnShareModelId": "f3eb065c-f31b-47d9-b922-3df11c377d3e",
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 17,
             "description": "GENERATED ALWAYS AS IDENTITY(DB가 1씩 늘려 만듦)",
-            "createdAt": "2026-11-25T08:12:53.309Z"
+            "createdAt": "2026-11-25T08:15:39.169Z"
         },
         {
-            "columnShareModelId": "0597d22c-57df-42b1-9974-02f0597f0cd2",
+            "columnShareModelId": "122a155f-4fec-4bb7-bdf0-3799ec00ec43",
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 411,
             "description": "출처#조각번호로 만든 이름 기반 UUID(StyleDoc.chunkId, nameUUIDFromBytes). 같은 조각을 다시 넣으면 덮어씀",
-            "createdAt": "2026-11-25T08:12:53.916Z"
+            "createdAt": "2026-11-25T08:15:39.772Z"
         },
         {
-            "columnShareModelId": "ebcabe9a-cf37-4f2b-a07c-689d83640d2b",
+            "columnShareModelId": "1d3b2feb-6762-486e-afbc-392269d19c63",
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 411,
             "description": "처음 로그인할 때 gateway가 UUID.randomUUID()로 만듦(AccountStore). JWT sub이고 다른 스키마의 user_id와 같은 값",
-            "createdAt": "2026-11-25T08:12:53.459Z"
+            "createdAt": "2026-11-25T08:15:39.319Z"
         },
         {
-            "columnShareModelId": "515fedeb-68e0-4419-99ef-7a9742507bcd",
-            "physicalName": "id",
-            "logicalName": "ID",
-            "columnTypeId": 312,
-            "precision": "40",
-            "description": "\"e_\" + 임의 글자 12개. 헷갈리는 0·o·1·l을 뺀 소문자·숫자 32가지에서 SecureRandom으로 고름(ScheduleService.newId). MCP 도구의 eventId",
-            "createdAt": "2026-11-25T08:12:54.219Z"
-        },
-        {
-            "columnShareModelId": "bce20b4f-7b28-4923-9a72-35b8ee10f9d1",
+            "columnShareModelId": "00a754f5-e48e-465f-aa9a-7cf6d9c7181e",
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 312,
             "precision": "40",
             "description": "\"c_\" + SecureRandom 9바이트를 URL용 Base64(패딩 없음)로 바꾼 12글자(Ids.garmentId). MCP 도구의 garmentId",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "65bc34b8-54d0-4d69-ba57-1a2b07996b27",
+            "columnShareModelId": "c470b5fc-2e5c-46eb-b5f0-3861c1e22f23",
+            "physicalName": "id",
+            "logicalName": "ID",
+            "columnTypeId": 312,
+            "precision": "40",
+            "description": "\"e_\" + 임의 글자 12개. 헷갈리는 0·o·1·l을 뺀 소문자·숫자 32가지에서 SecureRandom으로 고름(ScheduleService.newId). MCP 도구의 eventId",
+            "createdAt": "2026-11-25T08:15:40.073Z"
+        },
+        {
+            "columnShareModelId": "55fbcfb9-5bf5-47f8-8cf6-ae3b641ef265",
             "physicalName": "image_count",
             "logicalName": "본 사진 수",
             "columnTypeId": 15,
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "45de87c2-b950-4980-8c10-658e328dffbf",
+            "columnShareModelId": "a0691688-caf7-444b-9f8a-ad97aa43c4db",
             "physicalName": "image_embedding",
             "logicalName": "사진 벡터 vector(768)",
             "columnTypeId": 31,
             "isArray": true,
             "description": "pgvector vector 칼럼(erd-designer에 vector 타입이 없어 real[]로 표시)",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "2b58b5f8-a6da-4171-8211-5989ea43ea6d",
+            "columnShareModelId": "273ff98d-dded-4b72-8b77-9f2e60d2d96a",
             "physicalName": "image_model",
             "logicalName": "사진 벡터 모델",
             "columnTypeId": 312,
             "precision": "40",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "1f0322bb-0cea-4e42-ab49-df94208f2e76",
+            "columnShareModelId": "d8382eb9-a834-4dc8-98da-419767883538",
             "physicalName": "issuer",
             "logicalName": "발급처",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:12:53.309Z"
+            "createdAt": "2026-11-25T08:15:39.169Z"
         },
         {
-            "columnShareModelId": "46b7430e-c0b0-4fc5-affe-dca98ad51beb",
+            "columnShareModelId": "7cf90706-afda-48a4-be83-5cf98fef3f39",
             "physicalName": "job",
             "logicalName": "직업",
             "columnTypeId": 312,
             "precision": "50",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "018b0437-eda6-476d-9436-00b750b30082",
-            "physicalName": "kakao_place_id",
-            "logicalName": "카카오 장소 ID",
-            "columnTypeId": 312,
-            "precision": "20",
-            "createdAt": "2026-11-25T08:12:54.219Z"
-        },
-        {
-            "columnShareModelId": "5a3c658b-2e58-4473-960a-c8e9bc97d691",
+            "columnShareModelId": "befe5c58-8437-4601-ad7b-2e804a534a17",
             "physicalName": "kakao_place_id",
             "logicalName": "카카오 장소 ID",
             "columnTypeId": 312,
             "precision": "20",
             "description": "카카오 로컬 장소 ID를 그대로 키로 씀",
-            "createdAt": "2026-11-25T08:12:54.373Z"
+            "createdAt": "2026-11-25T08:15:40.224Z"
         },
         {
-            "columnShareModelId": "ea248b33-7fa1-411c-81c0-769267431ce7",
+            "columnShareModelId": "ca7a8aa4-05a6-4adc-ab69-d644de203d4c",
+            "physicalName": "kakao_place_id",
+            "logicalName": "카카오 장소 ID",
+            "columnTypeId": 312,
+            "precision": "20",
+            "createdAt": "2026-11-25T08:15:40.073Z"
+        },
+        {
+            "columnShareModelId": "3b3e3731-d6fd-4c3b-87ed-f407aef35ac5",
             "physicalName": "kind",
             "logicalName": "종류",
             "columnTypeId": 312,
             "precision": "20",
-            "createdAt": "2026-11-25T08:12:53.609Z"
+            "createdAt": "2026-11-25T08:15:39.469Z"
         },
         {
-            "columnShareModelId": "60c6ae1f-a19f-46cf-a36b-82fdd9378e8e",
+            "columnShareModelId": "87936295-3a73-402c-8def-b7ad63c0d7b7",
             "physicalName": "last_login_at",
             "logicalName": "마지막 로그인",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.459Z"
+            "createdAt": "2026-11-25T08:15:39.319Z"
         },
         {
-            "columnShareModelId": "3667dca6-ce0f-442a-800c-087933090bbe",
+            "columnShareModelId": "1cccfe07-d7d6-4c28-8617-eab3da5bd024",
             "physicalName": "last_seen_at",
             "logicalName": "마지막으로 본 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "5ade3ee9-6cd9-40d6-ad84-f2099a1e14c0",
+            "columnShareModelId": "8eb506f1-2655-4f78-9da6-5853657d222f",
             "physicalName": "last_seen_at",
             "logicalName": "마지막으로 본 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.001Z"
+            "createdAt": "2026-11-25T08:15:38.868Z"
         },
         {
-            "columnShareModelId": "76684b4c-3e18-47d4-8b62-6964f9512c00",
+            "columnShareModelId": "cf3f8c44-d23c-4db5-b96a-ff7876cefcd3",
             "physicalName": "location",
             "logicalName": "위치",
             "columnTypeId": 312,
             "precision": "50",
-            "createdAt": "2026-11-25T08:12:53.609Z"
+            "createdAt": "2026-11-25T08:15:39.469Z"
         },
         {
-            "columnShareModelId": "8f247aff-e426-4a11-844c-3c2bbbe5ba82",
+            "columnShareModelId": "bcf29a80-d407-4b8a-83b5-2c2b511692bb",
             "physicalName": "material",
             "logicalName": "소재",
             "columnTypeId": 312,
             "precision": "50",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "b4ca97bd-3672-48d4-9a21-94b3b355777d",
+            "columnShareModelId": "d0e5f836-2b20-46bf-aca4-c8f9c1db7a06",
             "physicalName": "metadata",
             "logicalName": "메타데이터",
             "columnTypeId": 421,
-            "createdAt": "2026-11-25T08:12:53.916Z"
+            "createdAt": "2026-11-25T08:15:39.772Z"
         },
         {
-            "columnShareModelId": "51cad8cb-8e27-42ea-b67a-df2bbf94e9b9",
+            "columnShareModelId": "09db0d22-1ed8-49fe-9d16-ea31ab724cbc",
             "physicalName": "name",
             "logicalName": "이름",
             "columnTypeId": 312,
             "precision": "50",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "c1ce95f3-a31a-4998-9794-b05c67ec166c",
+            "columnShareModelId": "eb3418d7-1ed3-4d1b-8c00-0e5d257f1870",
             "physicalName": "name",
             "logicalName": "이름",
             "columnTypeId": 312,
             "precision": "50",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "9b62478e-f0fd-40bc-8378-9a7fe4df317c",
+            "columnShareModelId": "bdaad769-a970-4c6c-b9b4-098342fc7584",
             "physicalName": "notes",
             "logicalName": "메모",
             "columnTypeId": 312,
             "precision": "500",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "f08e0b58-4471-4af9-b9f7-64da362cbcf7",
+            "columnShareModelId": "ddaf8598-8ead-4ba2-9b10-4eb201bc69f0",
             "physicalName": "notified_at",
             "logicalName": "알림 보낸 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "ed1e3b3f-d2f5-4cd0-8cd5-a0f23ec6bcdc",
+            "columnShareModelId": "a6332d15-3733-45e6-b4bb-a504817fc64b",
             "physicalName": "occasion",
             "logicalName": "자리 종류",
             "columnTypeId": 312,
             "precision": "20",
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "8de80405-06b5-4bbe-a541-2b46e1649b91",
+            "columnShareModelId": "5ace43f2-3d5a-4bdc-b760-862854125ccb",
             "physicalName": "occasion_source",
             "logicalName": "자리 판단 근거",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "1758e916-3c81-475f-8e11-5f543d8124fb",
+            "columnShareModelId": "6df6683a-f5dc-47cc-9c6a-3832104c7912",
             "physicalName": "pattern",
             "logicalName": "무늬",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "f41830a4-1b2d-46ee-8efa-05121ffa2772",
+            "columnShareModelId": "1be34401-0fde-4624-9351-b55f2cdc487a",
             "physicalName": "pattern_checked_by",
             "logicalName": "무늬 판단 주체",
             "columnTypeId": 312,
             "precision": "5",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "2b5d1f14-46b2-42e8-b849-3b2bbe75204b",
+            "columnShareModelId": "3c2cc765-40bb-4bcf-a2c0-ed5b3a7f564f",
             "physicalName": "pattern_guess",
             "logicalName": "무늬 짐작",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "ee69cccc-3985-4862-bbe6-5866eb074010",
+            "columnShareModelId": "3b80a082-052a-41c4-8834-ee17952abc49",
             "physicalName": "place",
             "logicalName": "장소(말한 그대로)",
             "columnTypeId": 312,
             "precision": "200",
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "e09200b2-a2f8-4db6-bf51-684f23b714de",
+            "columnShareModelId": "281557c6-1fa9-430c-a757-cf220b45f935",
             "physicalName": "place_name",
             "logicalName": "장소 이름",
             "columnTypeId": 312,
             "precision": "200",
-            "createdAt": "2026-11-25T08:12:54.373Z"
+            "createdAt": "2026-11-25T08:15:40.224Z"
         },
         {
-            "columnShareModelId": "5ac93830-6a58-42e2-aa8e-10e954b08776",
+            "columnShareModelId": "84970cf2-9ea7-4242-993c-713a87de4b9d",
             "physicalName": "platform",
             "logicalName": "플랫폼",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:12:53.001Z"
+            "createdAt": "2026-11-25T08:15:38.868Z"
         },
         {
-            "columnShareModelId": "6f2d0489-4482-4605-ac60-3cc2846392e6",
+            "columnShareModelId": "dffc5ce8-337e-4efc-aba8-63c5ef057a4d",
             "physicalName": "remind",
             "logicalName": "알림 받기",
             "columnTypeId": 6,
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "7c3509ad-0a48-4838-9e51-6b2855c9d489",
+            "columnShareModelId": "0d856e5d-4bbb-4d79-8f1d-6d36efaf0fbf",
             "physicalName": "remind_days_before",
             "logicalName": "며칠 전 알림",
             "columnTypeId": 15,
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "a7004a53-5e97-4512-8adc-ccaebcb02c09",
+            "columnShareModelId": "81467715-a240-42d5-9ae6-012c8b5b637a",
             "physicalName": "remind_time",
             "logicalName": "알림 시각",
             "columnTypeId": 131,
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "1a821c32-db44-44c1-9c9c-731963037981",
+            "columnShareModelId": "7be0729d-e054-4d94-8f6c-f5e9e194adce",
             "physicalName": "revoked_at",
             "logicalName": "폐기 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.155Z"
+            "createdAt": "2026-11-25T08:15:39.020Z"
         },
         {
-            "columnShareModelId": "1ba99af4-f63c-4b63-b874-37d897b24bda",
+            "columnShareModelId": "5b086e61-d292-4ae7-a41d-cd438ad97737",
             "physicalName": "sign_in_provider",
             "logicalName": "로그인 방법",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:12:53.309Z"
+            "createdAt": "2026-11-25T08:15:39.169Z"
         },
         {
-            "columnShareModelId": "d53adf02-922f-4711-b817-d8e024a1b8f8",
+            "columnShareModelId": "b36b84ec-ea6c-4aee-a3c8-cf185f5609c1",
             "physicalName": "speech_rate",
             "logicalName": "말 빠르기",
             "columnTypeId": 46,
             "precision": "3",
             "scale": "2",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "c561290f-62fa-4d22-b7bc-c018dc113a42",
+            "columnShareModelId": "13b21a91-aed0-42c9-b8b6-5079f2bff486",
             "physicalName": "start_at",
             "logicalName": "시작 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "0d4e1f15-9e05-437f-a7b7-0565fb620e08",
+            "columnShareModelId": "85bcccf6-b5bd-4d74-9c67-0c9ce8580cd1",
             "physicalName": "sub_color_family",
             "logicalName": "보조 색 계열",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "52e924fb-a385-4924-b8a4-64889317a776",
+            "columnShareModelId": "d4333d81-585c-463d-ab72-ff2cf0249430",
             "physicalName": "sub_color_name",
             "logicalName": "보조 색 이름",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "a7d58a1d-153d-4913-9815-0a0d9178450a",
+            "columnShareModelId": "d5ffae73-03d7-4640-bf9c-05386c4b1541",
             "physicalName": "subject",
             "logicalName": "로그인 식별값",
             "columnTypeId": 312,
             "precision": "128",
-            "createdAt": "2026-11-25T08:12:53.309Z"
+            "createdAt": "2026-11-25T08:15:39.169Z"
         },
         {
-            "columnShareModelId": "c906ecd1-11ba-41cd-bc3b-6a2944014826",
+            "columnShareModelId": "ccd99eba-4bea-4324-bc90-d9a7dbb6995d",
             "physicalName": "thumbnail",
             "logicalName": "옷 부분 작은 사진",
             "columnTypeId": 367,
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "a3be5690-7d16-402a-8a7e-8dcc59c82d68",
+            "columnShareModelId": "6153f1f1-8acc-40c3-ab56-8182f8d532c6",
             "physicalName": "thumbnail_at",
             "logicalName": "작은 사진 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "02247eea-44c2-446c-9782-418fe36e7d16",
+            "columnShareModelId": "4007c63e-2c15-43ff-b117-9250fb2609df",
             "physicalName": "title",
             "logicalName": "제목",
             "columnTypeId": 312,
             "precision": "200",
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "6a2eafba-5ee2-42c7-81f7-ee6ff824316f",
+            "columnShareModelId": "56eaa294-f51d-4a09-8446-4712d306434f",
             "physicalName": "token",
             "logicalName": "푸시 토큰",
             "columnTypeId": 325,
-            "createdAt": "2026-11-25T08:12:53.001Z"
+            "createdAt": "2026-11-25T08:15:38.868Z"
         },
         {
-            "columnShareModelId": "0cce2e36-8fff-462b-abcb-6d4f7b7c76f7",
+            "columnShareModelId": "ec025238-bcea-408d-90dc-122ecd7c8991",
             "physicalName": "token_hash",
             "logicalName": "토큰 해시",
             "columnTypeId": 311,
             "precision": "64",
-            "createdAt": "2026-11-25T08:12:53.155Z"
+            "createdAt": "2026-11-25T08:15:39.020Z"
         },
         {
-            "columnShareModelId": "a7f666be-62b9-412a-858a-ed1023a1ec30",
+            "columnShareModelId": "cf213d31-b1f0-4cd2-96c4-30464ad26c24",
             "physicalName": "tone",
             "logicalName": "밝기",
             "columnTypeId": 312,
             "precision": "5",
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "249488d5-f3c1-4fc7-8802-9afddefbf20d",
+            "columnShareModelId": "0f6c673e-6cc9-480f-907d-763b9eab1134",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.459Z"
+            "createdAt": "2026-11-25T08:15:39.169Z"
         },
         {
-            "columnShareModelId": "5291ab03-f6e7-4877-8191-116fd7950f47",
+            "columnShareModelId": "315d43dd-b7e5-44a5-b85b-04eb39d2e5ff",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.155Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "55095a80-d3fe-43ed-83a4-c3565ecce28c",
+            "columnShareModelId": "328a3fe9-3ccd-4b2e-bd97-22f79a4f3dc1",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.309Z"
+            "createdAt": "2026-11-25T08:15:40.224Z"
         },
         {
-            "columnShareModelId": "74673e55-df30-42c5-96c1-b6ff92abc764",
+            "columnShareModelId": "46ed85b0-6eb6-4742-9446-4c4bd1dfb2a6",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:39.319Z"
         },
         {
-            "columnShareModelId": "7b40b074-2c5b-47ce-995d-3ac56abfb924",
+            "columnShareModelId": "7c42e213-673e-42fe-a991-2c59079e04fc",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:53.001Z"
+            "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
-            "columnShareModelId": "a1c3d444-9f7b-49d7-a39a-8a184b7bea6b",
+            "columnShareModelId": "7c59a581-8aca-4bc5-a274-7edd05e3ebd7",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:39.020Z"
         },
         {
-            "columnShareModelId": "a46aae62-3d33-4bb8-8d09-626ee70d5773",
+            "columnShareModelId": "97d654ca-de07-4fb8-979c-6528331b754b",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.219Z"
+            "createdAt": "2026-11-25T08:15:39.923Z"
         },
         {
-            "columnShareModelId": "c804b537-8484-4853-a392-4695b7d5bc12",
+            "columnShareModelId": "a34d277c-3986-4196-af91-836214ca8544",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.373Z"
+            "createdAt": "2026-11-25T08:15:38.868Z"
         },
         {
-            "columnShareModelId": "d9d9ea85-c776-4d85-a52d-3c8c3b3d8543",
+            "columnShareModelId": "d940b008-dcbb-401f-95bb-bd0c4b98b2ac",
             "physicalName": "updated_at",
             "logicalName": "고친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:12:54.069Z"
+            "createdAt": "2026-11-25T08:15:40.073Z"
         },
         {
-            "columnShareModelId": "5bee8826-b9e7-44a9-9a74-d085987fa3ed",
+            "columnShareModelId": "1a35535b-dc0a-462d-bb04-a536ae02b66e",
+            "physicalName": "user_id",
+            "logicalName": "회원 ID",
+            "columnTypeId": 411,
+            "createdAt": "2026-11-25T08:15:39.621Z"
+        },
+        {
+            "columnShareModelId": "1f880866-11cc-4749-85c5-ffc1c89b92b7",
+            "physicalName": "user_id",
+            "logicalName": "회원 ID",
+            "columnTypeId": 411,
+            "createdAt": "2026-11-25T08:15:40.073Z"
+        },
+        {
+            "columnShareModelId": "753df783-2a95-4769-82b4-27de6793f49a",
+            "physicalName": "user_id",
+            "logicalName": "회원 ID",
+            "columnTypeId": 411,
+            "createdAt": "2026-11-25T08:15:39.169Z"
+        },
+        {
+            "columnShareModelId": "7dd8f7e9-3c28-4474-b09e-3750b6515cbd",
+            "physicalName": "user_id",
+            "logicalName": "회원 ID",
+            "columnTypeId": 411,
+            "createdAt": "2026-11-25T08:15:39.020Z"
+        },
+        {
+            "columnShareModelId": "c77eec53-bf02-4462-8cde-e3d0e78e6535",
             "physicalName": "user_id",
             "logicalName": "회원 ID",
             "columnTypeId": 411,
             "description": "users.id를 그대로 키로 씀(1:0..1)",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "6deed8c5-6e3b-4771-a61c-5f47ce785d23",
+            "columnShareModelId": "deb62638-d294-43af-870a-5301edc24835",
             "physicalName": "user_id",
             "logicalName": "회원 ID",
             "columnTypeId": 411,
-            "createdAt": "2026-11-25T08:12:53.759Z"
+            "createdAt": "2026-11-25T08:15:38.868Z"
         },
         {
-            "columnShareModelId": "8fb09859-d562-4fb5-a87a-acad6b9d6235",
-            "physicalName": "user_id",
-            "logicalName": "회원 ID",
-            "columnTypeId": 411,
-            "createdAt": "2026-11-25T08:12:54.219Z"
-        },
-        {
-            "columnShareModelId": "ee5e05aa-044e-440b-8ee3-0c9aaba0a37a",
-            "physicalName": "user_id",
-            "logicalName": "회원 ID",
-            "columnTypeId": 411,
-            "createdAt": "2026-11-25T08:12:53.155Z"
-        },
-        {
-            "columnShareModelId": "f6fcb82b-a630-4c15-990c-47305517c6ab",
-            "physicalName": "user_id",
-            "logicalName": "회원 ID",
-            "columnTypeId": 411,
-            "createdAt": "2026-11-25T08:12:53.309Z"
-        },
-        {
-            "columnShareModelId": "f87b7085-ffb5-453b-89fb-f49c920fcc84",
-            "physicalName": "user_id",
-            "logicalName": "회원 ID",
-            "columnTypeId": 411,
-            "createdAt": "2026-11-25T08:12:53.001Z"
-        },
-        {
-            "columnShareModelId": "19eb8d52-3be4-464a-9226-53cfc171dbb7",
+            "columnShareModelId": "12821300-4c28-4fb3-95af-f2d285c4c8d5",
             "physicalName": "weight_kg",
             "logicalName": "몸무게(kg)",
             "columnTypeId": 46,
             "precision": "4",
             "scale": "1",
-            "createdAt": "2026-11-25T08:12:52.847Z"
+            "createdAt": "2026-11-25T08:15:38.720Z"
         },
         {
-            "columnShareModelId": "f6d1f3b4-b9a1-47c3-bfd4-b5f9be5e5832",
+            "columnShareModelId": "7e7f2e8b-b6e1-40d3-8503-246e2c041250",
             "physicalName": "worn_on",
             "logicalName": "입은 날",
             "columnTypeId": 101,
-            "createdAt": "2026-11-25T08:12:54.069Z"
+            "createdAt": "2026-11-25T08:15:39.923Z"
         }
     ],
     "relationViewModels": [
         {
             "relationModel": {
-                "relationModelId": "25df2697-9a8a-4f4f-be7a-34b5bec85d1c",
-                "relationName": "profiles_user_id_fk",
-                "parentTableModelId": "24f7a5d1-9642-40a4-a298-cce078b13859",
-                "parentCardinality": "1",
-                "childTableModelId": "16bbcb6e-69dc-4382-821b-6e8590d74d4e",
-                "childCardinality": "0..1",
-                "relationPairs": [
-                    {
-                        "parentColumnModelId": "e296fe0a-ba41-479d-85cb-4cae9e6fbfe0",
-                        "childColumnModelId": "c31d05b2-2380-4775-a413-d4778ce677ff"
-                    }
-                ],
-                "onUpdateAction": "NO ACTION",
-                "onDeleteAction": "CASCADE"
-            },
-            "lineViewModel": {
-                "strokeWidth": 1,
-                "edges": [],
-                "orthogonalLines": [],
-                "color": {
-                    "red": 0,
-                    "green": 0,
-                    "blue": 0
-                }
-            },
-            "labelViewModel": {
-                "label": "profiles_user_id_fk",
-                "position": {
-                    "segment": -1,
-                    "fraction": 0,
-                    "offsetX": 0,
-                    "offsetY": 0
-                },
-                "color": {
-                    "red": 0,
-                    "green": 0,
-                    "blue": 0
-                },
-                "style": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "fontSize": 10
-                }
-            },
-            "createdAt": "2026-11-25T08:12:54.881Z"
-        },
-        {
-            "relationModel": {
-                "relationModelId": "3b65ae2f-0118-4908-9721-c1feef417b73",
-                "relationName": "refresh_tokens_user_id_fk",
-                "parentTableModelId": "24f7a5d1-9642-40a4-a298-cce078b13859",
-                "parentCardinality": "1",
-                "childTableModelId": "b4b62fa9-bdb9-47b2-88f4-8a7eeb448d42",
-                "childCardinality": "0..N",
-                "relationPairs": [
-                    {
-                        "parentColumnModelId": "e296fe0a-ba41-479d-85cb-4cae9e6fbfe0",
-                        "childColumnModelId": "01130ee9-69b0-47a9-937a-47a825973a16"
-                    }
-                ],
-                "onUpdateAction": "NO ACTION",
-                "onDeleteAction": "CASCADE"
-            },
-            "lineViewModel": {
-                "strokeWidth": 1,
-                "edges": [],
-                "orthogonalLines": [],
-                "color": {
-                    "red": 0,
-                    "green": 0,
-                    "blue": 0
-                }
-            },
-            "labelViewModel": {
-                "label": "refresh_tokens_user_id_fk",
-                "position": {
-                    "segment": -1,
-                    "fraction": 0,
-                    "offsetX": 0,
-                    "offsetY": 0
-                },
-                "color": {
-                    "red": 0,
-                    "green": 0,
-                    "blue": 0
-                },
-                "style": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "fontSize": 10
-                }
-            },
-            "createdAt": "2026-11-25T08:12:55.200Z"
-        },
-        {
-            "relationModel": {
-                "relationModelId": "607ed7d1-dd82-4d47-b8bf-f68bf83926ad",
+                "relationModelId": "03148a8b-6b14-4ac8-bfa2-e8af31e2d830",
                 "relationName": "push_tokens_user_id_fk",
-                "parentTableModelId": "24f7a5d1-9642-40a4-a298-cce078b13859",
+                "parentTableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
                 "parentCardinality": "1",
-                "childTableModelId": "835b7a7d-6109-48aa-a2fd-240d60ecca12",
+                "childTableModelId": "cbacdc2e-a312-4882-a1bc-21bbb7d9587e",
                 "childCardinality": "0..N",
                 "relationPairs": [
                     {
-                        "parentColumnModelId": "e296fe0a-ba41-479d-85cb-4cae9e6fbfe0",
-                        "childColumnModelId": "3350d9f9-b578-48db-81a4-920fe90a11e5"
+                        "parentColumnModelId": "56f90695-10d4-4d50-b0a5-1170ff45aedb",
+                        "childColumnModelId": "277e93d9-16ae-4d18-b300-d23e0858f3cf"
                     }
                 ],
                 "onUpdateAction": "NO ACTION",
@@ -1807,69 +1709,20 @@
                     "fontSize": 10
                 }
             },
-            "createdAt": "2026-11-25T08:12:55.029Z"
+            "createdAt": "2026-11-25T08:15:40.836Z"
         },
         {
             "relationModel": {
-                "relationModelId": "63ec6143-b634-4cca-88e7-33710675c0f9",
-                "relationName": "garment_defects_garment_id_fk",
-                "parentTableModelId": "2e78086c-7e7c-4918-9344-723f56d9723e",
-                "parentCardinality": "1",
-                "childTableModelId": "06113555-d39d-4119-b90e-0c350525221e",
-                "childCardinality": "0..N",
-                "relationPairs": [
-                    {
-                        "parentColumnModelId": "fa8e6eb8-9030-4e52-ac04-8f854094b54b",
-                        "childColumnModelId": "933b97bc-d13e-41e0-8293-0293428556b3"
-                    }
-                ],
-                "onUpdateAction": "NO ACTION",
-                "onDeleteAction": "CASCADE"
-            },
-            "lineViewModel": {
-                "strokeWidth": 1,
-                "edges": [],
-                "orthogonalLines": [],
-                "color": {
-                    "red": 0,
-                    "green": 0,
-                    "blue": 0
-                }
-            },
-            "labelViewModel": {
-                "label": "garment_defects_garment_id_fk",
-                "position": {
-                    "segment": -1,
-                    "fraction": 0,
-                    "offsetX": 0,
-                    "offsetY": 0
-                },
-                "color": {
-                    "red": 0,
-                    "green": 0,
-                    "blue": 0
-                },
-                "style": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "fontSize": 10
-                }
-            },
-            "createdAt": "2026-11-25T08:12:55.830Z"
-        },
-        {
-            "relationModel": {
-                "relationModelId": "720cbc2b-a89a-45c2-b454-eaa325ebc9f1",
+                "relationModelId": "3969adfe-1c9d-4468-aca4-70fab82b4ef2",
                 "relationName": "user_identities_user_id_fk",
-                "parentTableModelId": "24f7a5d1-9642-40a4-a298-cce078b13859",
+                "parentTableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
                 "parentCardinality": "1",
-                "childTableModelId": "d0d10938-aead-440a-a863-ef8daf908128",
+                "childTableModelId": "f83c0167-ad08-442d-97f4-574805dc774a",
                 "childCardinality": "0..N",
                 "relationPairs": [
                     {
-                        "parentColumnModelId": "e296fe0a-ba41-479d-85cb-4cae9e6fbfe0",
-                        "childColumnModelId": "70af447b-92b4-4941-b330-c36f3b87de22"
+                        "parentColumnModelId": "56f90695-10d4-4d50-b0a5-1170ff45aedb",
+                        "childColumnModelId": "4a17f24c-7e5b-492b-aa61-2c5d7489fc56"
                     }
                 ],
                 "onUpdateAction": "NO ACTION",
@@ -1905,20 +1758,69 @@
                     "fontSize": 10
                 }
             },
-            "createdAt": "2026-11-25T08:12:55.355Z"
+            "createdAt": "2026-11-25T08:15:41.132Z"
         },
         {
             "relationModel": {
-                "relationModelId": "a4dbe057-6d55-49fd-8cac-ebf755b796a5",
-                "relationName": "wears_garment_id_fk",
-                "parentTableModelId": "2e78086c-7e7c-4918-9344-723f56d9723e",
+                "relationModelId": "780f2c4f-4c64-4ffd-876f-6cce00d961ef",
+                "relationName": "profiles_user_id_fk",
+                "parentTableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
                 "parentCardinality": "1",
-                "childTableModelId": "331b1387-8908-4d2d-8e3f-1bb54b93eee9",
+                "childTableModelId": "cac51010-8077-4390-8a2b-ab9faf107eeb",
+                "childCardinality": "0..1",
+                "relationPairs": [
+                    {
+                        "parentColumnModelId": "56f90695-10d4-4d50-b0a5-1170ff45aedb",
+                        "childColumnModelId": "2965fd2c-f150-4ec5-bf5d-72307bd839b4"
+                    }
+                ],
+                "onUpdateAction": "NO ACTION",
+                "onDeleteAction": "CASCADE"
+            },
+            "lineViewModel": {
+                "strokeWidth": 1,
+                "edges": [],
+                "orthogonalLines": [],
+                "color": {
+                    "red": 0,
+                    "green": 0,
+                    "blue": 0
+                }
+            },
+            "labelViewModel": {
+                "label": "profiles_user_id_fk",
+                "position": {
+                    "segment": -1,
+                    "fraction": 0,
+                    "offsetX": 0,
+                    "offsetY": 0
+                },
+                "color": {
+                    "red": 0,
+                    "green": 0,
+                    "blue": 0
+                },
+                "style": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "fontSize": 10
+                }
+            },
+            "createdAt": "2026-11-25T08:15:40.687Z"
+        },
+        {
+            "relationModel": {
+                "relationModelId": "b554eb34-ae1f-4ccd-b952-23dac306a9bf",
+                "relationName": "wears_garment_id_fk",
+                "parentTableModelId": "5e8ebe89-1fbc-48a9-b086-3f2d019899da",
+                "parentCardinality": "1",
+                "childTableModelId": "38e9d6a6-65df-4f74-be7e-a63dfe03ffb5",
                 "childCardinality": "0..N",
                 "relationPairs": [
                     {
-                        "parentColumnModelId": "fa8e6eb8-9030-4e52-ac04-8f854094b54b",
-                        "childColumnModelId": "97cc775a-5616-4dec-9f84-f842a529954e"
+                        "parentColumnModelId": "da9aa3b6-e0ef-4332-8379-944bbd1d5328",
+                        "childColumnModelId": "0cc78542-187d-4d46-9f2a-426ccbe754ca"
                     }
                 ],
                 "onUpdateAction": "NO ACTION",
@@ -1954,20 +1856,20 @@
                     "fontSize": 10
                 }
             },
-            "createdAt": "2026-11-25T08:12:55.667Z"
+            "createdAt": "2026-11-25T08:15:41.477Z"
         },
         {
             "relationModel": {
-                "relationModelId": "acbd99fa-4bf5-4d4e-bd52-c68700dd1d07",
+                "relationModelId": "d77f57f0-aa3e-4f45-a23c-77563e01fa4b",
                 "relationName": "events_kakao_place_id_fk",
-                "parentTableModelId": "2031413e-2e81-4cc7-a09a-f134841f11f2",
+                "parentTableModelId": "756d1304-34b5-4a55-ba64-afc50dd5f906",
                 "parentCardinality": "0..1",
-                "childTableModelId": "dd657450-6537-4c16-b667-82651549b888",
+                "childTableModelId": "b6c901de-6331-43bf-8f73-98198ea5569d",
                 "childCardinality": "0..N",
                 "relationPairs": [
                     {
-                        "parentColumnModelId": "13d2d589-5dc9-4d50-85fc-ce6a453c0652",
-                        "childColumnModelId": "f4686ce2-0a62-4161-803b-8bfca070c068"
+                        "parentColumnModelId": "54ef56f6-4ecb-41fd-a4d5-f9ae5ab7a63d",
+                        "childColumnModelId": "90e6f2b7-2e00-4b0d-ab7c-2ea99a3f4ac4"
                     }
                 ],
                 "onUpdateAction": "NO ACTION",
@@ -2003,12 +1905,110 @@
                     "fontSize": 10
                 }
             },
-            "createdAt": "2026-11-25T08:12:55.510Z"
+            "createdAt": "2026-11-25T08:15:41.280Z"
+        },
+        {
+            "relationModel": {
+                "relationModelId": "e0983bd7-73dc-4d4c-b456-222c20fa4366",
+                "relationName": "refresh_tokens_user_id_fk",
+                "parentTableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
+                "parentCardinality": "1",
+                "childTableModelId": "8eed0434-fac4-418c-a895-d4f7ebb53b51",
+                "childCardinality": "0..N",
+                "relationPairs": [
+                    {
+                        "parentColumnModelId": "56f90695-10d4-4d50-b0a5-1170ff45aedb",
+                        "childColumnModelId": "e243838e-decb-409c-8084-956776cf557f"
+                    }
+                ],
+                "onUpdateAction": "NO ACTION",
+                "onDeleteAction": "CASCADE"
+            },
+            "lineViewModel": {
+                "strokeWidth": 1,
+                "edges": [],
+                "orthogonalLines": [],
+                "color": {
+                    "red": 0,
+                    "green": 0,
+                    "blue": 0
+                }
+            },
+            "labelViewModel": {
+                "label": "refresh_tokens_user_id_fk",
+                "position": {
+                    "segment": -1,
+                    "fraction": 0,
+                    "offsetX": 0,
+                    "offsetY": 0
+                },
+                "color": {
+                    "red": 0,
+                    "green": 0,
+                    "blue": 0
+                },
+                "style": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "fontSize": 10
+                }
+            },
+            "createdAt": "2026-11-25T08:15:40.984Z"
+        },
+        {
+            "relationModel": {
+                "relationModelId": "f1ada4ee-515a-437b-befc-0dbb98361fd6",
+                "relationName": "garment_defects_garment_id_fk",
+                "parentTableModelId": "5e8ebe89-1fbc-48a9-b086-3f2d019899da",
+                "parentCardinality": "1",
+                "childTableModelId": "95a39742-81c3-45a3-b0d3-fa37df4ab495",
+                "childCardinality": "0..N",
+                "relationPairs": [
+                    {
+                        "parentColumnModelId": "da9aa3b6-e0ef-4332-8379-944bbd1d5328",
+                        "childColumnModelId": "f56af8a3-015b-4d66-a42c-2e53846e3e98"
+                    }
+                ],
+                "onUpdateAction": "NO ACTION",
+                "onDeleteAction": "CASCADE"
+            },
+            "lineViewModel": {
+                "strokeWidth": 1,
+                "edges": [],
+                "orthogonalLines": [],
+                "color": {
+                    "red": 0,
+                    "green": 0,
+                    "blue": 0
+                }
+            },
+            "labelViewModel": {
+                "label": "garment_defects_garment_id_fk",
+                "position": {
+                    "segment": -1,
+                    "fraction": 0,
+                    "offsetX": 0,
+                    "offsetY": 0
+                },
+                "color": {
+                    "red": 0,
+                    "green": 0,
+                    "blue": 0
+                },
+                "style": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "fontSize": 10
+                }
+            },
+            "createdAt": "2026-11-25T08:15:41.637Z"
         }
     ],
     "foregroundMemos": [
         {
-            "memoId": "b26ddc77-2f0b-488f-9ef3-fb5a1b0b2ace",
+            "memoId": "fff6499c-ad0e-4bc4-8b7d-76c5760e9f4b",
             "memo": "account 스키마 · gateway\n회원·로그인",
             "rectangleViewModel": {
                 "positionX": 0,
@@ -2029,10 +2029,10 @@
             "verticalAlign": "center",
             "horizontalAlign": "center",
             "fontSize": 18,
-            "createdAt": "2026-11-25T08:12:58.062Z"
+            "createdAt": "2026-11-25T08:15:43.875Z"
         },
         {
-            "memoId": "20e95b6e-a166-4da5-98bf-98ee5acf2225",
+            "memoId": "b7733a24-0d5a-4be6-bc2b-2945ab275516",
             "memo": "schedule 스키마 · mcp-schedule\n일정·장소",
             "rectangleViewModel": {
                 "positionX": 1340,
@@ -2053,10 +2053,10 @@
             "verticalAlign": "center",
             "horizontalAlign": "center",
             "fontSize": 18,
-            "createdAt": "2026-11-25T08:12:58.222Z"
+            "createdAt": "2026-11-25T08:15:44.023Z"
         },
         {
-            "memoId": "71354efa-cf58-450c-9bd6-34d4729b9e8c",
+            "memoId": "295ff6ce-77ad-4da6-8577-64a0eeae53b5",
             "memo": "closet 스키마 · mcp-closet\n옷장·입은 날·코디 지식",
             "rectangleViewModel": {
                 "positionX": 2060,
@@ -2077,15 +2077,15 @@
             "verticalAlign": "center",
             "horizontalAlign": "center",
             "fontSize": 18,
-            "createdAt": "2026-11-25T08:12:58.380Z"
+            "createdAt": "2026-11-25T08:15:44.172Z"
         },
         {
-            "memoId": "8f6c244c-ece2-4fcc-8fc1-e5bf2b9b8f06",
+            "memoId": "22721032-8cb6-4e54-94ed-65a38719db62",
             "memo": "스키마끼리는 FK가 없어요. schedule.events·closet.garments의 user_id는 account.users.id(= JWT sub)와 같은 값만 써요.\n벡터 칼럼(embedding 384차원, image_embedding 768차원)은 pgvector vector 타입이에요. erd-designer에 vector 타입이 없어 real[]로 보여요.",
             "rectangleViewModel": {
                 "positionX": 0,
                 "positionY": 1400,
-                "width": 3260,
+                "width": 3880,
                 "height": 90
             },
             "backgroundColor": {
@@ -2101,13 +2101,13 @@
             "verticalAlign": "center",
             "horizontalAlign": "center",
             "fontSize": 15,
-            "createdAt": "2026-11-25T08:12:58.539Z"
+            "createdAt": "2026-11-25T08:15:44.322Z"
         },
         {
-            "memoId": "366bc8d6-b7a8-4f8e-a86c-09653be23a7c",
+            "memoId": "7a2f4af0-8c51-4342-a426-a4b8cd8102c8",
             "memo": "ID 만드는 규칙\n· users.id: 첫 로그인 때 gateway가 UUID.randomUUID() (= JWT sub)\n· events.id: \"e_\" + 0·o·1·l 뺀 32글자에서 12개 (SecureRandom)\n· garments.id: \"c_\" + SecureRandom 9바이트 URL Base64 12글자\n· style_docs.id: 출처#조각번호 이름 기반 UUID (같은 조각은 덮어씀)\n· places: 카카오 장소 ID 그대로 · profiles: users.id 그대로\n· 그 밖의 bigint id: GENERATED ALWAYS AS IDENTITY",
             "rectangleViewModel": {
-                "positionX": 1340,
+                "positionX": 1960,
                 "positionY": 1130,
                 "width": 680,
                 "height": 230
@@ -2125,7 +2125,7 @@
             "verticalAlign": "start",
             "horizontalAlign": "start",
             "fontSize": 14,
-            "createdAt": "2026-11-25T08:12:58.692Z"
+            "createdAt": "2026-11-25T08:15:44.471Z"
         }
     ],
     "backgroundMemos": [],
