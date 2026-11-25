@@ -117,7 +117,7 @@ svg#wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
 
 <div class="head">
  <h1>심청이 아키텍처</h1>
- <p>"오늘 뭐 입지?" 한마디가 목소리 답으로 돌아오기까지 <b>① → ⑦</b> 순서로 따라가 보세요. 앱은 gateway 하나만 부르고, <b>agent</b>가 MCP 서버 다섯에서 날씨·일정·옷장·옷 상태·얼굴 결과를 모아 GPT로 판단해요. 서버는 <b>젯슨 오린 나노 두 대</b>에 나눠 올렸어요.</p>
+ <p>"오늘 뭐 입지?" 한마디가 목소리 답으로 돌아오기까지 <b>① → ⑦</b> 순서로 따라가 보세요. 앱은 gateway 하나만 부르고, <b>agent</b>가 MCP 서버 다섯에서 날씨·일정·옷장·옷 상태·얼굴 결과를 모아 GPT로 판단해요. 서버는 <b>젯슨 오린 나노 두 대</b>에 나눠 올렸어요. 밖에서 젯슨까지는 <b>HTTPS로 암호화</b>하고, 젯슨 안 <b>Nginx → gateway는 내부망 HTTP</b>예요.</p>
 </div>
 
 <div class="key">
@@ -132,12 +132,13 @@ svg#wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
 <div class="board" style="left:560px;top:300px;width:830px;height:830px">
  <div class="bh"><b>앱 서버 젯슨</b><span>team4 · Orin Nano 8GB · Java 21, Spring Boot 4, Spring AI 2 · Docker Compose</span></div>
 </div>
+<div class="board" style="left:336px;top:548px;width:240px;height:120px;border-radius:22px 0 0 22px"></div>
 <div class="board" style="left:1420px;top:300px;width:376px;height:830px">
  <div class="bh"><b>모델 서버 젯슨</b><span>Orin Nano 8GB · ONNX Runtime</span></div>
 </div>
 
 <div class="lbl" style="left:64px;top:302px"><b>폰</b>iOS, Android</div>
-<div class="lbl" style="left:354px;top:302px"><b>들어오는 길</b></div>
+<div class="lbl" style="left:354px;top:302px"><b>공개 구간</b>HTTPS</div>
 <div class="lbl" style="left:260px;top:692px"><b>바깥 서비스</b>키는 서버 환경 변수에만</div>
 <div class="lbl" style="left:1500px;top:1150px"><b>바깥 데이터</b>위치·장소 이름만 나가요</div>
 
@@ -155,9 +156,9 @@ svg#wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
 </div>
 
 <!-- 들어오는 길 -->
-<div class="hop" id="hop1" style="left:354px;top:356px"><b>simcheong.java21.net</b><small>도메인 · 리버스 프록시</small></div>
-<div class="hop" id="hop2" style="left:354px;top:458px"><b>Tailscale Funnel</b><small>공개 주소 → 젯슨</small></div>
-<div class="hop" id="hop3" style="left:354px;top:560px"><b>Nginx</b><small>:80 · 사진 20MB까지</small></div>
+<div class="hop" id="hop1" style="left:354px;top:356px"><b>simcheong.java21.net</b><small>강사님 서버 · 리버스 프록시</small></div>
+<div class="hop" id="hop2" style="left:354px;top:458px"><b>Tailscale Funnel</b><small>암호화 터널 · 포트 안 엶</small></div>
+<div class="hop" id="hop3" style="left:354px;top:580px"><b>Nginx</b><small>젯슨 진입점 · :80 · 사진 20MB</small></div>
 
 <!-- 바깥 (왼쪽) -->
 <div class="n ext" id="azure" style="left:260px;top:730px;width:268px">
@@ -179,12 +180,12 @@ svg#wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
 
 <!-- 앱 서버 -->
 <div class="n" id="gateway" style="left:600px;top:370px;width:360px;height:270px">
- <div class="t"><svg><use href="#i-shield"/></svg><h3>gateway</h3><span class="port">유일한 입구</span></div>
- <p class="d">앱이 부르는 곳은 여기 하나. 경로별로 agent와 mcp-schedule에 넘겨요.</p>
+ <div class="t"><svg><use href="#i-shield"/></svg><h3>gateway</h3><span class="port">단일 진입점</span></div>
+ <p class="d">요청은 모두 여기를 지나요. 인증·인가를 여기서 해서 <b>뒤 서비스는 자기 기능만</b> 만들어요.</p>
  <dl class="rows">
-  <dt>로그인</dt><dd>구글 토큰 확인 → 우리 JWT 발급</dd>
-  <dt>/stt</dt><dd>말 → 글 (OpenAI)</dd>
-  <dt>/tts</dt><dd>글 → 목소리 (Azure, edge-tts)</dd>
+  <dt>인증</dt><dd>구글 토큰 확인 → 우리 JWT 발급·검사</dd>
+  <dt>라우팅</dt><dd>경로별로 agent · mcp-schedule</dd>
+  <dt>음성</dt><dd>/stt 말 → 글 · /tts 글 → 목소리</dd>
   <dt>제한</dt><dd>1분에 요청 30번, 사진 10장</dd>
  </dl>
  <div class="chips"><span>Spring Cloud Gateway</span><span>Nimbus JOSE</span><span>Flyway</span></div>
@@ -256,7 +257,7 @@ svg#wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
 <div class="steps">
  <h4>요청 한 번의 흐름<span>"이 옷 오늘 입어도 돼?" 하고 옷을 비췄을 때</span></h4>
  <div class="srow">
-  <div class="s"><span class="no">1</span><b>말과 사진 보내기</b><p>앱이 HTTPS + 우리 JWT로 gateway에 보내요</p></div>
+  <div class="s"><span class="no">1</span><b>말과 사진 보내기</b><p>앱이 HTTPS로 프록시·Funnel을 지나 젯슨 Nginx에, Nginx가 내부망으로 gateway에 넘겨요</p></div>
   <div class="s"><span class="no p">2</span><b>말 → 글</b><p>gateway가 녹음을 OpenAI 음성 인식에 보내 글로 바꿔요</p></div>
   <div class="s"><span class="no">3</span><b>agent에게</b><p>글과 사진을 agent에 넘겨요</p></div>
   <div class="s"><span class="no">4</span><b>MCP 도구 부르기</b><p>날씨·일정·옷장, 옷 상태(사진)를 정해진 순서로 불러요. 모델 서버는 사설망으로</p></div>
@@ -266,7 +267,7 @@ svg#wires{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:
  </div>
 </div>
 
-<div class="foot"><span>팀 심청이, 이진행 박창근 정지원</span><span>2026년 11월 23일 · 두 젯슨에 떠 있는 서버 기준 · github.com/fashion-agent-team</span></div>
+<div class="foot"><span>팀 심청이, 이진행 박창근 정지원</span><span>2026년 11월 25일 · 두 젯슨에 떠 있는 서버 기준 · github.com/fashion-agent-team</span></div>
 
 <svg id="wires" width="1860" height="1640"></svg>
 </div>
@@ -296,7 +297,9 @@ function draw(){
  line([[h2.cx,h2.b+G],[h2.cx,h3.t-G]],{c:'y',start:true});
  line([[h3.r+G,h3.cy],[gw.l-G,h3.cy]],{c:'y',start:true});
  badge('1',(app.r+h1.l)/2,h1.cy-22); badge('7',(app.r+h1.l)/2,h1.cy+22);
- label('HTTPS + JWT',h3.r+2,h3.cy-30,'y o');
+ label('HTTP · 내부망',h3.r+2,h3.cy-30,'y o');
+ label('HTTPS',h1.cx+12,(h1.b+h2.t)/2-10,'y o');
+ label('젯슨 안 :80',h2.cx+12,(h2.b+h3.t)/2-10,'y o');
  // ③ gateway → agent
  const x3=gw.l+60; line([[x3,gw.b+G],[x3,ag.t-G]],{c:'y'}); badge('3',x3+30,(gw.b+ag.t)/2);
  // ② gateway → OpenAI 음성 인식 / ⑥ gateway → Azure·Edge

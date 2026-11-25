@@ -356,13 +356,14 @@
 
 ## 🏗 아키텍처
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture-v9.png" width="100%" alt="심청이 아키텍처: 폰 앱 → 도메인·Tailscale Funnel·Nginx → gateway → agent → MCP 서버 다섯(앱 서버 젯슨: mcp-schedule, mcp-closet / 모델 서버 젯슨: mcp-weather, mcp-clothes-state, mcp-face-check), 요청 한 번의 흐름 ①~⑦과 바깥으로 나가는 데이터 표시"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/architecture-v10.png" width="100%" alt="심청이 아키텍처: 폰 앱 → 강사님 프록시 → Tailscale Funnel(HTTPS) → 젯슨 안 Nginx → (HTTP·내부망) gateway(단일 진입점) → agent → MCP 서버 다섯(앱 서버 젯슨: mcp-schedule, mcp-closet / 모델 서버 젯슨: mcp-weather, mcp-clothes-state, mcp-face-check), 요청 한 번의 흐름 ①~⑦"/></p>
 
 - **MCP 서버는 데이터만 돌려주고**, "이 옷이 오늘 맞는가" 같은 판단은 agent가 맡아요
 - agent는 말을 의도로 나눠 옷 추천·옷 확인·날씨·얼굴·옷장은 정해진 순서(코드)로 도구를 부르고, 일정 넣기·지우기 같은 나머지만 GPT가 도구를 골라요
 - 안내 목소리는 gateway가 만들어요. Azure Speech 4가지(유진·지민·서현·순복)와 Edge 3가지(선희·인준·현수) 중 고르고, 안 되면 폰 TTS로 읽어요
 - 서버는 **젯슨 오린 나노 8GB 두 대**에 나눠 Docker Compose로 상시 띄워요. 한 대는 gateway·agent·일정·옷장·DB(앱 서버), 다른 한 대는 옷 상태·얼굴·날씨 MCP와 모델 학습(모델 서버)을 맡고, 둘은 Tailscale 사설망으로 이어져요. 8GB 한 대에 다 안 들어가서 나눴고, MCP라 agent는 주소만 바꾸면 됐어요
-- 바깥에서는 `simcheong.java21.net` → Tailscale Funnel → Nginx → gateway 순서로 들어와요
+- 바깥에서는 `simcheong.java21.net` → Tailscale Funnel → Nginx → gateway 순서로 들어와요. 젯슨까지 공개 구간은 **HTTPS**로 암호화하고, Nginx는 앱 서버 젯슨 안에 있어서 Nginx → gateway는 **내부망 HTTP**예요(`proxy_pass http://gateway:8080`)
+- **gateway는 단일 진입점**이에요. 인증(구글 토큰 확인 → JWT 발급·검사), 라우팅, 음성(STT·TTS), 사용량 제한을 여기서 해서 뒤 서비스는 자기 기능만 만들어요
 - 그림 원본은 [`profile/images/src/architecture.html`](images/src/architecture.html)이에요. 고친 뒤 Chrome으로 2배 크기 캡처해서 새 이름(예: `architecture-v10.png`)으로 저장하고 위 그림 주소도 바꿔요. 같은 이름으로 덮으면 GitHub 캐시 때문에 옛 그림이 한동안 보여요
 - 서비스 사이 약속은 앱 레포의 [OpenAPI](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/openapi.yaml)와 [MCP 도구 입출력](https://github.com/fashion-agent-team/fashion-agent/blob/develop/docs/contracts/mcp-tools.md) 하나로 맞춰요
 
@@ -370,7 +371,7 @@
 
 > [ERD Designer](https://github.com/kajitiluna/erd-designer)로 다시 그렸어요. 각 서비스 레포 `develop`의 Flyway 마이그레이션(2026-11-25, account·closet V4, schedule V5)을 PostgreSQL에 그대로 적용해 뽑은 구조이고, ERD Designer가 다시 만든 DDL을 적용해 보니 칼럼·PK·FK·UNIQUE가 모두 같았어요. 스키마 3개, 표 11개, 관계 7개예요. 원본 [`simcheong.erd`](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong.erd) · [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql)
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v9-designer.png" width="100%" alt="ERD Designer로 그린 심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v10-designer.png" width="100%" alt="ERD Designer로 그린 심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
 
 - **서비스마다 스키마 하나**: account(gateway) · schedule · closet. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요
 - **BCNF까지 정규화**했어요. 한 칸에는 값 하나만 두고(JSON 묶음 없음), 키가 아닌 칸이 다른 칸을 정하지 않게 표를 나눴어요
@@ -378,6 +379,18 @@
 - 장소 이름·분류는 `places`(카카오 장소 ID가 키)에 한 번만 저장하고 일정은 장소 ID만 참조해요
 - 옷의 무늬·소재·보조 색은 `garments` 칸으로, 얼룩·보풀 같은 상태는 `garment_defects`에 한 줄씩 저장해요
 - `wears`는 옷 ID만 참조하고 (garment_id, worn_on)에 복합 UNIQUE를 걸어, 같은 옷을 같은 날 두 번 기록하지 않아요
+- **ID 만드는 규칙** (각 서버 코드에서 확인, 그림 아래 메모와 `.erd` 칼럼 설명에도 적었어요)
+
+  | ID | 만드는 법 | 코드 |
+  | --- | --- | --- |
+  | `users.id` | uuid. 처음 로그인할 때 gateway가 `UUID.randomUUID()`로 만들어요. 이 값이 JWT `sub`이고, 다른 스키마도 `user_id`로 같이 써요 | gateway `AccountStore` |
+  | `events.id` | `"e_"` + 임의 글자 12개. 헷갈리는 0·o·1·l을 뺀 소문자·숫자 32가지에서 `SecureRandom`으로 골라요. MCP 도구의 `eventId`예요 | mcp-schedule `ScheduleService.newId` |
+  | `garments.id` | `"c_"` + `SecureRandom` 9바이트를 URL용 Base64(패딩 없음)로 바꾼 12글자. MCP 도구의 `garmentId`예요 | mcp-closet `Ids.garmentId` |
+  | `style_docs.id` | `출처#조각번호`로 만든 이름 기반 UUID(`nameUUIDFromBytes`). 같은 조각을 다시 넣으면 덮어써요 | mcp-closet `StyleDoc.chunkId` |
+  | `places.kakao_place_id` | 카카오 장소 ID를 그대로 키로 써요 | mcp-schedule |
+  | `profiles.user_id` | `users.id`를 그대로 키로 써요(1:0..1) | gateway |
+  | 그 밖의 bigint `id` | `GENERATED ALWAYS AS IDENTITY` (DB가 1씩 늘려 만들어요) | 마이그레이션 |
+
 - **사진은 옷 부분 작은 사진 하나뿐이에요.** 같은 옷 확인용으로 옷 부분만 자른 48KB 이하 사진만 남겨요(옷을 지우면 같이 지워져요)
 - 옷 벡터는 한 사람의 옷(100벌 안팎)만 정확한 거리로 훑고, 공용 코디 지식(`style_docs`)만 HNSW 인덱스를 써요
 
