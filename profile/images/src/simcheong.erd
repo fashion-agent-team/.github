@@ -1,6 +1,6 @@
 {
     "documentName": "심청이 ERD",
-    "lastUpdatedAt": "2026-11-26T01:30:33.992Z",
+    "lastUpdatedAt": "2026-11-26T03:00:00.000Z",
     "schemaConfig": {
         "defaultSchemaId": "",
         "schemas": [
@@ -26,7 +26,7 @@
             "tableModel": {
                 "tableModelId": "cac51010-8077-4390-8a2b-ab9faf107eeb",
                 "physicalName": "profiles",
-                "logicalName": "내 정보",
+                "logicalName": "회원정보",
                 "schemaId": "56b343f5-18aa-4758-8857-5825e8be4284",
                 "columnModelIds": [
                     "2965fd2c-f150-4ec5-bf5d-72307bd839b4",
@@ -42,7 +42,8 @@
                     "b306e677-fb28-456d-a765-f12f9dafea87",
                     "a40ae6f6-cdda-4b7d-8ed1-c30633ae307a"
                 ],
-                "definitionExpression": "CONSTRAINT profiles_height_check CHECK (height_cm BETWEEN 50 AND 250),\n    CONSTRAINT profiles_weight_check CHECK (weight_kg BETWEEN 10 AND 300),\n    CONSTRAINT profiles_birth_check CHECK (birth_date >= DATE '1900-01-01'),\n    CONSTRAINT profiles_agent_name_not_blank CHECK (agent_name IS NULL OR length(trim(agent_name)) > 0)"
+                "definitionExpression": "CONSTRAINT profiles_height_check CHECK (height_cm BETWEEN 50 AND 250),\n    CONSTRAINT profiles_weight_check CHECK (weight_kg BETWEEN 10 AND 300),\n    CONSTRAINT profiles_birth_check CHECK (birth_date >= DATE '1900-01-01'),\n    CONSTRAINT profiles_agent_name_not_blank CHECK (agent_name IS NULL OR length(trim(agent_name)) > 0)",
+                "description": "온보딩에서 받고 말로 고칠 수 있음(PUT /api/v1/me/profile). 사용자당 0..1줄이고 users.id를 그대로 키로 씀(식별 관계)"
             },
             "top": 160,
             "left": 0,
@@ -85,7 +86,8 @@
                         "indexType": "BTREE"
                     }
                 ],
-                "definitionExpression": "CONSTRAINT push_tokens_platform_check CHECK (platform IN ('ios', 'android'))"
+                "definitionExpression": "CONSTRAINT push_tokens_platform_check CHECK (platform IN ('ios', 'android'))",
+                "description": "사용자 한 명에 폰 여러 대(1:N). 같은 토큰이 다시 오면 줄을 새로 만들지 않고 user_id·platform·시각만 바꿈(다른 계정으로 로그인한 폰 포함)"
             },
             "top": 700,
             "left": 580,
@@ -127,7 +129,8 @@
                         ],
                         "indexType": "BTREE"
                     }
-                ]
+                ],
+                "description": "30일. 갱신할 때마다 새로 발급하고 쓴 것은 revoked_at을 채움"
             },
             "top": 480,
             "left": 1260,
@@ -184,7 +187,8 @@
                         "indexType": "BTREE"
                     }
                 ],
-                "definitionExpression": "CONSTRAINT user_identities_issuer_check CHECK (issuer IN ('firebase', 'dev')),\n    CONSTRAINT user_identities_provider_check CHECK (sign_in_provider IN ('apple', 'google', 'dev'))"
+                "definitionExpression": "CONSTRAINT user_identities_issuer_check CHECK (issuer IN ('firebase', 'dev')),\n    CONSTRAINT user_identities_provider_check CHECK (sign_in_provider IN ('apple', 'google', 'dev'))",
+                "description": "로그인 수단 (issuer, subject)마다 한 줄. 계정을 처음 만들 때 함께 만듦(1:1..N). 지금 코드는 계정마다 한 줄만 만듦"
             },
             "top": 160,
             "left": 1260,
@@ -214,7 +218,7 @@
                 ]
             },
             "top": 160,
-            "left": 600,
+            "left": 680,
             "headerBackgroundColor": {
                 "red": 20,
                 "green": 32,
@@ -231,7 +235,7 @@
             "tableModel": {
                 "tableModelId": "95a39742-81c3-45a3-b0d3-fa37df4ab495",
                 "physicalName": "garment_defects",
-                "logicalName": "옷 상태(얼룩 등)",
+                "logicalName": "옷 얼룩·찢어짐",
                 "schemaId": "720033c8-9520-41de-8577-b12c192808ee",
                 "columnModelIds": [
                     "14b6318d-9fe2-43cb-af59-a939c5b6aee9",
@@ -254,7 +258,8 @@
                         "indexType": "BTREE"
                     }
                 ],
-                "definitionExpression": "CONSTRAINT garment_defects_checked_by_check CHECK (checked_by IN ('model', 'gpt')),\n    CONSTRAINT garment_defects_confidence_check CHECK (confidence BETWEEN 0 AND 1)"
+                "definitionExpression": "CONSTRAINT garment_defects_checked_by_check CHECK (checked_by IN ('model', 'gpt')),\n    CONSTRAINT garment_defects_confidence_check CHECK (confidence BETWEEN 0 AND 1)",
+                "description": "옷을 다시 기록(closet_save)할 때마다 그 옷의 줄을 지우고 새로 넣음(이력 아님). kind는 지금 stain·tear만 들어옴(값 CHECK 없음)"
             },
             "top": 160,
             "left": 3380,
@@ -359,7 +364,8 @@
                     "a027d7e3-8371-4d8f-95ba-a528734dc5d0",
                     "5a6d8750-2f6a-4ded-b780-84a18b9ed6bc",
                     "c21231f5-a42a-4741-99b4-ec64c328b97c"
-                ]
+                ],
+                "description": "Spring AI PgVectorStore 표 모양(id, content, metadata, embedding) 그대로. 서버가 뜰 때 md 17개를 조각으로 나눠 맞춰 넣음"
             },
             "top": 740,
             "left": 3380,
@@ -379,7 +385,7 @@
             "tableModel": {
                 "tableModelId": "38e9d6a6-65df-4f74-be7e-a63dfe03ffb5",
                 "physicalName": "wears",
-                "logicalName": "입은 날",
+                "logicalName": "입은·입을 날",
                 "schemaId": "720033c8-9520-41de-8577-b12c192808ee",
                 "columnModelIds": [
                     "3c9c8b21-a73e-4823-838f-d42ce9373b44",
@@ -414,7 +420,8 @@
                         ],
                         "indexType": "BTREE"
                     }
-                ]
+                ],
+                "description": "옷 확인을 마치며 고른 옷과 날짜. 오늘 뒤 날짜는 미리 고른 코디(최대 366일 뒤). 입은 횟수·마지막 입은 날은 오늘까지만 셈(worn_on <= 오늘). 날짜가 지나면 입었는지 따로 확인하지 않음"
             },
             "top": 480,
             "left": 3380,
@@ -506,7 +513,8 @@
                     "139b2ecd-ccc6-4cb0-b0b5-0e652f5f1a6b",
                     "63ab7dad-3bb0-470c-bc8e-0165ee6972ad",
                     "cd25fbe5-ac04-4913-bb60-f4ee8b293060"
-                ]
+                ],
+                "description": "카카오에서 찾은 장소를 한 번만 저장(V4 정규화). 일정은 kakao_place_id로만 가리킴"
             },
             "top": 160,
             "left": 1960,
@@ -1037,7 +1045,8 @@
             "logicalName": "에이전트 이름",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:15:38.720Z"
+            "createdAt": "2026-11-25T08:15:38.720Z",
+            "description": "온보딩에서 사용자가 지은 에이전트 이름(부르면 반응). 값이 있으면 온보딩을 마친 것으로 봄(AccountStore.onboarded)"
         },
         {
             "columnShareModelId": "2d82f577-c848-4b22-b4fd-994e9dab1e3d",
@@ -1052,30 +1061,34 @@
             "logicalName": "호칭",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:15:38.720Z"
+            "createdAt": "2026-11-25T08:15:38.720Z",
+            "description": "에이전트가 사용자를 부르는 말. 예: 진행 님. null이면 따로 부르지 않음"
         },
         {
             "columnShareModelId": "498f5c1e-f04d-471d-997c-f581e10bdcf8",
             "physicalName": "care_reminded_at",
-            "logicalName": "드라이클리닝 안내 시각",
+            "logicalName": "드라이클리닝 안내 마친 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "격식 일정(mourning·wedding·formal)만. 등록할 때 이미 3일 안쪽이면 등록 순간 채움(1~3일이면 그때 안내를 말하고, 당일이면 말하지 않음). 아니면 CareReminder(매일 아침 8시)가 1~3일 전에 채움. 다시 안내하지 않게 하는 표시"
         },
         {
             "columnShareModelId": "5929fa5f-f299-4928-a196-9e0b437aaac3",
             "physicalName": "category",
-            "logicalName": "분류",
+            "logicalName": "큰 분류",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "상의(top)·하의(bottom)·겉옷(outer)·원피스(dress)·신발(shoes)·기타(other) 6가지. 세부 이름(예: 니트)은 name"
         },
         {
             "columnShareModelId": "75359462-5edc-4d0b-ae4f-6ba193f5fd66",
             "physicalName": "category",
-            "logicalName": "분류",
+            "logicalName": "장소 종류",
             "columnTypeId": 312,
             "precision": "100",
-            "createdAt": "2026-11-25T08:15:40.224Z"
+            "createdAt": "2026-11-25T08:15:40.224Z",
+            "description": "카카오 분류의 마지막 마디만. 예: 가정,생활 > 예식장 → 예식장. 일정 자리(occasion)는 저장하지 않는 전체 분류로 정함"
         },
         {
             "columnShareModelId": "74df9d15-464b-4f53-8c20-fdd5debed815",
@@ -1099,16 +1112,18 @@
             "logicalName": "색 이름",
             "columnTypeId": 312,
             "precision": "30",
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "색 이름·색 계열·밝기는 mcp-clothes-state가 한 번에 정함(GPT는 색을 정하지 않음). 이름이 계열·밝기에서 하나로 정해지지 않음(예: 연분홍 = pink·red)"
         },
         {
             "columnShareModelId": "403e5ac1-68fc-4557-b429-34fa26e5aa0c",
             "physicalName": "confidence",
-            "logicalName": "확신도",
+            "logicalName": "결함 모델 확신도",
             "columnTypeId": 46,
             "precision": "4",
             "scale": "3",
-            "createdAt": "2026-11-25T08:15:39.469Z"
+            "createdAt": "2026-11-25T08:15:39.469Z",
+            "description": "mcp-clothes-state 결함 모델(YOLO) 점수. checked_by=model이면 0.5 이상. gpt면 모델이 애매했던 0.2~0.5 자리를 GPT가 결함으로 확인한 것이고 kind는 GPT 답. GPT 확신도는 저장하지 않음"
         },
         {
             "columnShareModelId": "18c43689-56ba-44bd-9a09-685ae68ac55d",
@@ -1178,7 +1193,8 @@
             "physicalName": "created_at",
             "logicalName": "만든 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:15:39.469Z"
+            "createdAt": "2026-11-25T08:15:39.469Z",
+            "description": "그 상태를 기록한 시각(처음 발견한 시각 아님)"
         },
         {
             "columnShareModelId": "ee3c934e-2800-4f2e-ad05-f74c3f1e111c",
@@ -1193,7 +1209,7 @@
             "logicalName": "글 벡터 vector(384)",
             "columnTypeId": 31,
             "isArray": true,
-            "description": "pgvector vector 칼럼(erd-designer에 vector 타입이 없어 real[]로 표시)",
+            "description": "pgvector vector(384) 칼럼. ERD Designer에 vector 타입이 없어 real[]로 보임",
             "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
@@ -1202,7 +1218,7 @@
             "logicalName": "글 벡터 vector(384)",
             "columnTypeId": 31,
             "isArray": true,
-            "description": "pgvector vector 칼럼(erd-designer에 vector 타입이 없어 real[]로 표시)",
+            "description": "pgvector vector(384) 칼럼. ERD Designer에 vector 타입이 없어 real[]로 보임. HNSW 인덱스(vector_cosine_ops)는 DDL 끝에 적음",
             "createdAt": "2026-11-25T08:15:39.772Z"
         },
         {
@@ -1215,9 +1231,10 @@
         {
             "columnShareModelId": "2250eb3a-f977-4898-80af-4296dc9f5f47",
             "physicalName": "first_seen_at",
-            "logicalName": "처음 본 시각",
+            "logicalName": "처음 기록한 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "옷 확인을 마치며 고른 옷을 옷장에 기록(closet_save)한 시각. 카메라로 비출 때마다 바뀌지 않음"
         },
         {
             "columnShareModelId": "66ced064-8bc5-4ca5-a5c9-275929c41599",
@@ -1305,7 +1322,7 @@
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 411,
-            "description": "출처#조각번호로 만든 이름 기반 UUID(StyleDoc.chunkId, nameUUIDFromBytes). 같은 조각을 다시 넣으면 덮어씀",
+            "description": "출처#조각번호로 만든 이름 기반 UUID(StyleDoc.chunkId, nameUUIDFromBytes). 같은 조각을 다시 넣으면 덮어씀. DB 기본값 gen_random_uuid()는 id 없이 넣을 때의 예비값",
             "createdAt": "2026-11-25T08:15:39.772Z"
         },
         {
@@ -1313,7 +1330,7 @@
             "physicalName": "id",
             "logicalName": "ID",
             "columnTypeId": 411,
-            "description": "처음 로그인할 때 gateway가 UUID.randomUUID()로 만듦(AccountStore). JWT sub이고 다른 스키마의 user_id와 같은 값",
+            "description": "처음 로그인할 때 gateway가 UUID.randomUUID()로 만듦(AccountStore). JWT sub이고 다른 스키마의 user_id와 같은 값. DB 기본값 gen_random_uuid()는 id 없이 넣을 때의 예비값이고, 운영 코드는 늘 id를 직접 넣음",
             "createdAt": "2026-11-25T08:15:39.319Z"
         },
         {
@@ -1337,9 +1354,10 @@
         {
             "columnShareModelId": "55fbcfb9-5bf5-47f8-8cf6-ae3b641ef265",
             "physicalName": "image_count",
-            "logicalName": "본 사진 수",
+            "logicalName": "평균에 넣은 사진 수",
             "columnTypeId": 15,
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "사진 벡터 평균의 가중치. closet.image.max-count(기본 10)에서 멈추고 그 뒤 새 사진 비중은 1/10. 사진 벡터 없이 같은 옷으로 합칠 때는 늘지 않음"
         },
         {
             "columnShareModelId": "a0691688-caf7-444b-9f8a-ad97aa43c4db",
@@ -1347,7 +1365,7 @@
             "logicalName": "사진 벡터 vector(768)",
             "columnTypeId": 31,
             "isArray": true,
-            "description": "pgvector vector 칼럼(erd-designer에 vector 타입이 없어 real[]로 표시)",
+            "description": "pgvector vector(768) 칼럼. ERD Designer에 vector 타입이 없어 real[]로 보임. image_model과 함께 비거나 함께 채워짐(garments_image_model_check)",
             "createdAt": "2026-11-25T08:15:39.621Z"
         },
         {
@@ -1364,7 +1382,8 @@
             "logicalName": "발급처",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:15:39.169Z"
+            "createdAt": "2026-11-25T08:15:39.169Z",
+            "description": "firebase(Apple·구글) | dev"
         },
         {
             "columnShareModelId": "7cf90706-afda-48a4-be83-5cf98fef3f39",
@@ -1389,7 +1408,8 @@
             "logicalName": "카카오 장소 ID",
             "columnTypeId": 312,
             "precision": "20",
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "카카오에서 찾은 장소. 못 찾으면 null"
         },
         {
             "columnShareModelId": "3b3e3731-d6fd-4c3b-87ed-f407aef35ac5",
@@ -1409,16 +1429,18 @@
         {
             "columnShareModelId": "1cccfe07-d7d6-4c28-8617-eab3da5bd024",
             "physicalName": "last_seen_at",
-            "logicalName": "마지막으로 본 시각",
+            "logicalName": "마지막 기록 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "같은 옷을 다시 기록(closet_save)한 마지막 시각"
         },
         {
             "columnShareModelId": "8eb506f1-2655-4f78-9da6-5853657d222f",
             "physicalName": "last_seen_at",
-            "logicalName": "마지막으로 본 시각",
+            "logicalName": "마지막 등록 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:15:38.868Z"
+            "createdAt": "2026-11-25T08:15:38.868Z",
+            "description": "앱이 PUT /api/v1/me/push-token으로 토큰을 보낼 때마다 now(). 오래된 토큰을 거르는 기준(지금 코드에서는 updated_at과 같은 값)"
         },
         {
             "columnShareModelId": "cf3f8c44-d23c-4db5-b96a-ff7876cefcd3",
@@ -1426,22 +1448,25 @@
             "logicalName": "위치",
             "columnTypeId": 312,
             "precision": "50",
-            "createdAt": "2026-11-25T08:15:39.469Z"
+            "createdAt": "2026-11-25T08:15:39.469Z",
+            "description": "사진 속 옷 박스를 기준으로 한 대략 위치(옷·몸·등·옆 + 위치)"
         },
         {
             "columnShareModelId": "bcf29a80-d407-4b8a-83b5-2c2b511692bb",
             "physicalName": "material",
-            "logicalName": "소재",
+            "logicalName": "소재(추정)",
             "columnTypeId": 312,
             "precision": "50",
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "옷 종류로 짐작한 값(니트·가디건이면 니트, 그 밖은 null)"
         },
         {
             "columnShareModelId": "d0e5f836-2b20-46bf-aca4-c8f9c1db7a06",
             "physicalName": "metadata",
             "logicalName": "메타데이터",
             "columnTypeId": 421,
-            "createdAt": "2026-11-25T08:15:39.772Z"
+            "createdAt": "2026-11-25T08:15:39.772Z",
+            "description": "키: source(style_docs/파일.md)·chunkNo(0부터)·embeddingModel·occasion(자리 6가지·any·weather·rain)·minTemp·maxTemp(날씨 문서만). (source, chunkNo)에 식 UNIQUE 인덱스 style_docs_source_chunk_uq. occasion·기온 구간은 문서 단위 값이라 조각마다 되풀이되고, closet_search가 이것으로 거름"
         },
         {
             "columnShareModelId": "09db0d22-1ed8-49fe-9d16-ea31ab724cbc",
@@ -1462,17 +1487,19 @@
         {
             "columnShareModelId": "bdaad769-a970-4c6c-b9b4-098342fc7584",
             "physicalName": "notes",
-            "logicalName": "메모",
+            "logicalName": "기타 메모",
             "columnTypeId": 312,
             "precision": "500",
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "지금 코드는 채우지 않음(V4가 옮긴 예전 값만 있을 수 있음)"
         },
         {
             "columnShareModelId": "ddaf8598-8ead-4ba2-9b10-4eb201bc69f0",
             "physicalName": "notified_at",
-            "logicalName": "알림 보낸 시각",
+            "logicalName": "당일 알림 처리 시각",
             "columnTypeId": 112,
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "MorningReminder(매일 아침 8시)가 알림을 켠 오늘 일정에 채움. 8시 뒤에 등록한 오늘 일정은 등록할 때 채움. 다시 처리하지 않게 하는 표시이고 앱·API는 읽지 않음. 폰 알림은 앱이 폰 안에 예약하고 여기 기록하지 않음"
         },
         {
             "columnShareModelId": "a6332d15-3733-45e6-b4bb-a504817fc64b",
@@ -1488,7 +1515,8 @@
             "logicalName": "자리 판단 근거",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "title(제목으로 정함) | place(장소 분류로 정함) | default(못 정함)"
         },
         {
             "columnShareModelId": "6df6683a-f5dc-47cc-9c6a-3832104c7912",
@@ -1520,7 +1548,8 @@
             "logicalName": "장소(말한 그대로)",
             "columnTypeId": 312,
             "precision": "200",
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "사용자가 말한 장소 그대로. 카카오에서 찾은 장소는 kakao_place_id로만 가리킴"
         },
         {
             "columnShareModelId": "281557c6-1fa9-430c-a757-cf220b45f935",
@@ -1528,7 +1557,8 @@
             "logicalName": "장소 이름",
             "columnTypeId": 312,
             "precision": "200",
-            "createdAt": "2026-11-25T08:15:40.224Z"
+            "createdAt": "2026-11-25T08:15:40.224Z",
+            "description": "카카오에 등록된 이름"
         },
         {
             "columnShareModelId": "84970cf2-9ea7-4242-993c-713a87de4b9d",
@@ -1543,21 +1573,24 @@
             "physicalName": "remind",
             "logicalName": "알림 받기",
             "columnTypeId": 6,
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "false면 알림 없음(remind_days_before·remind_time은 null)"
         },
         {
             "columnShareModelId": "0d856e5d-4bbb-4d79-8f1d-6d36efaf0fbf",
             "physicalName": "remind_days_before",
             "logicalName": "며칠 전 알림",
             "columnTypeId": 15,
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "며칠 전에 미리 알릴지. null이면 아직 안 정함(전날 + 당일), 0이면 당일만, 1~14(코드에서 검사)"
         },
         {
             "columnShareModelId": "81467715-a240-42d5-9ae6-012c8b5b637a",
             "physicalName": "remind_time",
-            "logicalName": "알림 시각",
+            "logicalName": "미리 알림 시각",
             "columnTypeId": 131,
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "서울 시각. null이면 아침 8시. remind_days_before가 0이면 당일 알림 시각"
         },
         {
             "columnShareModelId": "7be0729d-e054-4d94-8f6c-f5e9e194adce",
@@ -1569,19 +1602,21 @@
         {
             "columnShareModelId": "5b086e61-d292-4ae7-a41d-cd438ad97737",
             "physicalName": "sign_in_provider",
-            "logicalName": "로그인 방법",
+            "logicalName": "마지막 로그인 방법",
             "columnTypeId": 312,
             "precision": "10",
-            "createdAt": "2026-11-25T08:15:39.169Z"
+            "createdAt": "2026-11-25T08:15:39.169Z",
+            "description": "로그인할 때마다 덮어씀(apple·google·dev, Firebase sign_in_provider에서 옴). 갱신 토큰 때 JWT provider 클레임은 updated_at이 가장 최근인 줄 값"
         },
         {
             "columnShareModelId": "b36b84ec-ea6c-4aee-a3c8-cf185f5609c1",
             "physicalName": "speech_rate",
-            "logicalName": "말 빠르기",
+            "logicalName": "읽어 주는 말 빠르기(TTS)",
             "columnTypeId": 46,
             "precision": "3",
             "scale": "2",
-            "createdAt": "2026-11-25T08:15:38.720Z"
+            "createdAt": "2026-11-25T08:15:38.720Z",
+            "description": "앱 TTS(flutter_tts) 빠르기 값, 0.5가 폰 보통 빠르기. null이면 앱 기본값 0.42. 서버 목소리도 이 값 ÷ 0.42배로 맞춤. 앱은 0.3~0.6, gateway는 0.1~1.0만 받음"
         },
         {
             "columnShareModelId": "13b21a91-aed0-42c9-b8b6-5079f2bff486",
@@ -1612,19 +1647,21 @@
             "logicalName": "로그인 식별값",
             "columnTypeId": 312,
             "precision": "128",
-            "createdAt": "2026-11-25T08:15:39.169Z"
+            "createdAt": "2026-11-25T08:15:39.169Z",
+            "description": "Firebase uid 또는 개발용 로그인의 deviceId"
         },
         {
             "columnShareModelId": "ccd99eba-4bea-4324-bc90-d9a7dbb6995d",
             "physicalName": "thumbnail",
             "logicalName": "옷 부분 작은 사진",
             "columnTypeId": 367,
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "같은 옷 확인용. agent가 옷 부분만 잘라 긴 변 256px·48KB 이하 JPEG로 보내고 mcp-closet도 48KB(49,152바이트)를 넘으면 버림. DB CHECK는 64KB"
         },
         {
             "columnShareModelId": "6153f1f1-8acc-40c3-ab56-8182f8d532c6",
             "physicalName": "thumbnail_at",
-            "logicalName": "작은 사진 시각",
+            "logicalName": "작은 사진 저장 시각",
             "columnTypeId": 112,
             "createdAt": "2026-11-25T08:15:39.621Z"
         },
@@ -1649,7 +1686,8 @@
             "logicalName": "토큰 해시",
             "columnTypeId": 311,
             "precision": "64",
-            "createdAt": "2026-11-25T08:15:39.020Z"
+            "createdAt": "2026-11-25T08:15:39.020Z",
+            "description": "토큰 원문 대신 SHA-256 hex"
         },
         {
             "columnShareModelId": "cf213d31-b1f0-4cd2-96c4-30464ad26c24",
@@ -1727,14 +1765,16 @@
             "physicalName": "user_id",
             "logicalName": "회원 ID",
             "columnTypeId": 411,
-            "createdAt": "2026-11-25T08:15:39.621Z"
+            "createdAt": "2026-11-25T08:15:39.621Z",
+            "description": "account.users.id와 같은 값(= JWT sub). 스키마가 달라 FK 없음"
         },
         {
             "columnShareModelId": "1f880866-11cc-4749-85c5-ffc1c89b92b7",
             "physicalName": "user_id",
             "logicalName": "회원 ID",
             "columnTypeId": 411,
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-25T08:15:40.073Z",
+            "description": "account.users.id와 같은 값(= JWT sub). 스키마가 달라 FK 없음"
         },
         {
             "columnShareModelId": "753df783-2a95-4769-82b4-27de6793f49a",
@@ -1777,7 +1817,7 @@
         {
             "columnShareModelId": "7e7f2e8b-b6e1-40d3-8503-246e2c041250",
             "physicalName": "worn_on",
-            "logicalName": "입은 날",
+            "logicalName": "입은 날·입을 날",
             "columnTypeId": 101,
             "createdAt": "2026-11-25T08:15:39.923Z"
         }
@@ -1899,7 +1939,7 @@
                 "onDeleteAction": "CASCADE"
             },
             "lineViewModel": {
-                "strokeWidth": 1,
+                "strokeWidth": 2,
                 "edges": [],
                 "orthogonalLines": [],
                 "color": {
@@ -2134,7 +2174,7 @@
             "rectangleViewModel": {
                 "positionX": 0,
                 "positionY": 20,
-                "width": 560,
+                "width": 1871,
                 "height": 90
             },
             "backgroundColor": {
@@ -2156,9 +2196,9 @@
             "memoId": "b7733a24-0d5a-4be6-bc2b-2945ab275516",
             "memo": "schedule 스키마 · mcp-schedule\n일정·장소",
             "rectangleViewModel": {
-                "positionX": 1340,
+                "positionX": 1960,
                 "positionY": 20,
-                "width": 560,
+                "width": 669,
                 "height": 90
             },
             "backgroundColor": {
@@ -2178,11 +2218,11 @@
         },
         {
             "memoId": "295ff6ce-77ad-4da6-8577-64a0eeae53b5",
-            "memo": "closet 스키마 · mcp-closet\n옷장·입은 날·코디 지식",
+            "memo": "closet 스키마 · mcp-closet\n옷장·입은(입을) 날·코디 지식",
             "rectangleViewModel": {
-                "positionX": 2060,
+                "positionX": 2680,
                 "positionY": 20,
-                "width": 560,
+                "width": 1237,
                 "height": 90
             },
             "backgroundColor": {
@@ -2202,11 +2242,11 @@
         },
         {
             "memoId": "22721032-8cb6-4e54-94ed-65a38719db62",
-            "memo": "스키마끼리는 FK가 없어요. schedule.events·closet.garments의 user_id는 account.users.id(= JWT sub)와 같은 값만 써요.\n벡터 칼럼(embedding 384차원, image_embedding 768차원)은 pgvector vector 타입이에요. erd-designer에 vector 타입이 없어 real[]로 보여요.\nCHECK 20개·인덱스 9개는 표 설정에 넣었어요. style_docs의 HNSW 인덱스와 metadata(출처·조각번호) UNIQUE 인덱스는 erd-designer가 못 담아 DDL 끝에 적었어요.",
+            "memo": "스키마끼리는 FK가 없어요. schedule.events·closet.garments의 user_id는 account.users.id(= JWT sub)와 같은 값만 써요(회원 1명 : 일정·옷 0..N).\n벡터 칼럼(embedding 384차원, image_embedding 768차원)은 pgvector vector 타입이에요. ERD Designer에 vector 타입이 없어 real[]로 보여요.\nCHECK 20개와 인덱스 9개는 표 설정에 넣었어요. style_docs의 HNSW 인덱스와 metadata(출처·조각번호) UNIQUE 식 인덱스는 ERD Designer가 못 담아 DDL 끝에 적었어요.",
             "rectangleViewModel": {
                 "positionX": 0,
-                "positionY": 1400,
-                "width": 3880,
+                "positionY": 1140,
+                "width": 3920,
                 "height": 120
             },
             "backgroundColor": {
@@ -2228,10 +2268,10 @@
             "memoId": "7a2f4af0-8c51-4342-a426-a4b8cd8102c8",
             "memo": "ID 만드는 규칙\n· users.id: 첫 로그인 때 gateway가 UUID.randomUUID() (= JWT sub)\n· events.id: \"e_\" + 0·o·1·l 뺀 32글자에서 12개 (SecureRandom)\n· garments.id: \"c_\" + SecureRandom 9바이트 URL Base64 12글자\n· style_docs.id: 출처#조각번호 이름 기반 UUID (같은 조각은 덮어씀)\n· places: 카카오 장소 ID 그대로 · profiles: users.id 그대로\n· 그 밖의 bigint id: GENERATED ALWAYS AS IDENTITY",
             "rectangleViewModel": {
-                "positionX": 1960,
-                "positionY": 1130,
-                "width": 680,
-                "height": 230
+                "positionX": 1150,
+                "positionY": 790,
+                "width": 720,
+                "height": 170
             },
             "backgroundColor": {
                 "red": 255,
@@ -2245,8 +2285,32 @@
             },
             "verticalAlign": "start",
             "horizontalAlign": "start",
-            "fontSize": 14,
+            "fontSize": 12,
             "createdAt": "2026-11-25T08:15:44.471Z"
+        },
+        {
+            "memoId": "7fc3286d-0344-5426-a7d9-54d0942c6c5b",
+            "memo": "읽는 법\n· 선 끝(표에 닿는 쪽) 기호 = 그 표의 줄 수\n   |  꼭 1\n   ●|  0 또는 1\n   |<  1 이상\n   ●<  0 이상\n   (● = 없을 수도 있음, 세 갈래 = 여러 줄)\n· 빨간 열쇠·글씨 = PK, 파란 열쇠·글씨 = FK\n   열쇠 두 개·보라 글씨 = PK이면서 FK\n· (NN) 비울 수 없음\n· (UNN) UNIQUE이고 비울 수 없음\n· + 여러 칸을 묶은 UNIQUE에 든 칸\n· * 인덱스에 든 칸\n· 선은 모두 실선이에요(점선을 못 그려요).\n   식별 관계는 회원 → 회원정보 하나라 굵게,\n   나머지 6개는 비식별이에요",
+            "rectangleViewModel": {
+                "positionX": 0,
+                "positionY": 640,
+                "width": 560,
+                "height": 330
+            },
+            "backgroundColor": {
+                "red": 255,
+                "green": 246,
+                "blue": 214
+            },
+            "foregroundColor": {
+                "red": 20,
+                "green": 32,
+                "blue": 74
+            },
+            "verticalAlign": "start",
+            "horizontalAlign": "start",
+            "fontSize": 12,
+            "createdAt": "2026-11-26T03:00:00.000Z"
         }
     ],
     "backgroundMemos": [],
@@ -2261,7 +2325,7 @@
             "withForeignKey": true,
             "withSchema": true,
             "withComment": true,
-            "commentStyle": "logical_name",
+            "commentStyle": "with_description",
             "commentSeparator": " : "
         }
     },
