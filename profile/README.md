@@ -103,15 +103,15 @@
 
 ## 🗂 ERD
 
-> [ERD Designer](https://github.com/kajitiluna/erd-designer)로 다시 그렸어요. 각 서비스 레포 `develop`의 Flyway 마이그레이션(2026-11-25, account·closet V4, schedule V5)을 PostgreSQL에 그대로 적용해 뽑은 구조이고, ERD Designer가 다시 만든 DDL을 적용해 보니 칼럼·PK·FK·UNIQUE가 모두 같았어요. 스키마 3개, 표 11개, 관계 7개예요. 원본 [`simcheong.erd`](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong.erd) · [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql)
+> [ERD Designer](https://github.com/kajitiluna/erd-designer)로 다시 그렸어요. 각 서비스 레포 `develop`의 Flyway 마이그레이션(2026-11-25, account·closet V4, schedule V5)을 PostgreSQL에 그대로 적용해 뽑은 구조이고, ERD Designer가 다시 만든 DDL을 적용해 2026-11-26 실제 배포 DB(앱 서버 젯슨)와 비교하니 칼럼·PK·FK·UNIQUE·CHECK(20개)·인덱스(11개)가 모두 같았어요. 스키마 3개, 표 11개, 관계 7개예요. 원본 [`simcheong.erd`](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong.erd) · [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql)
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v12-designer.png" width="100%" alt="ERD Designer로 그린 심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v13-designer.png" width="100%" alt="ERD Designer로 그린 심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
 
 - **서비스마다 스키마 하나**: account(gateway) · schedule · closet. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요
-- **BCNF까지 정규화**했어요. 한 칸에는 값 하나만 두고, 키가 아닌 칸이 다른 칸을 정하지 않게 표를 나눴어요. 예외는 `style_docs.metadata`(json) 하나예요. Spring AI 벡터 저장소가 정한 형식이라 그대로 두었고, 안에 든 출처·조각번호 둘에 UNIQUE 인덱스를 걸었어요
-- 로그인 수단은 `user_identities`에 따로 두고 (issuer, subject)에 복합 UNIQUE를 걸어, 한 사람이 Apple·Google 로그인을 여러 개 가질 수 있어요
+- **V4에서 정규화**했어요. 여러 값을 묶어 두던 옷 설명 JSON은 칸과 `garment_defects`로, 로그인 방법에 따라 비던 칸은 `user_identities`로, 일정마다 되풀이되던 장소 이름·분류는 `places`로 나눴어요. 옷의 색 이름·색 계열·밝기는 모델과 GPT가 각각 정해 넣는 값이라 `garments`에 같이 둬요. 남은 JSON은 `style_docs.metadata`(json) 하나예요. Spring AI 벡터 저장소가 정한 형식이라 그대로 두었고, 안에 든 출처·조각번호 둘에 UNIQUE 인덱스를 걸었어요
+- 로그인 수단은 `user_identities`에 (issuer, subject) 한 줄씩 두고 복합 UNIQUE를 걸었어요. Apple·구글 로그인은 Firebase uid 하나(issuer=`firebase`)로 들어오고, 마지막에 쓴 방법만 `sign_in_provider`에 남아요. 계정은 처음 로그인할 때 수단 한 줄과 같이 만들어져서 관계는 1:1..N이에요. 표는 수단을 더 붙일 수 있게 만들었지만 지금 코드는 하나만 만들어요(배포 DB도 계정 5개에 수단 5개)
 - 장소 이름·분류는 `places`(카카오 장소 ID가 키)에 한 번만 저장하고 일정은 장소 ID만 참조해요
-- 옷의 무늬·소재·보조 색은 `garments` 칸으로, 얼룩·보풀 같은 상태는 `garment_defects`에 한 줄씩 저장해요
+- 옷의 무늬·소재·보조 색은 `garments` 칸으로, 얼룩·찢어짐 같은 상태는 `garment_defects`에 한 줄씩 저장해요
 - `wears`는 옷 ID만 참조하고 (garment_id, worn_on)에 복합 UNIQUE를 걸어, 같은 옷을 같은 날 두 번 기록하지 않아요
 - **ID 만드는 규칙** (각 서버 코드에서 확인, 그림 아래 메모와 `.erd` 칼럼 설명에도 적었어요)
 
@@ -127,6 +127,16 @@
 
 - **사진은 옷 부분 작은 사진 하나뿐이에요.** 같은 옷 확인용으로 agent가 옷 부분만 잘라 긴 변 256px·48KB 이하 JPEG로 줄여 보내고, DB는 64KB(65,536바이트)를 넘으면 막아요(`garments_thumbnail_size`). 옷을 지우면 같이 지워져요
 - 옷 벡터는 한 사람의 옷(100벌 안팎)만 정확한 거리로 훑고, 공용 코디 지식(`style_docs`)만 HNSW 인덱스를 써요
+- 허용 값(옷 종류 6가지, 색 계열 15가지, 일정 자리 6가지 등)은 CHECK로 막아요. HNSW 인덱스와 `metadata` 안 출처·조각번호 UNIQUE 인덱스는 ERD Designer가 못 담아서 [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql) 끝에 따로 적었어요
+- 배포 DB에는 지금 배포하지 않는 mcp-helper가 예전에 만든 `helper` 스키마(contacts·requests, 둘 다 0줄)가 남아 있어 ERD에서 뺐어요
+- **DB를 쓰는 서버는 gateway·mcp-schedule·mcp-closet 셋뿐이에요.** 나머지는 요청마다 계산만 하고 표가 없어서 ERD에 없어요
+
+  | 서버 | 데이터를 두는 곳 |
+  | --- | --- |
+  | agent | 대화 상태만 Redis에 30분(TTL) |
+  | mcp-weather | 날씨 결과를 메모리 캐시(Caffeine)에. 다시 켜면 사라져요 |
+  | mcp-clothes-state | DB 없음. GPT가 확인한 옷 조각만 다시 학습할 후보 파일로 남겨요(`data/train-candidates`, 옷 실수 조각은 30일, GPT 사용에 동의했을 때만) |
+  | mcp-face-check | DB·파일 저장 없음 |
 
 ## 💻 Tech Stacks
 
