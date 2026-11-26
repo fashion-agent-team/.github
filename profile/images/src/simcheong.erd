@@ -1,6 +1,6 @@
 {
     "documentName": "심청이 ERD",
-    "lastUpdatedAt": "2026-11-25T08:15:44.620Z",
+    "lastUpdatedAt": "2026-11-26T01:30:33.992Z",
     "schemaConfig": {
         "defaultSchemaId": "",
         "schemas": [
@@ -41,7 +41,8 @@
                     "77827b8c-a596-4a45-a43f-2774fd28b137",
                     "b306e677-fb28-456d-a765-f12f9dafea87",
                     "a40ae6f6-cdda-4b7d-8ed1-c30633ae307a"
-                ]
+                ],
+                "definitionExpression": "CONSTRAINT profiles_height_check CHECK (height_cm BETWEEN 50 AND 250),\n    CONSTRAINT profiles_weight_check CHECK (weight_kg BETWEEN 10 AND 300),\n    CONSTRAINT profiles_birth_check CHECK (birth_date >= DATE '1900-01-01'),\n    CONSTRAINT profiles_agent_name_not_blank CHECK (agent_name IS NULL OR length(trim(agent_name)) > 0)"
             },
             "top": 160,
             "left": 0,
@@ -55,7 +56,7 @@
                 "green": 216,
                 "blue": 107
             },
-            "createdAt": "2026-11-25T08:15:38.720Z"
+            "createdAt": "2026-11-26T01:30:30.925Z"
         },
         {
             "tableModel": {
@@ -71,7 +72,20 @@
                     "6d3c923d-e046-43cc-af0c-7461f4892bc2",
                     "a389cf35-49a5-410b-ba1d-af86409f32e9",
                     "b8310743-53a4-424f-881e-42a193834e10"
-                ]
+                ],
+                "tableIndexModels": [
+                    {
+                        "tableIndexModelId": "1e3bedbd-ea9c-4fbf-8791-b1324167656f",
+                        "physicalName": "push_tokens_user_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "277e93d9-16ae-4d18-b300-d23e0858f3cf"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    }
+                ],
+                "definitionExpression": "CONSTRAINT push_tokens_platform_check CHECK (platform IN ('ios', 'android'))"
             },
             "top": 700,
             "left": 580,
@@ -85,7 +99,7 @@
                 "green": 216,
                 "blue": 107
             },
-            "createdAt": "2026-11-25T08:15:38.868Z"
+            "createdAt": "2026-11-26T01:30:31.071Z"
         },
         {
             "tableModel": {
@@ -101,6 +115,18 @@
                     "bad5115b-cecf-4514-888f-6c6f2b0b098f",
                     "aa177fd6-07eb-44e8-9231-eb33932d7229",
                     "697fd07f-e927-43cf-b0ff-9ddfb4bc84c2"
+                ],
+                "tableIndexModels": [
+                    {
+                        "tableIndexModelId": "8c42249a-d44b-4047-a322-8a350e5279fd",
+                        "physicalName": "refresh_tokens_user_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "e243838e-decb-409c-8084-956776cf557f"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    }
                 ]
             },
             "top": 480,
@@ -145,7 +171,20 @@
                             }
                         ]
                     }
-                ]
+                ],
+                "tableIndexModels": [
+                    {
+                        "tableIndexModelId": "5e3c3f63-467e-4097-9bc1-1dabb7f8d624",
+                        "physicalName": "user_identities_user_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "4a17f24c-7e5b-492b-aa61-2c5d7489fc56"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    }
+                ],
+                "definitionExpression": "CONSTRAINT user_identities_issuer_check CHECK (issuer IN ('firebase', 'dev')),\n    CONSTRAINT user_identities_provider_check CHECK (sign_in_provider IN ('apple', 'google', 'dev'))"
             },
             "top": 160,
             "left": 1260,
@@ -159,7 +198,7 @@
                 "green": 216,
                 "blue": 107
             },
-            "createdAt": "2026-11-25T08:15:39.169Z"
+            "createdAt": "2026-11-26T01:30:31.221Z"
         },
         {
             "tableModel": {
@@ -202,7 +241,20 @@
                     "227254cd-e80d-4fc1-bd1d-1dea29acbd41",
                     "8c66a1b3-bcb1-413b-a12c-0f5ed25a0dbc",
                     "d8ec88fa-7e78-411d-9342-714e15520539"
-                ]
+                ],
+                "tableIndexModels": [
+                    {
+                        "tableIndexModelId": "526752ec-175f-4eec-9d82-90470fdfeb82",
+                        "physicalName": "garment_defects_garment_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "f56af8a3-015b-4d66-a42c-2e53846e3e98"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    }
+                ],
+                "definitionExpression": "CONSTRAINT garment_defects_checked_by_check CHECK (checked_by IN ('model', 'gpt')),\n    CONSTRAINT garment_defects_confidence_check CHECK (confidence BETWEEN 0 AND 1)"
             },
             "top": 160,
             "left": 3380,
@@ -216,7 +268,7 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:15:39.470Z"
+            "createdAt": "2026-11-26T01:30:31.518Z"
         },
         {
             "tableModel": {
@@ -250,7 +302,37 @@
                     "2cb89e4b-3cf1-40fa-8f36-b518970f5922",
                     "bf906195-f6a5-4666-8a7c-6133dbbb2e22",
                     "5e6e6fb9-61d3-45fa-bfc0-c106b9a21496"
-                ]
+                ],
+                "tableIndexModels": [
+                    {
+                        "tableIndexModelId": "5001fb6e-0339-4c5b-be1e-c2e6ff138cbf",
+                        "physicalName": "garments_user_category_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "db0ae064-c4c4-4fda-a543-0674e99c03c1"
+                            },
+                            {
+                                "columnModelId": "9dd99870-c70e-4268-99bc-3042e63044b9"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    },
+                    {
+                        "tableIndexModelId": "10cce218-02e7-49a0-aaa4-99844f3938eb",
+                        "physicalName": "garments_user_seen_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "db0ae064-c4c4-4fda-a543-0674e99c03c1"
+                            },
+                            {
+                                "columnModelId": "669fac79-5f09-4437-893c-63febac8262b",
+                                "sortOrderType": "DESC"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    }
+                ],
+                "definitionExpression": "CONSTRAINT garments_category_check CHECK (category IN ('top', 'bottom', 'outer', 'dress', 'shoes', 'other')),\n    CONSTRAINT garments_color_family_check CHECK (color_family IN ('black', 'white', 'gray', 'navy', 'beige', 'brown', 'khaki', 'blue', 'red', 'pink', 'orange', 'yellow', 'green', 'purple', 'unknown')),\n    CONSTRAINT garments_tone_check CHECK (tone IN ('light', 'mid', 'dark')),\n    CONSTRAINT garments_formality_check CHECK (formality IN ('formal', 'smart', 'casual', 'sporty', 'unknown')),\n    CONSTRAINT garments_seen_order CHECK (last_seen_at >= first_seen_at),\n    CONSTRAINT garments_image_model_check CHECK ((image_embedding IS NULL) = (image_model IS NULL)),\n    CONSTRAINT garments_thumbnail_size CHECK (thumbnail IS NULL OR octet_length(thumbnail) <= 65536),\n    CONSTRAINT garments_pattern_checked_by_check CHECK (pattern_checked_by IN ('model', 'gpt'))"
             },
             "top": 160,
             "left": 2680,
@@ -264,7 +346,7 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:15:39.622Z"
+            "createdAt": "2026-11-26T01:30:31.371Z"
         },
         {
             "tableModel": {
@@ -319,6 +401,19 @@
                             }
                         ]
                     }
+                ],
+                "tableIndexModels": [
+                    {
+                        "tableIndexModelId": "e2c917a7-ed8a-4e02-8d79-e24b25e1d055",
+                        "physicalName": "wears_day_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "63ac67fd-617b-45c5-a59b-16217487e307",
+                                "sortOrderType": "DESC"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    }
                 ]
             },
             "top": 480,
@@ -357,7 +452,33 @@
                     "3911bc41-ae25-4a19-bf4d-eb476f10754f",
                     "43e93008-ee9f-4b9f-9ce6-ed9c280d0eec",
                     "2eb99b62-0152-4d30-86e0-2f20344eb1de"
-                ]
+                ],
+                "tableIndexModels": [
+                    {
+                        "tableIndexModelId": "cc661d55-ba05-4bb7-b5bc-cd91f76845ec",
+                        "physicalName": "events_user_start_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "4539f398-6f87-4833-96d7-e0b56fe9a57f"
+                            },
+                            {
+                                "columnModelId": "0ba8477f-3ea1-4175-bab5-19c250ee271a"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    },
+                    {
+                        "tableIndexModelId": "117185a3-ab79-4229-b4ab-5b6de28a5c71",
+                        "physicalName": "events_start_idx",
+                        "indexColumnModels": [
+                            {
+                                "columnModelId": "0ba8477f-3ea1-4175-bab5-19c250ee271a"
+                            }
+                        ],
+                        "indexType": "BTREE"
+                    }
+                ],
+                "definitionExpression": "CONSTRAINT events_occasion_check CHECK (occasion IN ('mourning', 'wedding', 'formal', 'business', 'active', 'casual')),\n    CONSTRAINT events_occasion_source_check CHECK (occasion_source IN ('title', 'place', 'default')),\n    CONSTRAINT events_title_not_blank CHECK (length(trim(title)) > 0)"
             },
             "top": 560,
             "left": 1960,
@@ -371,7 +492,7 @@
                 "green": 255,
                 "blue": 255
             },
-            "createdAt": "2026-11-25T08:15:40.073Z"
+            "createdAt": "2026-11-26T01:30:31.667Z"
         },
         {
             "tableModel": {
@@ -1665,7 +1786,7 @@
         {
             "relationModel": {
                 "relationModelId": "03148a8b-6b14-4ac8-bfa2-e8af31e2d830",
-                "relationName": "push_tokens_user_id_fk",
+                "relationName": "push_tokens_user_id_fkey",
                 "parentTableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
                 "parentCardinality": "1",
                 "childTableModelId": "cbacdc2e-a312-4882-a1bc-21bbb7d9587e",
@@ -1690,7 +1811,7 @@
                 }
             },
             "labelViewModel": {
-                "label": "push_tokens_user_id_fk",
+                "label": "push_tokens_user_id_fkey",
                 "position": {
                     "segment": -1,
                     "fraction": 0,
@@ -1714,11 +1835,11 @@
         {
             "relationModel": {
                 "relationModelId": "3969adfe-1c9d-4468-aca4-70fab82b4ef2",
-                "relationName": "user_identities_user_id_fk",
+                "relationName": "user_identities_user_id_fkey",
                 "parentTableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
                 "parentCardinality": "1",
                 "childTableModelId": "f83c0167-ad08-442d-97f4-574805dc774a",
-                "childCardinality": "0..N",
+                "childCardinality": "1..N",
                 "relationPairs": [
                     {
                         "parentColumnModelId": "56f90695-10d4-4d50-b0a5-1170ff45aedb",
@@ -1739,7 +1860,7 @@
                 }
             },
             "labelViewModel": {
-                "label": "user_identities_user_id_fk",
+                "label": "user_identities_user_id_fkey",
                 "position": {
                     "segment": -1,
                     "fraction": 0,
@@ -1763,7 +1884,7 @@
         {
             "relationModel": {
                 "relationModelId": "780f2c4f-4c64-4ffd-876f-6cce00d961ef",
-                "relationName": "profiles_user_id_fk",
+                "relationName": "profiles_user_id_fkey",
                 "parentTableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
                 "parentCardinality": "1",
                 "childTableModelId": "cac51010-8077-4390-8a2b-ab9faf107eeb",
@@ -1788,7 +1909,7 @@
                 }
             },
             "labelViewModel": {
-                "label": "profiles_user_id_fk",
+                "label": "profiles_user_id_fkey",
                 "position": {
                     "segment": -1,
                     "fraction": 0,
@@ -1812,7 +1933,7 @@
         {
             "relationModel": {
                 "relationModelId": "b554eb34-ae1f-4ccd-b952-23dac306a9bf",
-                "relationName": "wears_garment_id_fk",
+                "relationName": "wears_garment_fk",
                 "parentTableModelId": "5e8ebe89-1fbc-48a9-b086-3f2d019899da",
                 "parentCardinality": "1",
                 "childTableModelId": "38e9d6a6-65df-4f74-be7e-a63dfe03ffb5",
@@ -1837,7 +1958,7 @@
                 }
             },
             "labelViewModel": {
-                "label": "wears_garment_id_fk",
+                "label": "wears_garment_fk",
                 "position": {
                     "segment": -1,
                     "fraction": 0,
@@ -1861,7 +1982,7 @@
         {
             "relationModel": {
                 "relationModelId": "d77f57f0-aa3e-4f45-a23c-77563e01fa4b",
-                "relationName": "events_kakao_place_id_fk",
+                "relationName": "events_place_fk",
                 "parentTableModelId": "756d1304-34b5-4a55-ba64-afc50dd5f906",
                 "parentCardinality": "0..1",
                 "childTableModelId": "b6c901de-6331-43bf-8f73-98198ea5569d",
@@ -1886,7 +2007,7 @@
                 }
             },
             "labelViewModel": {
-                "label": "events_kakao_place_id_fk",
+                "label": "events_place_fk",
                 "position": {
                     "segment": -1,
                     "fraction": 0,
@@ -1910,7 +2031,7 @@
         {
             "relationModel": {
                 "relationModelId": "e0983bd7-73dc-4d4c-b456-222c20fa4366",
-                "relationName": "refresh_tokens_user_id_fk",
+                "relationName": "refresh_tokens_user_id_fkey",
                 "parentTableModelId": "cf545ff4-bbcd-444f-b9c4-db5e8e6bed85",
                 "parentCardinality": "1",
                 "childTableModelId": "8eed0434-fac4-418c-a895-d4f7ebb53b51",
@@ -1935,7 +2056,7 @@
                 }
             },
             "labelViewModel": {
-                "label": "refresh_tokens_user_id_fk",
+                "label": "refresh_tokens_user_id_fkey",
                 "position": {
                     "segment": -1,
                     "fraction": 0,
@@ -1959,7 +2080,7 @@
         {
             "relationModel": {
                 "relationModelId": "f1ada4ee-515a-437b-befc-0dbb98361fd6",
-                "relationName": "garment_defects_garment_id_fk",
+                "relationName": "garment_defects_garment_id_fkey",
                 "parentTableModelId": "5e8ebe89-1fbc-48a9-b086-3f2d019899da",
                 "parentCardinality": "1",
                 "childTableModelId": "95a39742-81c3-45a3-b0d3-fa37df4ab495",
@@ -1984,7 +2105,7 @@
                 }
             },
             "labelViewModel": {
-                "label": "garment_defects_garment_id_fk",
+                "label": "garment_defects_garment_id_fkey",
                 "position": {
                     "segment": -1,
                     "fraction": 0,
@@ -2081,12 +2202,12 @@
         },
         {
             "memoId": "22721032-8cb6-4e54-94ed-65a38719db62",
-            "memo": "스키마끼리는 FK가 없어요. schedule.events·closet.garments의 user_id는 account.users.id(= JWT sub)와 같은 값만 써요.\n벡터 칼럼(embedding 384차원, image_embedding 768차원)은 pgvector vector 타입이에요. erd-designer에 vector 타입이 없어 real[]로 보여요.",
+            "memo": "스키마끼리는 FK가 없어요. schedule.events·closet.garments의 user_id는 account.users.id(= JWT sub)와 같은 값만 써요.\n벡터 칼럼(embedding 384차원, image_embedding 768차원)은 pgvector vector 타입이에요. erd-designer에 vector 타입이 없어 real[]로 보여요.\nCHECK 20개·인덱스 9개는 표 설정에 넣었어요. style_docs의 HNSW 인덱스와 metadata(출처·조각번호) UNIQUE 인덱스는 erd-designer가 못 담아 DDL 끝에 적었어요.",
             "rectangleViewModel": {
                 "positionX": 0,
                 "positionY": 1400,
                 "width": 3880,
-                "height": 90
+                "height": 120
             },
             "backgroundColor": {
                 "red": 11,
