@@ -103,17 +103,22 @@
 
 ## 🗂 ERD
 
-> [ERD Designer](https://github.com/kajitiluna/erd-designer)로 다시 그렸어요. 각 서비스 레포 `develop`의 Flyway 마이그레이션(2026-11-25, account·closet V4, schedule V5)을 PostgreSQL에 그대로 적용해 뽑은 구조이고, ERD Designer가 다시 만든 DDL을 적용해 2026-11-26 실제 배포 DB(앱 서버 젯슨)와 비교하니 칼럼·PK·FK·UNIQUE·CHECK(20개)·인덱스(11개)가 모두 같았어요. 스키마 3개, 표 11개, 관계 7개예요. 원본 [`simcheong.erd`](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong.erd) · [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql)
+> [ERD Designer](https://github.com/kajitiluna/erd-designer)로 그렸어요. 각 서비스 레포 `develop`의 Flyway 마이그레이션(account·closet V4, schedule V5)이 만든 구조예요. 2026-11-26에 [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql)을 실제 배포 DB(앱 서버 젯슨)의 구조와 맞대 보니 칼럼 이름·타입·NULL·기본값, PK·FK(ON DELETE 포함)·UNIQUE, CHECK 20개, 인덱스 11개가 같았어요. 다른 점은 ERD Designer가 못 담는 두 가지뿐이에요. 벡터 칼럼 3개가 `real[]`로 보이고(실제는 pgvector `vector`), DDL의 FK에는 이름이 빠져요(실제 이름은 `.erd` 관계 이름과 같아요). 스키마 3개, 표 11개, FK 관계 7개와 FK 없는 참조 2개(`user_id`)예요. 원본 [`simcheong.erd`](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong.erd) · [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql)
 
-<p align="center"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v13-designer.png" width="100%" alt="ERD Designer로 그린 심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)"/></p>
+<p align="center"><a href="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v14-designer.png"><img src="https://raw.githubusercontent.com/fashion-agent-team/.github/main/profile/images/erd-v14-designer.png" width="100%" alt="ERD Designer로 그린 심청이 ERD: account 스키마 표 5개(users, profiles, user_identities, push_tokens, refresh_tokens), schedule 스키마 표 2개(places, events), closet 스키마 표 4개(garments, wears, garment_defects, style_docs)와 읽는 법·ID 규칙 메모"/></a></p>
 
-- **서비스마다 스키마 하나**: account(gateway) · schedule · closet. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요
-- **V4에서 정규화**했어요. 여러 값을 묶어 두던 옷 설명 JSON은 칸과 `garment_defects`로, 로그인 방법에 따라 비던 칸은 `user_identities`로, 일정마다 되풀이되던 장소 이름·분류는 `places`로 나눴어요. 옷의 색 이름·색 계열·밝기는 모델과 GPT가 각각 정해 넣는 값이라 `garments`에 같이 둬요. 남은 JSON은 `style_docs.metadata`(json) 하나예요. Spring AI 벡터 저장소가 정한 형식이라 그대로 두었고, 안에 든 출처·조각번호 둘에 UNIQUE 인덱스를 걸었어요
-- 로그인 수단은 `user_identities`에 (issuer, subject) 한 줄씩 두고 복합 UNIQUE를 걸었어요. Apple·구글 로그인은 Firebase uid 하나(issuer=`firebase`)로 들어오고, 마지막에 쓴 방법만 `sign_in_provider`에 남아요. 계정은 처음 로그인할 때 수단 한 줄과 같이 만들어져서 관계는 1:1..N이에요. 표는 수단을 더 붙일 수 있게 만들었지만 지금 코드는 하나만 만들어요(배포 DB도 계정 5개에 수단 5개)
-- 장소 이름·분류는 `places`(카카오 장소 ID가 키)에 한 번만 저장하고 일정은 장소 ID만 참조해요
-- 옷의 무늬·소재·보조 색은 `garments` 칸으로, 얼룩·찢어짐 같은 상태는 `garment_defects`에 한 줄씩 저장해요
-- `wears`는 옷 ID만 참조하고 (garment_id, worn_on)에 복합 UNIQUE를 걸어, 같은 옷을 같은 날 두 번 기록하지 않아요
-- **ID 만드는 규칙** (각 서버 코드에서 확인, 그림 아래 메모와 `.erd` 칼럼 설명에도 적었어요)
+<p align="center"><sub>그림을 누르면 원본 크기(2배)로 열려요. 선 끝 기호·열쇠 색·(NN)·+·* 뜻은 그림 왼쪽 아래 '읽는 법' 메모에 있어요</sub></p>
+
+- **서비스마다 스키마 하나**: account(gateway) · schedule · closet. 스키마끼리는 FK 없이 `user_id`(= JWT sub) 값만 같이 써요. 회원 한 명에 일정·옷이 여러 개(0..N)인 관계지만 스키마가 달라 그림에 선을 긋지 않았어요
+- **V4에서 정규화**했어요. 여러 값을 묶어 두던 옷 설명 JSON은 칸과 `garment_defects`로, 로그인 방법에 따라 비던 칸은 `user_identities`로, 일정마다 되풀이되던 장소 이름·분류는 `places`로 나눴어요
+- 옷의 색 이름·색 계열·밝기는 mcp-clothes-state가 옷 조각마다 색을 한 번 보고 같이 정해요(색 인식 모델, 모델이 없으면 픽셀 규칙. GPT는 색을 정하지 않아요). 셋은 서로 하나로 정해지지 않아요. 예를 들어 연분홍은 계열이 pink일 때도 red일 때도 있고, 계열 gray·밝기 light는 '밝은 회색'일 때도 '은색'일 때도 있어요. 그래서 따로 표로 빼지 않고 `garments`에 같이 둬요
+- 남은 JSON은 `style_docs.metadata`(json) 하나예요. Spring AI 벡터 저장소가 정한 형식이라 그대로 두었어요. 안에는 출처·조각번호(둘에 UNIQUE 인덱스, `id`도 이 둘로 만든 UUID), 임베딩 모델 이름, 문서 머리말 값(자리 `occasion`, 날씨 문서의 기온 구간 `minTemp`·`maxTemp`)이 들어 있어요. 머리말 값은 문서마다 하나라 조각마다 되풀이되지만, 코디 지식을 찾을 때 이 값으로 거르려고 조각마다 둬요
+- 로그인 수단은 `user_identities`에 (issuer, subject) 한 줄씩 두고 복합 UNIQUE를 걸었어요. Apple·구글 로그인은 Firebase uid 하나(issuer=`firebase`)로 들어오고, 마지막에 쓴 방법만 `sign_in_provider`에 남아요(지금 앱에는 구글 로그인만 있어요). 계정은 처음 로그인할 때 수단 한 줄과 같이 만들어져서 관계는 1:1..N이에요. 표는 수단을 더 붙일 수 있게 만들었지만 지금 코드는 하나만 만들어요(배포 DB도 계정 5개에 수단 5개)
+- 장소 이름·분류는 `places`(카카오 장소 ID가 키)에 한 번만 저장해요. 분류는 카카오 분류의 마지막 마디(예: 예식장)예요. 일정에는 사용자가 말한 장소(`place`)를 그대로 두고, 카카오에서 찾은 장소는 ID로만 가리켜요(못 찾으면 비어 있어요)
+- **일정 알림 칸**: `remind`가 false면 알림이 없어요. `remind_days_before`가 비어 있으면 아직 안 정한 것이라 전날과 당일 아침에, 0이면 당일만, 1~14면 그만큼 전과 당일에 알려요. `remind_time`은 미리 알림 시각이에요(비면 아침 8시, 0일 전이면 당일 알림 시각). 폰 알림은 앱이 이 값으로 폰 안에 예약해요. `notified_at`·`care_reminded_at`은 서버가 같은 일정을 두 번 처리하지 않으려고 남기는 표시예요. 서버에서 폰으로 보내는 푸시는 아직 로그만 남기고, `push_tokens`도 지금은 비어 있어요
+- 옷의 무늬·소재·보조 색은 `garments` 칸으로, 얼룩·찢어짐은 `garment_defects`에 한 줄씩 저장해요. 소재는 옷 종류로 짐작한 값이에요(니트·가디건이면 니트). 얼룩·찢어짐은 마지막으로 기록한 상태만 남아요(같은 옷을 다시 기록하면 지우고 새로 넣어요)
+- `wears`는 옷 ID만 참조하고 (garment_id, worn_on)에 복합 UNIQUE를 걸어, 같은 옷을 같은 날 두 번 기록하지 않아요. 오늘 뒤 날짜는 미리 고른 코디이고, 입은 횟수·마지막으로 입은 날은 오늘까지만 세요. 옷과 입은 날은 옷 확인을 마치며 "이걸로 할게"처럼 고를 때(`closet_save`·`closet_wear`) 기록돼요. 카메라로 비추기만 해서는 바뀌지 않아요
+- **ID 만드는 규칙** (각 서버 코드에서 확인, 그림 속 메모와 `.erd` 칼럼 설명에도 적었어요)
 
   | ID | 만드는 법 | 코드 |
   | --- | --- | --- |
@@ -125,17 +130,17 @@
   | `profiles.user_id` | `users.id`를 그대로 키로 써요(1:0..1) | gateway |
   | 그 밖의 bigint `id` | `GENERATED ALWAYS AS IDENTITY` (DB가 1씩 늘려 만들어요) | 마이그레이션 |
 
-- **사진은 옷 부분 작은 사진 하나뿐이에요.** 같은 옷 확인용으로 agent가 옷 부분만 잘라 긴 변 256px·48KB 이하 JPEG로 줄여 보내고, DB는 64KB(65,536바이트)를 넘으면 막아요(`garments_thumbnail_size`). 옷을 지우면 같이 지워져요
-- 옷 벡터는 한 사람의 옷(100벌 안팎)만 정확한 거리로 훑고, 공용 코디 지식(`style_docs`)만 HNSW 인덱스를 써요
-- 허용 값(옷 종류 6가지, 색 계열 15가지, 일정 자리 6가지 등)은 CHECK로 막아요. HNSW 인덱스와 `metadata` 안 출처·조각번호 UNIQUE 인덱스는 ERD Designer가 못 담아서 [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql) 끝에 따로 적었어요
+- **DB에 두는 사진은 옷마다 옷 부분 작은 사진 하나뿐이에요.** 같은 옷 확인용으로 agent가 옷 부분만 잘라 긴 변 256px·48KB 이하 JPEG로 줄여 보내고, mcp-closet도 48KB(49,152바이트)를 넘거나 JPEG가 아니면 사진 없이 저장해요. DB는 한 번 더 64KB(65,536바이트)를 넘으면 막아요(`garments_thumbnail_size`). 옷을 지우면 같이 지워져요
+- 옷 벡터는 한 사람의 옷(보통 100벌 안팎, 많아야 500벌)만 정확한 거리로 훑어요. 공용 코디 지식(`style_docs`)에는 HNSW 인덱스를 만들어 두었어요
+- 허용 값(옷 큰 분류 6가지, 색 계열 15가지, 일정 자리 6가지 등)은 CHECK 20개로 막아요. HNSW 인덱스와 `metadata` 안 출처·조각번호 UNIQUE 식 인덱스는 ERD Designer가 못 담아서 [DDL](https://github.com/fashion-agent-team/.github/blob/main/profile/images/src/simcheong-erd.sql) 끝에 따로 적었어요
 - 배포 DB에는 지금 배포하지 않는 mcp-helper가 예전에 만든 `helper` 스키마(contacts·requests, 둘 다 0줄)가 남아 있어 ERD에서 뺐어요
 - **DB를 쓰는 서버는 gateway·mcp-schedule·mcp-closet 셋뿐이에요.** 나머지는 요청마다 계산만 하고 표가 없어서 ERD에 없어요
 
   | 서버 | 데이터를 두는 곳 |
   | --- | --- |
-  | agent | 대화 상태만 Redis에 30분(TTL) |
+  | agent | 대화 상태를 Redis에 30분(TTL). GPT 확인 동의를 묻는 동안의 옷 사진과 옷 부분 작은 사진도 그동안만 여기 있어요 |
   | mcp-weather | 날씨 결과를 메모리 캐시(Caffeine)에. 다시 켜면 사라져요 |
-  | mcp-clothes-state | DB 없음. GPT가 확인한 옷 조각만 다시 학습할 후보 파일로 남겨요(`data/train-candidates`, 옷 실수 조각은 30일, GPT 사용에 동의했을 때만) |
+  | mcp-clothes-state | DB 없음. GPT 사용에 동의했을 때만, GPT가 확인한 옷 조각(얼룩·찢어짐, 무늬, 옷 실수)을 다시 학습할 후보 파일로 `data/train-candidates/날짜/`에 남겨요. 날짜 폴더는 30일이 지나면 매일 새벽 3시 30분과 서버를 켤 때 지워요. 옷 실수 판단 기록 `wear-trust.json`(사진 없이 모델 확률·GPT 답만, 종류마다 최근 200개)은 기간 없이 남아요 |
   | mcp-face-check | DB·파일 저장 없음 |
 
 ## 💻 Tech Stacks
